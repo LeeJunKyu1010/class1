@@ -8,6 +8,10 @@ public class Hello {
 		
 		int age;
 		double value;
+
+		int value = 30;
+		int result = value + 10;
+	
 	}
 
 }
@@ -23,3 +27,4 @@ public class Hello {
 			nAge
 			sAge		: 헝가리언 표기법
 		*/
+
