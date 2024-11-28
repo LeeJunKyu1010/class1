@@ -215,14 +215,40 @@ public class OpExam {
 		
 		
 		
+		// 문제 5
 		int var1 = 5;
 		int var2 = 2;
-		double var3 = var1 % var2;
-		int var4 = (int)(var3 * var1);
+		double var3 = (double)var1 / (double)var2; // 5/2 = 2.5
+//		double var3 = (double)var1 / var2;
+//					( val1과 val2 중 1개만 double로 바꿔도 된다)
+		int var4 = (int)(var3 * var2);   // 2.5*2 = 5
 		System.out.println(var4);
-				
+// 문제 5번은 var1과 var2가 int이므로 double로 바꿔서 계산해야된다.
+		
+		
+		
 		int value = 356;
+		System.out.println((value / 100) * 100);
+		value /= 100;
+		value *= 100;
 		System.out.println(value);
+		
+		
+		
+		
+		// 깜짝 퀴즈
+		// v1 / v2의 값을 소수점 3자리까지만 출력
+		double v1 = 1000;
+		double v2 = 457;
+		
+		// 코딩
+		double v3 = v1 / v2 * 1000;
+		int v4 = (int)v3;
+		double v5 = (double)v4 / 1000;
+		
+		System.out.println(v5);
+		
+		
 		
 		
 		
