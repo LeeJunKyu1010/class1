@@ -89,7 +89,9 @@ public class TypeCastingExam {
 		String a = "수박";
 		String b = "볼링공";
 		
-		
+		String str3 = a;
+		a = b;
+		b = str3;
 		
 		System.out.println(a);
 		System.out.println(b);
