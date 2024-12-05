@@ -184,42 +184,289 @@ public class ArrayExam {
 		 * 		단, 중복 없이
 		 */
 		
+		
+		System.out.println("-----1번문제-----");
 		// 문제1. 홀수의 개수 구하기
 		int[] q = new int[] {3,4,7,5,1,4,6};
-		int  s = 0;
+		int  cnt = 0;
 		for (int i=0; i<q.length; i++) {
-			if (q[i] % 2 != 0) {
-				s++;
+			if (q[i] % 2 != 0) {	// 짝수가 아닌것
+				cnt++;				// 개수 카운트
 			}
 		}
-		System.out.println("-----1번문제-----");
-		System.out.println("홀수의 개수 : "+s);
+		System.out.println("홀수의 개수 : "+cnt);
 		
 		
 		
 		
 		
+		System.out.println();
+		System.out.println("-----2번문제-----");
 		// 문제2. 4보다 큰 수의 개수 구하기
-		int ad = 0;
+		int cnt2 = 0;
 		for (int i=0; i<q.length ; i++) {
 			if( q[i] > 4) {
-				ad++;
+				cnt2++;
 			}
 		}
-		System.out.println("-----2번문제-----");
-		System.out.println("4보다 큰수의 개수 : "+ad);
+		System.out.println("4보다 큰수의 개수 : "+cnt2);
 		
 		
+		
+		
+		
+		
+		System.out.println();
+		System.out.println("-----3번문제-----");
 		// 문제3. 최대값 구하기
-		int max = q[0];		// q[0]부터 시작하는 값 초기화
+		// 전략
+		// 앞에서부터 하나씩
+		// //첫번째 것을 기준으로
+		// int 최소값을 기준으로
+		// 다음것과 비교해서 큰것을
+		// 따로 저장 해놓고
+		// 저장 한것으로 그 다음것과 비교하는걸
+		// 끝까지 반복 한다.
 		
+		
+		int max = Integer.MIN_VALUE;	// (최소값 기준)  -2,147,483,648 
+//		int max = q[0];		(배열 첫번째 기준)
 		
 		for (int i=0; i <q.length; i++) {
-			if (q[i] >= max ) {		// 
-				
+			if (max < q[i] ) {	
+					max = q[i];
 			}
 		}
-		System.out.println("최대값 : "+max);
+		System.out.println("최대값 : " + max);
+		
+		
+		
+		
+		
+		System.out.println();
+		System.out.println("-----4번문제-----");
+		// 문제4. 두번째 큰 수 구하기
+		
+		
+		
+		
+		
+		
+		System.out.println();
+		System.out.println("-----5번문제-----");
+//		문제5. 배열을 하나씩 뒤로(오른쪽) 밀기
+//		  		5-1 : 0으로 채우기
+//		  		5-2 : 첫 자리에 마지막것 넣기
+		
+		
+		
+		
+		
+		
+		System.out.println();
+		System.out.println("-----6번문제-----");
+//		문제6. 임시 비밀번호 8자리 만들기
+//		  		6-1 : 숫자로 
+//		  		6-2 : 소문자로
+//		  		*6-3 : 숫자 2개 이상, 대/소문자 조합
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		System.out.println();
+		System.out.println("-----7번문제-----");
+//		문제7. 예약
+//		  		자리가 10개 있는 소극장 예약 시스템
+//		  		자리 번호는 1~10번까지 번호의 자리가 있음
+//		  		만약 1 : 예약이 가능하면 "n번자리 예약 했습니다."
+//		  		만약 2 : 예약이 불가능하다면 "이미 예약되어 있습니다."
+//		 		메뉴 : "1.예약, 2.모든예약현황, 3. 잔여좌석, 4.종료
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		System.out.println();
+		System.out.println("-----8번문제-----");
+//		문제8. 로또 6개 배열에 저장
+//		  		단, 중복 없이
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// 1차원 배열
+		int[] class1 = new int[20];
+		int[] class2 = new int[20];
+		int[] class3 = new int[20];
+		int[] class4 = new int[20];
+		
+		int[] [] 천안 = new int[4][20];
+		
+		System.out.println("천안 : "+천안); // 메모리 주소
+		System.out.println("천안[0] : "+천안[0]);
+		System.out.println("천안[0][0]: "+천안[0][0]);
+		
+		
+		// 2차원 배열
+		// 서로 다른 크기를 가지는 2차원 배열 (배열 안에 배열을 넣을 수 있다.)
+		int[][] test = {
+				{1,2,3},	// 첫번째 배열
+				{1,2,3,4},	// 두번째 배열
+				{78}		// 세번째 배열
+						};
+		
+		// 두번째 배열의 마지막 값 출력
+		System.out.println("test : "+test[1][3]);
+		
+		// 배열의 개수
+		System.out.println("test.length : "+test.length);
+		
+		// test 배열의 첫번째 배열 개수
+		System.out.println("test[0].length : "+test[0].length);
+		
+		// test 배열의 두번째 배열 개수
+		System.out.println("test[1].length : "+test[1].length);
+		
+		
+		
+		
+		
+		// 3차원 배열
+		
+		int[][] 수원 = new int[4][20];
+		int[][] 서울 = new int[4][20];
+		
+		
+		int[][][] 휴먼 = new int[3][4][20];
+		
+
+
+		// 가상의 달력
+		// 근데 12개월이고 모든 달은 30일까지만 있는..
+		// 한달은 1~30
+		// 모든 날짜 채워 넣기
+		// 따로 모든 (또는 11월) 출력하기
+		
+		// 1단계 : 1월만 만들어보기
+		// 2단계 : 완성
+		
+		int[] month1 = new int [30];
+		month1[0] = 1;
+		month1[1] = 2;
+		
+		
+		for (int i=0; i<month1.length; i++) {
+			month1[i] = i+1;
+		}
+		
+		for (int i=0; i<month1.length; i++) {
+			System.out.print(month1[i]+",");
+		}
+		
+		
+		
+		
+		
+		
+//		int[] month2 = new int[30];
+//		
+//		for (int i=0; i<month2.length; i++) {
+//			month1[i] = i+1;
+//		}
+		
+		
+		
+		
+		
+		// 12개월 달력
+		
+		
+		int[][] month = new int[12][30];
+		
+		// 일에 해당되는 배열에 +1 (배열이 0부터시작이므로)
+		for (int i=0; i<month[0].length; i++) {
+			month[0][i] = i+1;
+		}
+		
+		
+		
+		
+		// 일에 해당되는 배열에 +1 (배열이 0부터시작이므로)
+		for (int i=0; i<month[1].length; i++) {
+			month[1][i] = i+1;
+		}
+		
+		
+		
+		
+		// j가 달에 해당됨
+		for (int j=0; j<month.length;j++) {
+			for (int i=0; i<month[j].length; i++) {
+				month[j][i] = i+1;
+			}
+		}
+		
+		
+		
+		// j달 i일
+		for (int j=0; j<month.length;j++) {
+			for (int i=0; i<month[j].length; i++) {
+				System.out.println("j :"+j+","+" i :"+i+","+" 일 :"+month[j][i]);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		// 배열 복사하기
+		
+		String[] name1 = {"김","이","박","최"};		  // 원본
+		// name1와 정확히 동일한 name2를 만드세요.
+		
+		String[] name2 = new String [ name1.length ]; // 복사준비
+//		name2[0] = name1[0];
+		
+		for (int i = 0; i<name1.length; i++) {	// 복사
+			name2[i] = name1[i];
+		System.out.println(name2[i]);
+		}
+		
+		
+		
+		String str = "01234";
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
