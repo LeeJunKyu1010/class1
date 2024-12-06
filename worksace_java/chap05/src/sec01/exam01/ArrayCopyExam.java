@@ -137,34 +137,29 @@ public class ArrayCopyExam {
 		};
 		
 		
+		int max = Integer.MIN_VALUE;	// 최대값 구하기
 		
-		double q = 0; // 평균값
+		int q = 0; // 카운트
 		int sum = 0;    // 합 출력
 		double avg = 0.0; // 평균 출력
 		
 		for (int i=0; i<array.length; i++) {
 			for (int j=0; j<array[i].length; j++) {
 				sum = sum + array[i][j];	// 합계
-				q++;						// 평균값
+				
+				q++;	// 카운트
+				avg = (double)sum / q;	// 평균값
+				
+				if (max < array[i][j]) {	// 최대값
+					max = array[i][j];
+				}
+				
 			}
-			avg = sum / q;					// 평균값
 		}
 		System.out.println("합계 : "+sum);
 		System.out.println("평균 : "+avg);
+		System.out.println("최대값 : "+max);
 		
-		
-		
-		
-		
-		int max = Integer.MIN_VALUE;
-		
-		for(int i=0; i<array.length; i++) {
-			for (int j = 0; j<array[i].length; j++) {
-				if (max < array[i][j]) {
-					max = array[i][j];
-				}
-			}
-		}System.out.println("가장큰 수 : "+max);
 		
 		
 		
