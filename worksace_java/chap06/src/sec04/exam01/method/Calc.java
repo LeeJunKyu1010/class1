@@ -80,6 +80,13 @@ public class Calc {
 			sum += values[i];
 		}
 		return sum;
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 }

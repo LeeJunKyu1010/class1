@@ -1,5 +1,7 @@
 package sec01.exam01;
 
+import java.util.Scanner;
+
 public class ArrayExam {
 
 	public static void main(String[] args) {
@@ -155,6 +157,22 @@ public class ArrayExam {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// [3,4,7,5,1,4,6]
 		/*
 		 * 문제1. 홀수의 개수 구하기
@@ -246,7 +264,16 @@ public class ArrayExam {
 		System.out.println();
 		System.out.println("-----4번문제-----");
 		// 문제4. 두번째 큰 수 구하기
+		// 여전히 최대값을 구하는데
+		// 단, 진짜 최대값을 제외하고
 		
+		int second = q[0];
+		for (int i=0; i<q.length; i++) {
+			if (q[i] != max && second < q[i]) {
+				second = q[i];
+			}
+		}
+		System.out.println("두번째 큰 값"+second);
 		
 		
 		
@@ -254,24 +281,176 @@ public class ArrayExam {
 		
 		System.out.println();
 		System.out.println("-----5번문제-----");
+		
 //		문제5. 배열을 하나씩 뒤로(오른쪽) 밀기
+		int[] arr1 = {1,2,3,4,5};
 //		  		5-1 : 0으로 채우기
+				// 전략1
+				// 맨 앞에것을 두번째에 놓을건데
+				// 두번째가 지워지니까
+				// 두번째를 임시 변수에 저장 해두고
+				// 앞에것을 두번째에 적고
+				// 임시 변수를 세번째로 보낸다.
+				// 위 내용을 끝까지 반복
+//		arr1[1] = arr1[0]; // arr[1]이 지워진다.
+//		arr1[0] = 0; // 원래 처음에 있던값이 지워진다
+		
+		/*
+		int temp = arr1[0];	// [1] {1,2,3,4,5}
+		arr1[0]= 0;         // [1] {0,2,3,4,5}
+		
+		int temp2 = arr1[1]; // [1][2] {0,2,3,4,5}
+		arr1[1] = temp;		 // [1][2] {0,1,3,4,5}
+		
+		temp = arr1[2];		// [3][2] {0,2,3,4,5}
+		arr1[2] = temp2;	// [1][2] {0,1,2,4,5}
+		*/
+		
+		// 임시 변수를 두개나 써야해서
+		// 못할건 아닌것으로 보이나 다른 방법 먼저 생각해보겠다.
+		
+		// 맨 뒤에다 바로 앞의 값을 놓으면 어떨까
+		// {1,2,3,4,5} >>> {1,2,3,4,4}
+		// {1,2,3,4,4} >>> {1,2,3,3,4}
+		
+		//1단계
+        for(int i =arr1.length-1; i>=0; i--) {
+
+
+
+                if(i == 0) {
+                    arr1[i] = 0;
+                }else {
+                    arr1[i] = arr1[i-1];
+                }
+                //출력
+                for(int j=0; j<arr1.length; j++) {
+                    System.out.print(arr1[j]);
+                }
+                System.out.println();
+        }
+        //2단계부터는 반복문으로
+        for(int m=0; m<arr1.length; m++) {
+            if(m == 0) {
+                arr1[m] = 0;
+            }else {
+                arr1[m] = arr1[m-1];
+            }
+            //출력
+            for(int j=0; j<arr1.length; j++) {
+                System.out.print(arr1[j]);
+            }
+            System.out.println();
+    }
+		
+        System.out.println("--------------------");
 //		  		5-2 : 첫 자리에 마지막것 넣기
 		
-		
-		
-		
-		
+		arr1 = new int[] {1,2,3,4,5};
+		for (int m=0; m<arr1.length; m++) {
+			int temp = arr1[arr1.length-1];
+			for (int i=arr1.length-1; i>=0; i-- ) {
+				if(i==0) {
+					arr1[i]=temp;
+				}else {
+					arr1[i] = arr1[i-1];
+				}
+			}
+			System.out.print(arr1[m]);
+		}
 		
 		System.out.println();
 		System.out.println("-----6번문제-----");
+		
+		String[] arr2 = new String[8];
 //		문제6. 임시 비밀번호 8자리 만들기
 //		  		6-1 : 숫자로 
+		
+		for (int i=0; i<arr2.length; i++) {
+			arr2[i] = ""+(int)(Math.random()*10);
+		}
+		// 출력
+		for (int i=0; i<arr2.length; i++) {
+			System.out.print(arr2[i]);
+		}
+		
+		System.out.println(" ");
 //		  		6-2 : 소문자로
-//		  		*6-3 : 숫자 2개 이상, 대/소문자 조합
+				// 소문자?
+				// char에 소문자와 숫자의 관계
+				// 97~122 까지가 a~z
+				// 전략2
+				// String[ lower = {"a","b"...}
+				// index를 random으로..
+		
+		for (int i=0; i<arr2.length; i++) {
+			int start = 97;
+			int end = 122;
+			int random = (int)(Math.random()*(end - start +1))+start;
+			char temp = (char)random;
+			arr2[i] = ""+temp;
+		}
+		// 출력
+				for (int i=0; i<arr2.length; i++) {
+					System.out.print(arr2[i]);
+				}
 		
 		
 		
+				//6-3
+		        // 전략1
+		        //일단 숫자2개 먼저 뽑고나서 정해진 개수의 대
+		        //전략2
+		        //숫자/대/소문자를 random으로 정하기
+		        //숫자를 몇개 뽑았는지 세어 놓았다가
+		        //마지막엣 두번째에서 숫자의 필수자리수 부족하면 뽑기
+				System.out.println();
+				int countNum = 0;
+				for(int i=0; i<arr2.length; i++) {
+					//0~2
+					//0 : 숫자
+					//1 : 소문자
+					//2 : 대문자
+					int rand = ((int)(Math.random()*(0 - 2 +1)))+0;
+
+					if(i>arr2.length-2) {
+						if(countNum<2) {
+							rand = 0;
+						}
+					}
+
+					String str = "";
+
+					if(rand ==0) {
+		                            //숫자
+		                            str = ""+(int)(Math.random()*10);
+		                            countNum++;
+		                        }else if(rand == 1){
+		                            //소문자
+		                            int start = 97;
+		                            int end = 122;
+		                            int random = ((int)(Math.random()*(end - start +1)))+start;
+		                            char temp = (char)random;
+		                            str = ""+temp;
+		                        }else {
+		                            //대문자
+		                            int start = 65;
+		                            int end = 90;
+		                            int random = ((int)(Math.random()*(end - start +1)))+start;
+		                            char temp = (char)random;
+		                            str = ""+temp;
+
+		                        }
+		                        arr2[i] = str;
+
+		                    }
+		                    // 출력
+		                    for (int i=0; i<arr2.length; i++) {
+		                        System.out.print(arr2[i]);
+		                    }
+				
+		
+			
 		
 		
 		
@@ -288,7 +467,8 @@ public class ArrayExam {
 //		 		메뉴 : "1.예약, 2.모든예약현황, 3. 잔여좌석, 4.종료
 		
 		
-		
+		// 전략
+		// 10개 배열에 0: 예약가능, 1:예약불가로 관리
 		
 		
 		
@@ -300,11 +480,64 @@ public class ArrayExam {
 //		문제8. 로또 6개 배열에 저장
 //		  		단, 중복 없이
 		
+//		int[] lotto = new int[6];
+//		
+//		
+//		lotto[0] = (int)(Math.random()*(45))+1;
+//		lotto[1] = (int)(Math.random()*(45))+1;
+//		
+//		do {
+//			lotto[1] = (int)(Math.random()*(45))+1;
+//		}while (lotto[0]!=lotto[1]);
+//		
+//		do {
+//			lotto[2] = (int)(Math.random()*(45))+1;
+//		}while(lotto[0] != lotto[2] && lotto[1] != lotto[2]);
+//		
+//		
+//		
+//		// 2번 index 진행중
+//		boolean flag = false;
+//		int index = 2;
+//		for (int i=0; i<=index; i++) {
+//			if (lotto[i] == lotto[index]) {
+//				flag = true;
+//				break;
+//			}
+//		}
+//		if(flag) {
+//			// 다시 뽑기
+//		}
+		
+		int[] lotto = new int[6];
+		boolean flag = false;
+		for (int j=0; j<lotto.length;j++) {
+			do {
+				lotto[j] = (int)(Math.random()*(45))+1;
+				if(j!=0) {
+					flag = false;
+					for (int i=0; i<=j; i++) {
+						if (lotto[i] == lotto[j]) {
+							flag = true;
+							break;
+						}
+					}
+				}
+			}while (flag);
+		}
+		
+			for(int i=0; i<lotto.length; i++) {
+				if (i!=0) {
+				System.out.println(lotto[i]);
+			}else {
+				System.out.println(lotto[i]);
+			}
+		
+		}
 		
 		
 		
-		
-		
+		/*   임시 주석
 		
 		
 		
@@ -468,7 +701,7 @@ public class ArrayExam {
 		
 		
 		
-		
+		*/  // 임시 주석
 		
 		
 		
