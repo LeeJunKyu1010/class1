@@ -9,7 +9,7 @@ public class Calc {
 	 * compute
 	 * 
 	 * @param int Number, String 오칙연산자 double Number
-	 * @return void
+	 * @return 
 	 * 
 	 */
 	
@@ -59,6 +59,8 @@ public class Calc {
 			q = this.divide(x, y);	// z가 /일때 divide를 사용하여 나누기
 		}else if (z.equals("%")) {
 			q = this.qq(x, y);		// z가 %일때 qq를 사용하여 나머지를 계산
+		}else {
+			System.out.println("+, -, *, /, % 중 입력하세요");
 		}
 		return q;
 	}
