@@ -11,10 +11,11 @@ public class Tv {
 	String powerOn;
 	String powerOff;
 	
-	int vinfo = 5;
+	int vinfo;
 	int vUp;
 	int vDown;
 	
+	int cinfo;
 	int cUp;
 	int cDown;
 	
@@ -24,9 +25,13 @@ public class Tv {
 	// 전원 기능
 	String power (String q) {
 		if (q.equals("on")) {
-		System.out.println("전원 켜기");	
+			this.powerOn = q;
+		System.out.println("PowerOn");	
 		}else if (q.equals("off")) {
-			System.out.println("전원 끄기");
+			this.powerOff = q;
+			System.out.println("PowerOff");
+		}else {
+			System.out.println("on , off 를 입력하세요");
 		}
 		return q;
 	}
@@ -34,16 +39,7 @@ public class Tv {
 	
 	// 볼륨 up/down (0~10까지)
 	
-	int vInfo (int x) {
-		if (x < 10) {
-			this.vinfo = this.vinfo+x;
-			System.out.println("볼륨증가");
-		}else if (x > 10) {
-			this.vinfo = this.vinfo-x;
-			System.out.println("볼륨감소");
-		}
-		return x;
-	}
+	
 	
 	
 	

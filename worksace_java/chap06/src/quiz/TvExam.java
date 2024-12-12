@@ -6,10 +6,8 @@ public class TvExam {
 		
 		
 		Tv tv = new Tv();
-		tv.power("off");
-		tv.vInfo(1);
+		tv.power("on");
 		
-		System.out.println(tv.vinfo);
 		
 		
 		
