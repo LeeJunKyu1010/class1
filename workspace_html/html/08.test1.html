@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            background: gray;
+            color: rgb(74, 217, 124);
+            text-align: center;
+        }
+        h1:after{
+            content: "NAVER";
+            font-size: 10px;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <select>
+        <option>언어</option>
+        <option>한국어</option>
+    </select>
+    <h1>NAVER</h1>
+    <table border="1">
+        <thead>
+           <tr>
+               <td>ID/전화번호</td>
+               <td>일회용 번호</td>
+               <td>QR코드</td>
+           </tr>
+        </thead>
+           <tbody>
+               <tr>
+                   <td colspan="3">
+                       <input type="text" placeholder="아이디 또는 전화번호">
+                   </td>
+               </tr>
+               <tr>
+
+                   <td colspan="3">
+                       <input type="password" placeholder="비밀번호"><br>
+                   </td>
+                </tr>
+                <tr>
+                    
+                        <td colspan="2">
+                            <input type="checkbox" value="로그인상태유지">로그인상태유지
+                        </td>
+
+                        <td colspan="2">
+                            <input type="checkbox" value="IP보안">IP보안<br>
+                        </td>
+                        
+                    <tr>
+                        <td colspan="3">
+                            <input type="button" value="로그인"><br>
+                        </td>
+                    </tr>
+                    
+                </tr>
+        
+   
+            <tr>
+                <td>비밀번호찾기</td><td>아이디찾기</td><td>회원가입</td>
+            </tr>
+        </thead>
+    </table>
+    
+</body>
+</html>

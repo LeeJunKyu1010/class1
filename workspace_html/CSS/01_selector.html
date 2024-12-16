@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* css 주석 */
+
+        /* 태그 선택자 */           /* 태그가 3순위 */
+        h3 {
+            background: skyblue;    /*h3 모두의 background를 skyblue로 변경*/
+        }
+        li {
+            color: blue;        /*li의 모든 색을 blue로 변경*/
+        }
+
+        /* id 선택자 */         /* id가 1순위*/
+        #s1{
+            color: white;
+            background: blue;
+            /* font-size: 20px; */
+        }
+
+        /* class 선택자 */      /* claas가 2순위 */
+        .c1 {
+            background: skyblue;
+            color: blue;
+        }
+        .bigText {
+            font-size: 30px;
+        }
+        /*마우스 포인터가 표시 영역에 있는 상태*/
+        #div1:hover {
+            background: aqua;
+            font-size: 25px;
+        }
+
+        #div1 {
+            background: yellow;
+            font-size: 25px;
+        }
+
+        /*active는 마우스로 누른 상태*/
+        #div1:active {
+            background: red;
+            font-size: 25px;
+        }
+
+        /*focus는 포커스를 가진 생태*/
+        .text1:focus{
+            background: greenyellow;
+        }
+
+        /* 누군가의 자식 요소 중에서 첫번째 */
+        li :first-child {
+            color: red;
+        }
+
+        ul :first-child {
+            font-size: 40px;
+        }
+        
+        /* 실제 등장하는 요소 중 첫번째 */
+        ul:first-of-type {
+            text-decoration: underline;
+        }
+
+        tr:nth-child(2n-1){
+            background: gray;
+        }
+        tr:hover{
+          background: greenyellow;  
+        }
+
+        /* after를 사용하면 h1 뒤에 넣을수있다 */
+        h1:after {
+            content: "after";
+            font-size: 10px;
+            color: red;
+        }
+        
+        /* before를 사용하면 h1 앞에 넣을수있다 */
+        h1:before {
+            content: "before";
+            font-size: 10px;
+            color: red;
+        }
+        </style>
+</head>
+<body>
+    <h3>h3 자리</h3>
+    <ul>
+        <li class="c1 bigText">li 1</li>
+        <li id="s1" class="bigText">li 2</li>
+        <li>
+            <ul>
+                <li class="c1">li 1</li>
+                <li>li 2</li>
+                <li>li 3</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div id="div1">
+        hover 연습
+    </div>
+    <input type="text" class="text1">
+
+
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>
+
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+
+        </li>
+    </ul>
+
+
+    <table border="1">
+        <tr> <td>1111111111111111111</td> </tr>
+        <tr> <td>2</td> </tr>
+        <tr> <td>3</td> </tr>
+        <tr> <td>4</td> </tr>
+        <tr> <td>5</td> </tr>
+    </table>
+
+    <h1>before after</h1>
+    
+</body>
+</html>

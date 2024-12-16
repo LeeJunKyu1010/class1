@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <caption>테이블 설명 </caption>
+        <summary>제목1, 제목2 (어떤 컬럼들이 있는지 나열)</summary>
+        <thead>
+            <tr>
+                <th>제목1 조금 긴 제목</th>
+                <th>제목2</th>
+                <th></th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>내용1</td>
+                <td>내용2 제목보다 길게 써보자</td>
+                <td>내용3</td>
+            </tr>
+
+            <tr>
+                <td>내용1</td>
+                <td></td>
+                <td>
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    안쪽 td
+                                </td>
+                            <tr>
+                                <td>
+                                    안쪽 두번째 td
+                                </td>
+                            </tr>
+            </tr>
+        </tbody>
+
+    </table>
+    </td>
+
+
+    </tr>
+
+
+    </table>
+
+
+    <hr>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>1제목</th>
+                <!-- colspan에 2를 하면 두칸만큼의 역할을 해라 라는 뜻 -->
+                 <!-- 가로로 합침 -->
+                <th colspan="2">2제목</th>
+                <!-- <th>3제목</th> -->
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!--  rowspan에 2를 하면 밑에 있는 칸이랑 합쳐짐 -->
+                  <!-- 세로로 합침 -->
+                <td  rowspan="2">1내용</td>
+                <td>2내용</td>
+                <td>3내용</td>
+
+
+            </tr>
+
+            <tr>
+                <!-- <td>1.2내용</td> -->
+                <td>2.2내용</td>
+                <td>3.2내용</td>
+
+
+            </tr>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <h3>이달의 신작</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <!-- width는 이미지의 가고 height는 이미지의 세로 alt는 이미지가 안나올때 원하는 문자적힘-->
+                <th><img width ="200" height="200" alt="웹툰표시" src="https://image-comic.pstatic.net/webtoon/833906/thumbnail/titledescimage/frontImage_0e59ee09-913d-4ab2-bd84-56ecf5c529b6.png"></th>
+                <th><img width ="200" height="200" src="https://image-comic.pstatic.net/webtoon/834417/thumbnail/titledescimage/frontImage_90e51e43-c6e2-4569-a84a-8839a6a8c668.png"></th>
+                <th><img width ="200" height="200" src="https://image-comic.pstatic.net/webtoon/834714/thumbnail/titledescimage/frontImage_285a201d-e12e-4c24-ad8f-8f48084f6f77.png"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+               
+                <td>회귀자는 나만 지킨다</td>
+                <td>소년경찰</td>
+                <td>못난이 콤플렉스</td>
+
+
+            </tr>
+
+            <tr>
+                <td>최원준 / 주진홍 / 미도</td>
+                <td>삼갱 / 지앤</td>
+                <td>권자몽 / 사요새 / 은WOO</td>
+
+
+            </tr>
+
+            <tr>
+                <td>우주생태교란종으로 선정된 인류. 우주의 관리자에 의해 인간의 개체수를 줄이기 위한 생존 게임</td>
+                <td>20XX년, 갈수록 흉악해지는 미성년자들의 악행으로, 정부는 학생을 경찰로 채용한 소년경찰이</td>
+                <td>베이킹에만 관심 있는 아진은 우정 최고를 외치는 의리녀다. 안경에 교정기를 낀 평범한 그녀에</td>
+
+
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
