@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 아래 font-family 적힌 값을 사용 가능 */
+        @font-face {
+                 font-family: 'Ownglyph_meetme-Rg';
+                 src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
+                 font-weight: normal;
+                 font-style: normal;
+     }
+        #p1 {
+            color: red;
+            /* text-decoration: underline; */ /* 글씨 아래에 줄을 긋는다 */
+            text-decoration: line-through; /*글씨 중앙에 줄을 긋는다 (취소라인)*/
+            font-family: 'Ownglyph_meetme-Rg';
+        }
+
+        /* 체크를 하면 글씨 중앙에 글씨가 그어지고 색이 바뀐다 */
+        input[type=checkbox]:checked + span{
+            text-decoration: line-through;
+            color: gray;
+        }
+        
+    </style>
+</head>
+<body>
+    <p id="p1">
+        글씨를 좀 적는다.
+        <div>
+            자식 div
+        </div>
+    </p>
+    <div>
+        <input type="checkbox"> <span>복습</span><br>
+        <input type="checkbox"> <span>예습</span>
+    </div>
+
+</body>
+</html>
