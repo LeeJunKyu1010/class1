@@ -1,0 +1,121 @@
+       /* 아래 font-family 적힌 값을 사용 가능 */
+       @font-face {
+           font-family: 'Ownglyph_meetme-Rg';
+           src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
+           font-weight: normal;
+           font-style: normal;
+       }
+
+       #p1 {
+           color: red;
+           /* text-decoration: underline; */
+           /* 글씨 아래에 줄을 긋는다 */
+           text-decoration: line-through;
+           /*글씨 중앙에 줄을 긋는다 (취소라인)*/
+           font-family: 'Ownglyph_meetme-Rg';
+       }
+
+       /* 체크를 하면 글씨 중앙에 글씨가 그어지고 색이 바뀐다 */
+       input[type=checkbox]:checked+span {
+           text-decoration: line-through;
+           color: gray;
+       }
+
+       /* 폰트 크기 조정 */
+       .size {
+           /* font-size: small; */
+           /* font-size: 32px; */
+           /* font-size: 200%; */
+           font-size: 2em;
+       }
+
+       /* 글씨 기울이기 */
+       .style {
+           font-style: italic;
+       }
+
+       em {
+           font-style: normal;
+       }
+
+       .fw-100 {
+           font-weight: 100;
+       }
+
+       .fw-500 {
+           font-weight: 500;
+       }
+
+       .fw-900 {
+           font-weight: 900;
+       }
+
+       .fw-2000 {
+           font-weight: 2000;
+       }
+
+       /* 글씨 두껍게 */
+       .fw-bold {
+           font-weight: bold;
+       }
+
+       /* 글씨를 오른쪽 정렬 */
+       .align-right {
+           text-align: right;
+       }
+
+       /* 글씨를 중앙 정렬 */
+       .align-center {
+           text-align: center;
+       }
+
+       /* 글씨를 양쪽을 맞춰준다 */
+       .align-justify {
+           text-align: justify;
+       }
+
+       /* 글씨 사이의 공간을 조정한다 */
+       .spacing {
+           letter-spacing: 1em;
+       }
+
+       /* 라인 높이를 조정한다 */
+       .lh {
+           line-height: 200%;
+       }
+
+
+       .middle {
+           border: 1px solid red;
+           height: 100px;
+           line-height: 100px;
+           text-align: center;
+       }
+
+       /* white-space: nowrap을 사용하면 범위를 벗어난다 */
+       /* overflow: hidden을 사용하면 벗어난 범위를 숨긴다 */
+       /* text-overflow: ellipsis를 사용하면 hidden으로 감춰진 글씨가 있을때 …을 붙여준다 */
+       .nowrap {
+           border: 1px solid red;
+           width: 50vw;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+       }
+
+
+       .text {
+        border: 1px solid red;
+        width: 200px;
+       }
+
+       /* 너비를 벗어나지 않게 줄바꿈을 해준다 */
+       .word-wrap {
+        word-wrap: break-word;
+       }
+
+       /* 위와 비슷하지만 */
+       /* 자동 줄바꿈 되는것을 무시한다 */
+       .word-break {
+        word-break: break-all;
+       }

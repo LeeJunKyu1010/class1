@@ -1,43 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        /* 아래 font-family 적힌 값을 사용 가능 */
-        @font-face {
-                 font-family: 'Ownglyph_meetme-Rg';
-                 src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
-                 font-weight: normal;
-                 font-style: normal;
-     }
-        #p1 {
-            color: red;
-            /* text-decoration: underline; */ /* 글씨 아래에 줄을 긋는다 */
-            text-decoration: line-through; /*글씨 중앙에 줄을 긋는다 (취소라인)*/
-            font-family: 'Ownglyph_meetme-Rg';
-        }
-
-        /* 체크를 하면 글씨 중앙에 글씨가 그어지고 색이 바뀐다 */
-        input[type=checkbox]:checked + span{
-            text-decoration: line-through;
-            color: gray;
-        }
-        
-    </style>
+    <!-- css 링크 걸기 <link rel="stylesheet" href=""> 필수 입력-->
+    <link rel="stylesheet" href="asset/font.css">
 </head>
+
 <body>
     <p id="p1">
         글씨를 좀 적는다.
-        <div>
-            자식 div
-        </div>
+    <div>
+        자식 div
+    </div>
     </p>
     <div>
         <input type="checkbox"> <span>복습</span><br>
         <input type="checkbox"> <span>예습</span>
     </div>
 
+    <hr>
+
+    <div class="size">
+        <strong>font-size</strong> fake
+    </div>
+
+    <h1>font-size</h1>
+
+    <div class="style">
+        font-style
+    </div>
+
+    <em>font-style</em>
+
+    <div class="fw-100">100</div>
+    <div class="fw-500">500</div>
+    <div class="fw-bold">bold</div>
+    <div class="fw-900">900</div>
+    <div class="fw-2000">2000</div>
+
+    <hr>
+
+    <div class="align-right">
+        align-right
+    </div>
+
+    <div class="align-center">
+        align-center
+    </div>
+
+    <div class="align-justify" style="border: 1px solid red;">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium accusamus blanditiis error, commodi iste
+        repudiandae cum corporis officia ipsum vel? Porro vero officia iure! Quisquam eligendi provident eum nulla
+        fugiat!
+    </div>
+
+    <hr>
+
+    <!-- 공간이 없어서 정렬이 안된다 -->
+    <a href="asdf" class="align-right" style="border: 1px solid red;">a태그</a>
+
+    <!-- div로 감싸주고 div에 클래스를 줘서 오른쪽 정렬을 한다 -->
+    <div class="align-right" style="border: 1px solid red;">
+        <a href="asdf" class="align-right" style="border: 1px solid red;">a태그</a>
+    </div>
+
+    <!-- 자간거리 조정 -->
+    <div class="spacing">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore sapiente, delectus est, excepturi ab
+        deleniti voluptas culpa fugit, dicta a fuga et tempora possimus dolorem unde enim reiciendis porro.
+    </div>
+
+    <hr>
+
+    <!-- 줄간격 조정 -->
+    <div class="lh">
+        첫번째 줄<br>
+        두번째 줄
+    </div>
+
+    <div class="middle">
+        세로방향 중앙
+    </div>
+
+    <hr>
+
+    <!-- 감싸주지않는다 -->
+     <!-- title을 사용하면 마우스를 올려놓으면 표시가 된다 -->
+    <div class="nowrap" title="마우스 올려 놓고 있으면 표시">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sunt consequatur, ad assumenda enim temporibus
+        reiciendis corporis sint saepe error maxime sit atque quasi, officiis placeat nam sed quod dicta?
+    </div>
+
+    <div class="text word-wrap">
+        4214gv124v124vg124v124v1g2nv12g41v24g12v4j h12v4jh12v4jh12v4jh12v4
+        A
+        h15hk31v5h23v5h1v5h12kv4 hk21v3kh214v51jb5kb21hv4h12v45h12v5k h32vhk51vkh1v4214gv124v124vg124v124v1g2nv12g41v24g12v4j h12v4jh12v4jh12v4jh12v4 h15hk31v5h23v5h1v5h12kv4 hk21v3kh214v51jb5kb21hv4h12v45h12v5k h32vhk51vkh1v421421412412412sadasdasdhasdahsdbahsdbhwabhdawkdwbadbawkjdhawkjdasda
+    </div>
+
+    <div class="text word-break">
+        4214gv124v124vg124v124v1g2nv12g41v24g12v4j h12v4jh12v4jh12v4jh12v4
+        A
+        h15hk31v5h23v5h1v5h12kv4 hk21v3kh214v51jb5kb21hv4h12v45h12v5k h32vhk51vkh1v4214gv124v124vg124v124v1g2nv12g41v24g12v4j h12v4jh12v4jh12v4jh12v4 h15hk31v5h23v5h1v5h12kv4 hk21v3kh214v51jb5kb21hv4h12v45h12v5k h32vhk51vkh1v421421412412412sadasdasdhasdahsdbahsdbhwabhdawkdwbadbawkjdhawkjdasda
+    </div>
+
+
 </body>
+
 </html>

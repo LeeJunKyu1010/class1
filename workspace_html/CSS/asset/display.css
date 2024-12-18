@@ -1,0 +1,45 @@
+body {
+    margin: 0px;
+}
+
+
+.block {
+    border: 1px solid red;
+    height: 50px;
+    width: 100px;
+    margin: auto;
+}
+
+.inline {
+    border: 1px solid red;
+
+    height: 50px;
+    width: 100px;
+
+    /* 좌우만 가능하고 상하는 안된다. */
+    margin: 50px;
+    /* 좌우만 가능하고 상하는 안된다. 단, border는 멀어진다.*/
+    padding: 30px;
+}
+
+.bg_blue {
+    background-color: blue;
+    color: #fff;
+}
+
+.parent {
+    border: 1px dotted rgb(255, 0, 255);
+    width: 400px;
+}
+
+.parent > div {
+    border: 1px dashed blue;
+    height: 50px;
+    width: 150px;
+
+    /* box-sizing: border-box; */
+    display: inline-block;
+
+    /* inline, inline-block에만 적용됨 */
+    vertical-align: top;
+}
