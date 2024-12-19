@@ -1,0 +1,51 @@
+.wrap {
+    border: 1px solid red;
+    height: 100vh;
+    font-size: 0;
+    text-align: center;
+    background-color: wheat;
+}
+
+.wrap>div{
+    border: 1px solid red;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 0px 30px;
+
+}
+
+
+
+
+.inner1 {
+    background-image: url(https://images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/80f9d9d02af9527ab358c361/pexels-photo-3335367.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    border: 1px solid red;
+    width: 45%;
+    height: 100vh;
+}
+.inner2 {
+    border: 1px solid red;
+    width: 45%;
+    height: 100vh;
+    background-color: white;
+    vertical-align: top;
+}
+
+.inner3 {
+    /* border: 1px solid blue; */
+    padding: 30px;
+    line-height: 40px;
+    text-align: left;
+}
+
+.inner4 {
+    border: 3px solid black;
+    margin-top: 60%;
+    padding: 10px;
+    width: 100px;
+    margin-left: 30px;
+    
+}

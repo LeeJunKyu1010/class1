@@ -1,0 +1,40 @@
+body {
+    background-image: url(https://html5up.net/uploads/demos/tessellate/images/header.jpg);
+    background-repeat: no-repeat;
+}
+
+.one {
+    /* border: 1px solid red; */
+    margin: auto;
+    margin-top: 250px;
+    text-align: center;
+}
+
+.two {
+    /* border: 1px solid blue; */
+    line-height: 100px;
+}
+
+a{
+    /* border: 1px solid blue; */
+    color: white;
+    font-size: 140%;
+}
+
+.a1 {
+    font-size: 200%;
+}
+.a3 {
+    border-bottom-style: dashed;
+}
+
+.a4{
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.a4:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
