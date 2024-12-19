@@ -1,4 +1,75 @@
+/* 메인박스 */
 #main {
-    border: 1px solid red;
-    height: 100vh;
+    /* border: 1px solid red; */
+    width: 1000px;
+    margin: 0 auto;
+    font-size: 0;
+    text-align: center;
+    margin-top: 200px;
+}
+
+
+/* 메인박스 */
+#main .sub1 {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+
+/* 2번째 박스 */
+.sub1 {
+    /* border: 1px solid blue; */
+    width: 45%;
+    margin: 0 15px;
+    vertical-align: top;
+}
+
+
+/* 글씨 */
+.sub1-1 {
+    /* border: 1px solid green; */
+    font-size: 300%;
+    margin-bottom: 10px;
+}
+
+
+/* 글씨 */
+.sub1-2 {
+    /* border: 1px solid green; */
+    text-align: left;
+    line-height: 25px;
+}
+
+
+/* 이미지 및 영상 */
+.sub1-3 {
+    /* border: 1px solid green; */
+    margin-bottom: 10px;
+}
+
+
+/* 글씨 */
+.sub1-4 {
+    /* border: 1px solid green; */
+    text-align: left;
+    border-left: solid #73a3de;
+    padding-left: 10px;
+}
+
+/* 2번째 박스 */
+#sub2 {
+    height: 350px;
+}
+
+/* 이미지 및 영상 */
+.sub2-2 {
+    /* border: 1px solid black; */
+    margin-bottom: 50px;
+}
+
+/* 글씨 */
+.sub2-3 {
+    /* border: 1px solid green; */
+    margin-bottom: 30px;
+    text-align: left;
 }
