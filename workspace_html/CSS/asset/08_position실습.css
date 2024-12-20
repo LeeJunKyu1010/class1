@@ -1,0 +1,49 @@
+.main {
+    /* border: 1px solid red; */
+    position: relative;
+    width: 1270px;
+    height: 840px;
+}
+
+.sub1 {
+    background-color: #e5e5e5;
+    /* border: 1px solid red; */
+    text-align: center;
+    width: 400px;
+    height: 848px;
+
+    position: absolute;
+    top: -1px;
+    left: calc(1270px * 0.5);
+}
+
+.sub1-1 {
+    /* border: 1px solid red; */
+    font-size: 20px;
+    position: relative;
+    top:calc(840px * 0.3);
+}
+
+.sub1-2 {
+    /* border: 1px solid red; */
+    font-size: 50px;
+    font-weight: 540;
+    position: relative;
+    top:calc(840px * 0.33);
+}
+
+.sub1-3 {
+    /* border: 1px solid red; */
+    font-size: 20px;
+    position: relative;
+    top:calc(840px * 0.35);
+}
+
+.sub1-4 {
+    /* border: 1px solid red; */
+    font-size: 20px;
+    text-decoration: underline;
+    line-height: 50px;
+    position: relative;
+    top:calc(840px * 0.4);
+}

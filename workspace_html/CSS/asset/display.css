@@ -45,3 +45,27 @@ body {
     /* inline, inline-block에만 적용됨 */
     vertical-align: top;
 }
+
+.hide {
+    display: none;
+}
+
+.table {
+    display: table;
+}
+
+.table .td {
+    border: 1px solid red;
+    display: table-cell;
+    
+    width: 100px;
+    height: 100px;
+
+    vertical-align: middle;
+    text-align: center;
+}
+
+.fake_div {
+    display: inline;
+    border: 1px solid red;
+}
