@@ -1,0 +1,39 @@
+.p {
+    border: 1px solid blue;
+    
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+
+}
+
+/* 박스 크기를 초과하는 내용들은 나타내지 않음 */
+.p.hidden {
+    overflow: hidden;
+}
+
+/* 박스 스크롤-바를 표시해서 초과되는 내용들을 볼 수 있게함 */
+/* overflow-x를 사용하면 하단 스크롤 바 생성 */
+/* overflow-y를 사용하면 우측 스크롤 바 생성 */
+.p.scroll {
+    overflow: scroll;
+}
+
+/* 내용이 박스 크기를 초과 되는 경우만 스크롤-바를 제공함 */
+.p.auto {
+    overflow: auto;
+}
+
+.nowrap {
+    border: 1px solid black;
+    width: 300px;
+    white-space: nowrap;
+    overflow: auto; /* auto 또는 scroll 사용 */
+}
+
+.nowrap div{
+    border: 1px solid red;
+    width: 100px;
+    display: inline-block;
+    margin: 5px;
+}

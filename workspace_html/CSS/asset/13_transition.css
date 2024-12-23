@@ -1,0 +1,15 @@
+div {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+
+    transition: all 0.5s; /* transition을 div에 직접 할당하면 돌아올때도 적용된다. */
+}
+
+div:hover {
+    border-radius: 50%;
+    width: 200px;
+    background-color: blue;
+
+    /* transition: all 0.5s; */  /* hover에다가 transition을 넣으면 원 상태로 돌아갈때 즉시 변한다. */
+}

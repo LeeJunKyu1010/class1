@@ -1,0 +1,7 @@
+div {
+    border: 1px solid black;
+    height: 50vh;
+
+    /* 방향 or 각도deg, 색상(색 거리%), 색상(색 거리%) */
+    background-image: linear-gradient(135deg, red 10%, black 50%, white 100%);
+}

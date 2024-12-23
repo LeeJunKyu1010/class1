@@ -1,0 +1,99 @@
+.container {
+    border: 1px solid green;
+    height: 300px;
+    width: 500px;
+    /* flex-basis: 100px; */
+
+    display: flex;
+    /* display: inline-flex; */
+
+    /*--------------------------------------------------------*/
+
+    /* main축 기본값 : 좌측에서 우측으로 */
+    /* flex-direction: row; */
+
+    /* row-reverse : 우측에서 좌측으로 */
+    /* flex-direction: row-reverse; */
+
+
+    /* column : main축과 cross축을 변경해서 상단에서 하단으로 */
+    /* flex-direction: column; */
+
+    /* column-reverse : 하단에서 상단으로 */
+    /* flex-direction: column-reverse; */
+
+    /*--------------------------------------------------------*/
+
+    /* 기본값 : nowrap 한줄에 item을 표시하려고 노력 */
+    /* flex-wrap: nowrap; */
+
+    /* inline-block처럼 넘치는 경우 다음줄 */
+    /* flex-wrap: wrap; */
+
+    /* cross 축의 방향 변경 */
+    /* flex-wrap: wrap-reverse; */
+
+    /*--------------------------------------------------------*/
+
+    /* 기본값 : main축 start 방향으로 정렬 */
+    /* justify-content: start; */
+
+    /* main축의 end 방향 정렬 */
+    /* justify-content: end; */
+
+    /* main축의 가운데 방향 정렬 */
+    /* justify-content: center; */
+
+    /* 첫번째와 마지막 item은 좌우 측면에 정렬되고 나머지와 균등한 간격으로 정렬된다.  */
+    /* 남는 공간을 사이사이에 균등하게 배치 */
+    /* 처음과 끝은 사이드에 딱 붙음 */
+    /* justify-content: space-between; */
+
+    /* 모든 item은 균등한 간격으로 정렬된다. */
+    /* item 양쪽에 동일한 공간 배치 */
+    /* justify-content: space-around; */
+
+    /* 모든 공간을 균등하게 배치 */
+    /* justify-content: space-evenly; */
+
+    /*--------------------------------------------------------*/
+
+    /* 한 줄에 대한 cross축 이야기 */
+
+    /* 기본값 : 부모 크기만큼 cross축 방향으로 쭉 늘리기 */
+    /* align-items: stretch; */
+
+    /* cross축 start 방향 */
+    /* align-items: start; */
+
+    /* cross축 end 방향 */
+    /* align-items: end; */
+
+    /* cross축 center 방향 */
+    /* align-items: center; */
+
+    /*--------------------------------------------------------*/
+
+    /* flex-wrap: wrap; */
+    /* 여러줄에 대한 cross의 이야기 */
+    /* 기본값 : 각 줄의 높이를 꽉 채운 상태 */
+    /* cross 축의 start로 몰리게 됨 */
+    /* align-content: flex-start;
+    align-content: flex-end; */
+    /* align-content: center; */
+    /* align-content: space-between;
+    align-content: space-around;
+    align-content: space-evenly; */
+
+    /*--------------------------------------------------------*/
+
+}
+
+
+.container .item {
+    border: 1px solid red;
+    background-color: brown;
+    color: white;
+
+    width: 100px;
+}

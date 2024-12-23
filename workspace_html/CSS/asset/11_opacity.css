@@ -1,0 +1,7 @@
+img {
+    opacity: 0.1; /* opacity는 투명도 설정 */
+}
+
+.v {
+    visibility: hidden;
+}

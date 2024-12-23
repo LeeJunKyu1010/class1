@@ -1,0 +1,62 @@
+.article {
+    border: 1px solid red;
+}
+
+.box {
+    border: 1px solid red;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+/* 
+요소를 inline-block 으로 취급한다.
+
+float전용 layer에 표시한다.
+
+들어갈 공간이 없다면 inline 처럼 다음 줄에 표시 된다.
+
+아래에 원래 있던 글씨는 float요소를 피해서 표시된다.
+*/
+
+.box.left {
+    float:left;
+    border: 1px solid blue;
+}
+
+.box.right {
+    float: right;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/*------------------------------------------------------*/
+
+.homepage {
+    margin: 10px;
+    border: 1px solid red;
+    text-align: center;
+}
+
+.homepage .menu {
+    border: 1px solid blue;
+    width: 100px;
+
+    float: left;
+}
+
+.homepage .mypage {
+    border: 1px solid blue;
+    width: 200px;
+
+    float: right;
+}
+
+.homepage .logo {
+    border: 1px solid black;
+    display: inline-block;
+}
