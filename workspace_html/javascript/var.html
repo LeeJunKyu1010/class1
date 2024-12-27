@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 한줄 주석
+        /* 범위 
+            주석 */
+        console.log("hello world"); /* 자바스크립트에서는 ; 안써도 됨 */
+
+        /* +는 문자로 출력
+            ,는 객체 그대로 출력 
+            개발자 도구 console에서 숫자는 파란색으로 출력된다. */
+
+        var a = 10;
+        console.log("a : " + a);
+
+        b = 11;
+        console.log("b : ", b);
+
+        let c = 12;
+        console.log(c)
+
+        const d = 13;
+        console.error(d)
+
+
+        /* 값이 없는 상태로 선언만 되어 있으면 undefined가 나온다. */
+        let e;
+        console.log(e)
+        console.log("" + e)
+
+
+        // console.log(f)   // error 발생시 js 중단
+        // console.log("hello")
+
+        // 재선언이 가능하다.
+        var a = 20;
+        b = 21;
+        console.log(a, b)
+
+
+        /* let과 const는 재선언을 막아준다. */
+        // let c = 22;
+        // const d = 23;
+
+        /* let은 재선언은 안되지만 변수명의 값을 변경 할 수 있다. */
+        c = 22;
+        console.log(c);
+
+        /* const는 재선언과 값을 변경 할 수 없다. */
+        // d =23;
+
+        c = "문자";
+        c = '문자';
+        c = '<a herf="naver.com">'; // 내용에 ""를 사용해야된다면 열고 닫을때 '' 사용 할 수 있다.
+        c = '엔\n터'; // \n엔터기능
+        console.log(c)
+
+        // let g:Number = "문";
+
+        // console.log(typeof 변수명) typeof를 사용하면 변수에 해당되는 타입을 확인
+        console.log(typeof c);
+        console.log(typeof d, d);
+
+        c = "13";
+        console.log(c == d); // == 값이 같은가?  ( 값이 동일하므로 true)
+        console.log(c != d); // == 값이 같은가?
+        console.log(c === d); // === 값과 타입까지 같은가? (값은 같으나 타입이 다르므로 false)
+        console.log(c !== d); // === 값과 타입까지 같은가?
+
+        c += 1;
+        console.log(c); // c가 문자이므로 131이 나온다.
+
+        let a1,
+            a2,
+            a3;
+
+        if (a1 == undefined) {
+            console.log("a1의 값을 넣으세요", typeof a1)
+        }
+
+        if (typeof a1 === "undefined") {
+            console.log("a1의 값을 넣으세요");
+        }
+
+
+        const g = "12.34";
+
+        console.log(1, g + 5)
+        console.log(2, Number(g) + 5)
+        console.log(2, parseInt(g) + 5)
+
+        const h = "문자";
+        console.log(h * 5) // NaN : Not a Numbar (숫자가 아니다.)
+
+        console.log(isNaN(h)); // NaN 인가?
+
+        console.log(5 / 0); // Infinity가 나온다.
+        console.log(isFinite(5 / 0))  // 값이 유한한 수인가?
+        console.log(5 / 0 == Infinity) // 값이 무한인가?
+
+
+        // alert : 브라우저 상단에 확인 버튼을 누르기 전까지 자바스크립트가 작동하지않는다.
+        // alert("alert");
+        console.log("이전")
+        alert("alert\글씨");
+        console.log("이후")
+
+        // confirm : alert와 같지만 확인 취소 기능이 생긴다
+        const result1 = confirm("진짜? 할꺼임?")
+        console.log(result1)
+        // prompt : 위와 같지만 글씨를 입력 할 수 있다.
+        const result2 = prompt("메시지\n다음줄")    // 취소시 null
+        console.log(result2)
+
+        console.log("입력한 글씨 : "+result2+"입니다")
+        console.log(`입력한 글씨는 ${result2}`)
+        
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

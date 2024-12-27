@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        // function 키워드로 선언
+        // function 함수명 (전달인자 변수명들)
+        // 전달인자에 타입 적지 않는다.
+
+        // 함수를 사용하는 이유
+        // 정해진 순서로 동작하는 코드의 묶음
+        // 재사용도 편리하다.
+
+        function plus(x, y) {
+            console.log("x :", x)
+            console.log("y :", y)
+            let z = x + y;  // 지역 변수
+            return z;
+        }
+
+
+        let a = plus(2, 3);
+        console.log("a :", a);
+
+
+        // 함수 선언과 동시에 실행 (아직 몰라도 됨)
+        (
+            function test() {
+                console.log("text")
+            }
+        )();
+
+
+
+        plus(2, 3);
+
+        function times2(x) {
+            let z = plus(x, x);
+            return z;
+        }
+
+        // 아래 두줄은 완전히 동일한 결과가 나온다.
+        plus(8, 5);
+        plus(times2(4), 5);
+        let b = times2(4)   // 8
+        plus(b, 5)
+
+        console.log("-------------------------------------------------------------------------------")
+
+        plus()
+        plus(1)
+        plus(1, 2, 3, 5, 6)
+
+
+
+        function plus2(x, y) {
+            if (x == undefined) {
+                x = 0;
+            }
+        }
+        plus2();
+
+
+
+        // 초기값 사용법
+        // 전달인자가 없는 경우 초기값 적용
+        function plus3(x = 5, y = 6) {
+            console.log("x : ", x)
+            console.log("y : ", y)
+            return x + y;
+        }
+        console.log(plus3(1, 2))
+        console.log(plus3())
+
+
+
+        // 스프래드 spread 연산자
+        // 가변적인 전달인자를 받을 수 있다.
+        function log(...obj) {
+
+            console.log(typeof obj)
+            console.log(obj[2])
+            console.log(obj)
+        }
+        log(1, 2, 3)
+
+        let d = [100, 200];
+        console.log(d)
+        console.log(...d)
+
+        console.log(plus(d[0], d[1]))
+        console.log(plus(...d))
+
+        let f = "console.log(123)"
+        eval(f);    // string을 javascript로 변환
+
+        function plus4() {
+            console.log("plus4 실행")
+        }
+
+        let p = plus4;
+
+        console.log(typeof p)
+        p();
+
+        function plus5() {
+            console.log("plus4 실행")
+        }
+
+        console.log(typeof plus5)
+        plus5 = 3;
+        console.log(typeof plus5)
+
+        console.log(plus4)
+
+
+
+
+
+        // 익명 함수
+        let times = function (a, b) {
+            return a * b;
+        }
+        console.log(times(3, 4))
+
+        // 기존의 함수도 함수명을 변수 취급 하고 있었다.
+
+
+        function pay(n, cb) {
+            console.log("pay실행")
+
+            let ramen = 2500;
+
+            if (typeof cb == "function") {
+                let result = cb(ramen, n)
+                console.log("결과 :", result)
+            } else {
+                console.log("콜백 함수 없음")
+            }
+        }
+        pay(10, times); // times는 위에서 function(함수)으로 지정함
+        pay(10);
+        pay(10, 2)
+        pay(10, plus);
+
+        /*
+            setTimeout :    첫번째 전달인자 : 실행할 함수
+                            두번째 전달인자 : 지연할 시간 (1/1000초)
+        */
+
+
+        // 아래 2개의 함수는 콜백이다
+        // setTimeout은 알람기능 같은것
+
+        // 1번 방법
+        let print5 = function () {
+            console.log("5초뒤")
+        }
+        setTimeout(print5, 5000)
+
+        // 2번 방법
+        setTimeout(function () {
+            console.log("6초뒤")
+        }, 6000)
+
+
+        let c = 1;
+        let idx = setTimeout(function (a, b) {
+            console.log("a :", a)
+            console.log("b :", b)
+            console.log("c :", c)
+        }, 6 * 1000,  /*뒤에는 a, b */c, 20)
+        console.log("idx :", idx)
+        
+        // 예약 취소
+        clearTimeout(idx);
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
