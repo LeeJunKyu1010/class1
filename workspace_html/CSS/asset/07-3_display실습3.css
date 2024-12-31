@@ -1,5 +1,5 @@
 .wrap {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 100vh;
     font-size: 0;
     text-align: center;
@@ -7,7 +7,7 @@
 }
 
 .wrap>div{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: inline-block;
     font-size: 1rem;
     margin: 0px 30px;
@@ -22,12 +22,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 45%;
     height: 100vh;
 }
 .inner2 {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 45%;
     height: 100vh;
     background-color: white;

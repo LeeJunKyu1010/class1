@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
     <h1 id="title">DOM 연습</h1>
 
@@ -15,11 +22,12 @@
     <div class="div2">두번째 .div</div>
 
     <div id="parent">
-        <div class="chlid div2">안쪽 div</div>
-        <div class="chlid">안쪽 div</div>
+        <div class="child div2">안쪽 div</div>
+        <div class="child">안쪽 div</div>
     </div>
 
-
+    <img data-a="a" src="data:image/png;base64,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"
+        style="width:200px">
 
 
     <script>
@@ -27,7 +35,7 @@
         //getElementById : 속성 id의 값을 이용해 DOM을 가져온다.
         let title = document.getElementById("title");
         console.log(title);
-        console.log(""+title);
+        console.log("" + title);
         // alert(title);
 
         // 요소가 없는 경우 null 출력
@@ -44,13 +52,13 @@
         // 일치하는 모든 것을 배열로 돌려준다
         let divs = document.getElementsByTagName("div");
         console.log(divs);
-        
+
 
 
         // 하나만 있어도 한개짜리 배열이 나온다
         let h1 = document.getElementsByTagName("h1");
         console.log(h1);
-        
+
 
         // 없어도 null이 아닌 비어있는 배열(length == 0)
         let human = document.getElementsByTagName("human");
@@ -68,15 +76,153 @@
         console.log(parent)
 
         // 특정 DOM 안에서 찾기
-        let chlid_div2 = parent.getElementsByClassName("div2") // 아래와 같은것
-        // let chlid_div2 = document.getElementById("parent").parent.getElementsByClassName("div2")
-        console.log(chlid_div2[0])
+        let child_div2 = parent.getElementsByClassName("div2") // 아래와 같은것
+        // let child_div2 = document.getElementById("parent").parent.getElementsByClassName("div2")
+        console.log(child_div2[0])
 
 
         // querySelector : CSS 선택자를 사용 할 수 있음
         // 단, 한개만 가져올 수 있다.
         let qs1 = document.querySelector("#parent .div2");
         console.log(qs1)
+
+        console.log("-----------------------------")
+        // getElementsById 처럼 맨 처음 나오는 하나의 DOM만 돌려준다.
+        let qs2 = document.querySelector(".div2");
+        console.log(qs2)
+
+        // 요소가 없는 경우 null
+        let qs3 = document.querySelector("#human");
+        console.log(qs3)
+
+        let qsa1 = document.querySelectorAll(".div2");
+        console.log(qsa1)
+
+
+        let qsa2 = document.querySelectorAll(".div2aaaa");
+        console.log(qsa2)
+
+        let qsa3 = document.querySelectorAll("#view");
+        console.log(qsa3)
+
+        console.log("------------------------------")
+        let child1 = document.querySelector("#parent .div2")
+        console.log(child1)
+
+        // parentNode : 부모 DOM으로 이동
+        let parent1 = child1.parentNode;
+        console.log(parent1)
+
+        // classList : class를 배열 형식으로 돌려줌
+        console.log(child1.classList)
+
+        // classList.add() : class 추가
+        child1.classList.add("red");
+        // 클래스는 중복해서 추가 되지 않는다
+        child1.classList.add("red");
+
+        // 해당 클래스 삭제
+        child1.classList.remove("red");
+        child1.classList.remove("red2");
+
+        // toggle : 있으면 remove, 없으면 add
+        child1.classList.toggle("red");
+        child1.classList.toggle("red");
+        // child1.classList.toggle("red");
+
+        // class red가 있는지 여부 확인하기
+        let isRed = child1.classList.contains("red");
+        console.log(isRed)
+
+
+
+        //TODO : toggle 구현 (단, toggle 쓰지말고)
+        // red class가 있으면 red 삭제
+        // red class가 없으면 red 추가
+
+        if (isRed) {
+            child1.classList.remove("red");
+        } else {
+            child1.classList.add("red");
+        }
+
+        // className : 모든 class를 문자로 돌려줌
+        console.log(child1.className);
+        // 값을 지정하는 class의 값을 덮어쓰기
+        child1.className = "blue";
+
+
+        // css 선택자중에 속성으로 선택하는걸로 querySelector 사용해보기
+        document.querySelector("[id = title]");
+        document.querySelector("#title");
+        document.querySelector("[class = 'div2 red']");
+        document.querySelector("[class = 'red div2']");
+        document.querySelector("[class ~= 'red']");
+        document.querySelector(".red");
+
+
+        // contains 구현해보기 contains 사용하지말고
+        function contains(element, name) {
+            for (let i = 0; i < element.classList.length; i++) {
+                if (element.classList[i] == name) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        console.log('contains 결과 :', contains(child1, 'blue'));
+
+
+        let img = document.getElementsByTagName("img");
+
+        console.log(img);
+        console.log(img[0]);
+        console.log(img[0].classList);
+
+        // hasAttribute : 속성명이 있는지 검사 > 위에 있는 contains와 비슷함
+        let isSrc = img[0].hasAttribute("src");
+        console.log(isSrc)
+        isSrc = img[0].hasAttribute("readonly");
+        console.log(isSrc)
+
+
+        // 속성값 가져오기
+        let src = img[0].getAttribute("src");
+        console.log(src)
+        // 속성이 없으면 null
+        src = img[0].getAttribute("readonly");
+        console.log(src)
+
+
+        // setAttribute(속성명, 속성값) : 
+        //                속성이 없으면 속성을 만들고
+        //                속성이 있으면 값 덮어쓰기
+        img[0].setAttribute("data-human", "1강의실");
+        img[0].setAttribute("data-human", "10강의실");
+
+        // removeAttribute : 속성 삭제하기
+        img[0].removeAttribute("data-human")
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     </script>
 </body>
+
 </html>
