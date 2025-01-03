@@ -21,7 +21,31 @@
 
     <h1 id="h1">style 테스트</h1>
 
+    <hr>
+    text : <input type="text" id="id" value="미리적은글"><br>
+    date : <input type="date" id="date"><br>
+    redio : 
+        <input type="radio" checked="checked" name="ai" value="1">GPT
+        <input type="radio" name="ai" value="2">Gemini
+        <input type="radio" name="ai" value="3">Bing
+        <br>
+
+    <select id="select">
+        <option value="1">첫번째</option>
+        <option value="2">두번째</option>
+    </select>
+    <br>
+
+    <textarea id="textarea" cols="50" rows="10"></textarea>
+
+
+    <div style="height: 1000px;"></div>
+
     <script>
+
+
+
+
         let msg = document.querySelector("#msg");
         // textContent : 컨텐츠 영역의 소스중 text만 그대로 가져온다.
         console.log('textContent :', msg.textContent);
@@ -112,10 +136,45 @@
         console.log(h1.style.height)
         h1.style.height = "200px";
 
-        let s = document.createElement("script")
-        s.innerHTML = 'alert(123)'
-        h1.append(s)
+        // let s = document.createElement("script")
+        // s.innerHTML = 'alert(123)'
+        // h1.append(s)
 
+        setTimeout(
+            function(){
+                // #id 확인
+                const text = document.querySelector("#id");
+                console.log(text.value)
+                
+                // #date 확인
+                const date = document.querySelector("#date");
+                console.log(date.value)
+                
+                // name = ai인것중 체크된것 확인
+                const ai = document.querySelector("[name=ai]:checked");
+                console.log(ai.value);
+
+                // 위와 동일
+                const ais = document.querySelectorAll("[name=ai]");
+                for(let i=0; i<ais.length; i++){
+                    console.log( ais[i].checked) ;
+                    if(ais[i].checked){
+                        console.log(ais[i].value)
+                    }
+                }
+                const select = document.querySelector("#select");
+                console.log(select.value)
+                
+                const textarea = document.querySelector("#textarea");
+                console.log(textarea.value)
+                
+                let test = textarea.value.replace(/123/g,"일이삼")
+                console.log(test)
+                
+            }, 4*1000)
+            
+
+        
     </script>
 </body>
 

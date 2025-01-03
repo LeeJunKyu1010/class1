@@ -91,6 +91,7 @@
         let pop = arr.pop();    // pop으로 마지막 값을 빼서 pop 변수에 저장
         console.log(arr);
         console.log("pop :", pop);
+        
         // shift : 맨 앞에 있는 값을 빼는 함수
         let shift = arr.shift(); // shift으로 마지막 값을 빼서 pop 변수에 저장
         console.log(arr);
@@ -104,7 +105,15 @@
         // sort로 오름차순으로 정렬 후 reverse를 사용하면 내림차순으로 정렬
         arr.sort();
         console.log(arr);
-
+        // 문자로 변경해서 정렬을 하므로 숫자 정렬 할 경우 등 콜백함수를 넣어서 사용
+        arr.sort(function(x,y){
+            // return하는 값이
+            // x - y : 오름차순
+            // y - x : 내림차순
+            // 0 : 순서 변동 없음
+            return x-y;
+        })
+        
         // [1, 2, 2, 3, 4, 5]
         // splice (시작 index, count)
         // pslice (시작 index) // 마지막까지

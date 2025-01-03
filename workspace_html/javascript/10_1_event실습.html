@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", function () {
+            // if
+            // 선택한 것에 따라 다르게 #view출력
+
+            const btn2 = document.querySelector("#btn1")
+            btn2.addEventListener("click", select1)
+
+
+
+            // const q = document.querySelector("#btn1")
+            //     q.addEventListener("click",function(){
+            //         if(select.value == 1){
+            //             document.querySelector("#view").innerHTML="1번선택"+select.value
+
+            //         }else if(select.value == 2){
+            //             document.querySelector("#view").innerHTML="2번선택"+select.value
+
+            //         }else
+            //         document.querySelector("#view").innerHTML="3번선택"+select.value
+            //     })
+        
+
+
+        
+        })
+
+        function select1() {
+            if (select.value == 1) {
+                document.querySelector("#view").innerHTML = "게임하기 선택" + select.value
+            } else if (select.value == 2) {
+                document.querySelector("#view").innerHTML = "잠자기 선택" + select.value
+            } else {
+                document.querySelector("#view").innerHTML = "집가기 선택" + select.value
+            }
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <!-- 조건문
+        select로 오늘 저녁에 뭐 할지 두개 이상 표시
+    -->
+    <div id="view"></div>
+    <button type="button" id="btn1">확인</button>
+    <hr>
+    <select id="select">
+        <option value="1">게임하기</option>
+        <option value="2">잠자기</option>
+        <option value="3">집가기</option>
+    </select>
+
+</body>
+
+</html>
