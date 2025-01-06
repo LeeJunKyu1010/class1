@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body{
+        body {
             height: 2000px;
         }
-        #console{
+
+        #console {
             position: sticky;
-            top:0;
+            top: 0;
+        }
+
+        #cursor {
+            width: 50px;
+            height: 50px;
+
+            position: absolute;
+            top: -100000000px;
+            left: -100000px;
         }
     </style>
     <script>
-        
+
         // 1번째 방법
-        window.addEventListener("load",init);
+        window.addEventListener("load", init);
 
         // 2번째 방법
         // window.onload = function(){
@@ -24,78 +35,134 @@
         // }
 
 
-        function init(){
+        function init() {
             const btn2 = document.querySelector("#btn2");
-            console.log('btn2 :',btn2);
+            console.log('btn2 :', btn2);
 
-            btn2.onclick = function(){
-                document.querySelector("#console").innerHTML +="<br>버튼2 클릭"
+            btn2.onclick = function () {
+                document.querySelector("#console").innerHTML += "<br>버튼2 클릭"
             }
             // onclick : 변수이므로 마지막 값만 저장된다.
-            btn2.onclick = function(){
-                document.querySelector("#console").innerHTML +="<br>버튼2-1 클릭"
+            btn2.onclick = function () {
+                document.querySelector("#console").innerHTML += "<br>버튼2-1 클릭"
             }
 
             // addEnvetListener : 함수를 추가하는 것이므로 두개 이상 추가 할 수 있다.
             const btn3 = document.querySelector("#btn3");
-            btn3.addEventListener("click", function(){
-                document.querySelector("#console").innerHTML +="<br>버튼3 클릭"
+            btn3.addEventListener("click", function () {
+                document.querySelector("#console").innerHTML += "<br>버튼3 클릭"
             })
-            btn3.addEventListener("click", function(){
-                document.querySelector("#console").innerHTML +="<br>버튼3-1 클릭"
+            btn3.addEventListener("click", function () {
+                document.querySelector("#console").innerHTML += "<br>버튼3-1 클릭"
                 document.documentElement.scrollTop = 1000;
             })
 
             const btn4 = document.querySelector("#btn4");
-            btn4.addEventListener("click",btn1click);
-            btn4.addEventListener("click",btn4click);
+            btn4.addEventListener("click", btn1click);
+            btn4.addEventListener("click", btn4click);
             // removeEventListener : 해당 이벤트 콜백 제거
             // 단, 익명함수는 불가능
             // 마치 함수마다 고유한 id같은게 있는데
             // 익명함수는 선언될때마다 VM이라는 공간에
             // 신규 id를 발급받기 때문에 지울때 사용하지 못함
-            btn4.removeEventListener("click",btn4click);
+            btn4.removeEventListener("click", btn4click);
 
 
-            window.addEventListener("scroll",function(){
+            window.addEventListener("scroll", function () {
                 const scrollTop =
                     document.documentElement.scrollTop;
                 document.querySelector("#console").innerHTML = scrollTop;
             })
 
 
-            
+
             const login = document.querySelector("#login");
-                login.addEventListener("click",login1);
+            login.addEventListener("click", login1);
+
+
+            const id = document.querySelector("#id");
+            // id.addEventListener("keyup",function(){  // keydown 키를 누르고 떼면 실행
+            //     console.log('keydown')
+            // })
+            id.addEventListener('keyup', function (event) {    // keyup 키를 누르면 실행
+                console.log(evnet.keyCode)
+                if (evnet.keyCode == 13) {    // 13은 엔터임
+                    document.querySelector("#pw").focus();  // 엔터치면 pw로 넘어감
+                }
+            })
+
+            document.querySelector("#pw")
+                .addEventListener("keyup", function (event) {
+                    if (evnet.keyCode == 13) {
+                        document.querySelector("#login").click();
+                    }
+                })
+
+
+
+            document.querySelector("#area")
+                .addEventListener("mouseover", function () {   // 박스에 마우스 들어오면 실행
+                    console.log("마우스 들어옴")
+                })
+
+            document.querySelector("#area")
+                .addEventListener("mouseout", function () {    // 박스에 마우스 나가면 실행
+                    console.log("마우스 나감")
+                })
+
+            // 앞에 아무것도 안쓰면 브라우저 전체 적용되는 이벤트
+            addEventListener('mousemove', function (event) {   // 마우스 움직이면 실행
+                // console.log('마우스 움직임')
+
+                // console.log('evnet.pageX : ',evnet.pageX,'evnet.pageY : ',evnet.pageY)
+                const cursor = document.querySelector("#cursor")    // css에서 포지션을 변경함
+                cursor.style.top = event.pageY + "px";       // 이미지가 마우스를 따라다님
+                cursor.style.left = event.pageX + "px";
+
+                // pageX/Y : 스크롤에 관계 없이 문서 좌상단 기준
+                // clientX/Y : 지금 보이는 화면 좌상단 기준
+                // offsetX/Y : 대상 기준으로 좌상단 기준
+
+            })
+
+
+
+
+
+
 
         }
+        //----------------------------------------------------------------------------------------
 
-        
-        function btn1click(){
+        function btn1click() {
             console.log("버튼1 클릭")
-            document.querySelector("#console").innerHTML +="<br>버튼1 클릭"
+            document.querySelector("#console").innerHTML += "<br>버튼1 클릭"
         }
 
 
-        function btn4click(){
+        function btn4click() {
             console.log("버튼4 클릭")
-            document.querySelector("#console").innerHTML +="<br>버튼4 클릭"
+            document.querySelector("#console").innerHTML += "<br>버튼4 클릭"
         }
 
 
-        function login1(){
+        function login1() {
             console.log(id.value)
             console.log(pw.value)
-            document.querySelector("#id1").innerHTML +="<br>"+"id : "+id.value+"<br>"+"pw : "+pw.value
-        }
-        
 
+            if (id == " ") {
+                document.querySelector('#console').innerHTML += "아이디를 입력하세요"
+            } else {
+                document.querySelector("#id1").innerHTML += "<br>" + "id : " + id.value + "<br>" + "pw : " + pw.value
+            }
+        }
 
 
     </script>
-
 </head>
+
 <!-- <body onload="javascript:init()"> -->
+
 <body>
     <div id="console"></div>
 
@@ -110,6 +177,11 @@
         <br>
         <input type="button" id="login" value="로그인">
     </div>
+    <hr>
+    <div id="area" style="width: 100px; height: 100px; background-color: greenyellow;">
+    </div>
 
+    <img id="cursor" src="https://i.pinimg.com/736x/17/7e/85/177e8550a84e263d3d79f8b80af627de.jpg">
 </body>
+
 </html>

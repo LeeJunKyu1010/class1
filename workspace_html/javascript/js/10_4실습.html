@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="10_4실습.js"></script>
+    <link rel="stylesheet" href="10_4실습.css">
+</head>
+
+<body>
+    <br>
+    <hr>
+    <br>
+
+    <div>
+        비밀번호 : <input type="password" id="pw"><br>
+        비밀번호 확인 : <input type="password" id="pwh"><br>
+        <div id="tt"></div>
+        <input type="button" id="btn" value="중복확인">
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="td">
+        <fieldset>
+            <legend>주문정보</legend>
+            <div>
+                이름 : <input type="text" class="name1"><br>
+                연락처 : <input type="text" class="hp1"><br>
+                주소 : <input type="text" class="a">
+            </div>
+
+        </fieldset>
+    </div>
+
+    <div class="td">
+        <fieldset>
+            <legend>배송정보</legend>
+            <div>
+                <label for="cbox">
+                    <input type="checkbox" id="cbox">
+                    동일
+                </label><br>
+                이름 : <input type="text" class="name2"><br>
+                연락처 : <input type="text" class="hp2"><br>
+                주소 : <input type="text" class="b">
+            </div>
+        </fieldset>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="td2">
+        <div class="td" id="rb">
+            <fieldset>
+                <legend>Menu</legend>
+                <select id="menu">
+                    <option value="치즈피자">치즈피자</option>
+                    <option value="불고기피자">불고기피자</option>
+                    <option value="페페로니피자">페페로니피자</option>
+                </select><br>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    사이즈 선택
+                </legend>
+                <input type="radio" checked name="cq" value="S">S
+                <input type="radio" name="cq" value="M">M
+                <input type="radio" name="cq" value="L">L
+            </fieldset>
+            <fieldset>
+                <legend> 토핑추가
+                </legend>
+                <input type="checkbox" name="cw" id="cw1" value="치즈추가">치즈추가
+                <input type="checkbox" name="cw" id="cw2" value="야채빼기">야채빼기
+            </fieldset>
+            <fieldset>
+                <legend>요청사항</legend>
+                <input type="text" id="q">
+            </fieldset>
+
+        </div>
+        <div class="td td3">
+            <fieldset>
+                <legend>주문내역</legend>
+                <div id="dd"></div>
+            </fieldset>
+        </div><br>
+        <input type="button" id="btn1" value="결제하기"><br>
+
+        <br>
+        <hr>
+        <br>
+
+    </div>
+
+</body>
+
+</html>

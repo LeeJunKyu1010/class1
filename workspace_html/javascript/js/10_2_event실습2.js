@@ -45,7 +45,11 @@ window.addEventListener("load", function () {
     
     
     setInterval(function(){
-        date = new Date()
+        date = new Date() // 년도 시간 출력
+        console.log(date)
+        time = (""+date).split(" ") // date를 문자로 변환 후 공백을 기준으로 split(자르기)
+        console.log(time[4])    // 자른 date (시간만) 출력
+        date = new Date()       // 조금 더 정확한 출력을 위해 4개 중복 출력
         console.log(date)
         time = (""+date).split(" ")
         console.log(time[4])
@@ -57,11 +61,7 @@ window.addEventListener("load", function () {
         console.log(date)
         time = (""+date).split(" ")
         console.log(time[4])
-        date = new Date()
-        console.log(date)
-        time = (""+date).split(" ")
-        console.log(time[4])
-            document.querySelector("#date").innerHTML = time[4]
+            document.querySelector("#date").innerHTML = time[4] // html에 출력하기
         }, 1000)
 
     

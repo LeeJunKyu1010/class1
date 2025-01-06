@@ -30,6 +30,7 @@
         <input type="radio" name="ai" value="3">Bing
         <br>
 
+
     <select id="select">
         <option value="1">첫번째</option>
         <option value="2">두번째</option>
@@ -163,12 +164,13 @@
                     }
                 }
                 const select = document.querySelector("#select");
-                console.log(select.value)
-                
+                console.log("select.value :",select.value)
+                const op = select.querySelector("option:checked")
+                console.log(op, op.innerText)
                 const textarea = document.querySelector("#textarea");
                 console.log(textarea.value)
                 
-                let test = textarea.value.replace(/123/g,"일이삼")
+                let test = textarea.value.replace(/\n/g,"일이삼")
                 console.log(test)
                 
             }, 4*1000)
