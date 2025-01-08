@@ -32,6 +32,22 @@
         li.active {
             font-weight: 900;
         }
+
+        #mainbox {
+            border: 1px solid black;
+        }
+
+        .title {
+            border: 1px solid black;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .detail {
+            border: 1px solid black;
+        }
     </style>
     <script>
 
@@ -312,14 +328,65 @@
             //         }
             //     })
 
-            let ul1 = document.querySelector('#ul1')
-            ul1.addEventListener('click',function(event){
-                let li1 = document.querySelectorAll('#ul1 li')
-                for(let i=0; i<li1.length; i++){
-                    li1[i].classList.remove('active')
-                }
-                event.target.classList.add('active')
+
+
+            //----------------------------------------------------------
+
+
+            // #a1을 클릭하면
+            // 부모로 올라가서
+            // 자식중에 .detail 확보하고 조작
+            // document.querySelector("#a1")
+            //     .addEventListener("click", function (event) {
+            //         const p = event.target.parentNode
+            //         const d = p.querySelector(".detail")
+            //         // d.style.display = "block";
+            //         d.classList.remove('hide')
+            //     })
+
+
+
+            // #a1, #a2 등을 배열로 넣을거라서 주석처리
+            // document.querySelector("#a2")
+            //     .addEventListener("click", function (event) {
+
+            //         // 먼저 모든 .detail에 hide 추가
+            //         let details = document.querySelectorAll('.detail');
+            //         for(let i=0; i<details.length; i++){
+            //             details[i].classList.add("hide");
+            //         }
+
+            //         // 내것만 hide를 제거
+            //         const p = event.target.parentNode
+            //         const d = p.querySelector(".detail")
+            //         // d.style.display = "block";
+            //         d.classList.remove('hide')
+            //     })
+
+            const titles = document.querySelectorAll(".title")
+            for (let i = 0; i < titles.length; i++) {
+                titles[i].addEventListener('click', function (event) {
+
+                    //  내껏만 hide를 뻄
+                    // 부모인 div
+                    let p = event.target.parentNode
+                    let isHide = p.querySelector(".detail.hide")
+
+                    //모든 details에  hide 추가
+                    let details = document.querySelectorAll(".detail")
+                    for (let j = 0; j < details.length; j++) {
+                        details[j].classList.add('hide');
+                    }
+                    if (isHide != null) {
+                        // 무조건 .detail 요소를 가져오기
+                        let d = p.querySelector(".detail")
+                        // hide를뻄
+                        d.classList.remove('hide');
+                    }
                 })
+            }
+
+
 
         }
         //----------------------------------------------------------------------------------------
@@ -410,8 +477,61 @@
         <li>상품평 많은순</li>
     </ul>
 
+    <hr>
 
 
+
+    <div> <!-- 메인박스 -->
+        <div id="a1" class="title"> <!-- 1 서브 박스 -->
+            Accordion Item #1
+        </div>
+        <div class="detail hide"> <!-- 1-1 서브박스-->
+            This is the first item's accordion body. It is hidden by default, until the collapse plugin adds the
+            appropriate classes that we use to style each element. These classes control the overall appearance, as
+            well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or
+            overriding our default variables. It's also worth noting that just about any HTML can go within the
+            .accordion-body, though the transition does limit overflow.
+        </div>
+    </div>
+
+    <div> <!-- 메인박스 -->
+        <div id="a2" class="title"> <!-- 2 서브 박스 -->
+            Accordion Item #2
+        </div>
+        <div class="detail hide"> <!-- 2-1 서브 박스 -->
+            This is the second item's accordion body. It is hidden by default, until the collapse plugin adds the
+            appropriate classes that we use to style each element. These classes control the overall appearance, as
+            well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or
+            overriding our default variables. It's also worth noting that just about any HTML can go within the
+            .accordion-body, though the transition does limit overflow.
+        </div>
+    </div>
+
+    <div> <!-- 메인박스 -->
+        <div id="a3" class="title"> <!-- 3 서브 박스 -->
+            Accordion Item #3
+        </div>
+        <div class="detail hide"> <!-- 3-1 서브 박스 -->
+            This is the second item's accordion body. It is hidden by default, until the collapse plugin adds the
+            appropriate classes that we use to style each element. These classes control the overall appearance, as
+            well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or
+            overriding our default variables. It's also worth noting that just about any HTML can go within the
+            .accordion-body, though the transition does limit overflow.
+        </div>
+    </div>
+
+    <div> <!-- 메인박스 -->
+        <div id="a4" class="title"> <!-- 4 서브 박스 -->
+            Accordion Item #4
+        </div>
+        <div class="detail hide"> <!-- 4-1 서브 박스 -->
+            This is the second item's accordion body. It is hidden by default, until the collapse plugin adds the
+            appropriate classes that we use to style each element. These classes control the overall appearance, as
+            well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or
+            overriding our default variables. It's also worth noting that just about any HTML can go within the
+            .accordion-body, though the transition does limit overflow.
+        </div>
+    </div>
 
 </body>
 

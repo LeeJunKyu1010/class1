@@ -1,0 +1,49 @@
+#menu {
+    display: flex;
+    border: 1px solid black;
+}
+#menu div{
+    flex-grow: 1;
+    border: 1px solid blue;
+
+    font-size: 40px;
+    color: white;
+    background-color: rgb(92, 92, 92);
+}
+
+#content {
+    border: 1px solid black;
+}
+
+#content div{
+    border: 1px solid red;
+    height: 100px;
+}
+
+.hide {
+    display: none;
+}
+
+
+#main {
+    /* border: 1px solid black; */
+    width: 50px;
+}
+
+#sub {
+    /* border: 1px solid black; */
+    width: 500px;
+}
+
+#mainbox {
+    /* border: 1px solid black; */
+    display: flex;
+}
+
+#char {
+    border: 1px solid black;
+    width: 200px;
+    position: relative;
+    top: 0px;
+    left: 10px;
+}

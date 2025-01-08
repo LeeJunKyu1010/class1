@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.addEventListener('load', function () {
+
+
+
+
+
+            //     let left2 = 0;
+            //     let top2 = 0;
+            //     let step = 5;
+            //     document.querySelector("#char").style.left = left2 + "px"
+            //     addEventListener("keydown", function (event) {
+            //         // console.log(event.keyCode)
+            //         // 오른쪽 방향키
+            //         if (event.keyCode == 39) {
+            //             console.log(document.querySelector('#char').computedStyleMap.left)
+
+            //             left2 += step
+            //             document.querySelector("#char").style.left = left2 + "px"
+            //         } else if (event.keyCode == 37) {
+            //             left2 -= step
+            //             document.querySelector("#char").style.left = left2 + "px"
+            //         } else if (event.keyCode == 38) {
+            //             top2 -= step
+            //             document.querySelector("#char").style.top = top2 + "px"
+            //         } else if (event.keyCode == 40) {
+            //             top2 += step
+            //             document.querySelector("#char").style.top = top2 + "px"
+            //         }
+            //     })
+            // })
+
+
+            let left2 = 0;
+            let top2 = 0;
+            let step = 5;
+            document.querySelector("#char").style.left = left2 + "px"
+
+            let keys = {
+                37: false, // 왼쪽
+                38: false, // 위
+                39: false, // 오른쪽
+                40: false  // 아래
+            };
+
+            addEventListener("keydown", function (event) {
+                if (event.keyCode in keys) {
+                    keys[event.keyCode] = true;
+                    moveChar();
+                }
+            });
+
+            addEventListener("keyup", function (event) {
+                if (event.keyCode in keys) {
+                    keys[event.keyCode] = false;
+                }
+            });
+
+            function moveChar() {
+                if (keys[37]) left2 -= step;
+                if (keys[39]) left2 += step;
+                if (keys[38]) top2 -= step;
+                if (keys[40]) top2 += step;
+
+                document.querySelector("#char").style.left = left2 + "px";
+                document.querySelector("#char").style.top = top2 + "px";
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+    <style>
+        #char {
+            /* border: 1px solid black; */
+            width: 200px;
+            position: relative;
+            top: 0px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="char"
+        src="https://i.pinimg.com/originals/4c/02/2d/4c022df162567715b886f90c525feaa2.gif">
+</body>
+
+</html>
