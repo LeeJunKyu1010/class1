@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="채팅및삭제.css">
+    <script src="채팅및삭제.js"></script>
+</head>
+
+<body>
+
+    <!-- todolist -->
+    <!-- input, [추가버튼] -->
+    <!-- 전체삭제, [선택삭제] -->
+    <!-- 추가버튼 클릭 시 input의 내용을 console로 출력 -->
+    <!-- 그내용을 일단 아래 html 영역에 표시 -->
+    <!-- 일정한 구조를 가지는 html로 표시 -->
+    <!-- -체크박스, 내용, 삭제버튼 -->
+    <!-- -목록의 위 또는 아래 자유롭게 선택 -->
+
+    <!-- 체크박스에 체크가 되면 할일 목록에 취소선 표시 -->
+
+    <!-- 개별 삭제 버튼 클릭 시 그 객체만 삭제 -->
+    <!-- remove() -->
+    <!-- 전체 삭제버튼 클릭 시 체크된 모든 객체 삭제 -->
+
+        <div id="todolist">To Do List</div>
+    
+        <input type="text" class="입력칸">
+        <input type="submit" value="입력" class="입력버튼"><br>
+        <label for="allpick1">
+            <input type="checkbox" id="allpick1">전체선택
+        </label>
+        <input type="button" id="all_del" value="선택 삭제" ><br>
+    
+        <div id="mainbox"></div>
+    
+    
+</body>
+
+</html>

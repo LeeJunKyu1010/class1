@@ -105,17 +105,17 @@
 
 
        .text {
-        border: 1px solid red;
-        width: 200px;
+           border: 1px solid red;
+           width: 200px;
        }
 
        /* 너비를 벗어나지 않게 줄바꿈을 해준다 */
        .word-wrap {
-        word-wrap: break-word;
+           word-wrap: break-word;
        }
 
        /* 위와 비슷하지만 */
        /* 자동 줄바꿈 되는것을 무시한다 */
        .word-break {
-        word-break: break-all;
+           word-break: break-all;
        }

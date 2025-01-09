@@ -47,3 +47,10 @@
     top: 0px;
     left: 10px;
 }
+
+#todolist {
+    border: 1px solid black;
+    font-size: 50px;
+}
+
+

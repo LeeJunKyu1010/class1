@@ -1,0 +1,31 @@
+#todolist {
+    font-size: 40px;
+
+}
+
+
+#mainbox {
+    border: 1px solid black;
+    width: 500px;
+}
+
+.del_chk {
+    margin-right: 10px;
+}
+
+.del_chk_checked {
+    text-decoration: line-through;
+}
+
+.div1 {
+    /* border: 1px solid red; */
+    border-bottom: 1px solid black;
+    position: relative;
+}
+.del_smt {
+    position: absolute;
+    right: 0px;
+    top: -2px;
+}
+
+
