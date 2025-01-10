@@ -1,0 +1,115 @@
+div {
+    /* 임시로 모든 div에 border 1px 할당 */
+    /* border: 1px solid black; */
+}
+
+#logo {
+    /* 좌측 상단에 메인 로고 */
+    width: 60px;
+    height: 50px;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR23lYXAdOYfakGz59FyUHfnAjkcMGtXIof6Q&s);
+    background-size: cover;
+}
+
+#main_img_title {
+    /* 메인 이미지 타이틀을 옆으로 나열 하고 정렬 */
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+}
+
+.img_title1 {
+    /* 이미지 타이틀에 대한 이미지 삽입 */
+    width: 200px;
+    height: 300px;
+    background-image: url(https://img.sbs.co.kr/newsnet/etv/upload/2024/11/01/30000957191_500.jpg);
+    background-size: cover;
+}
+
+.img_title2 {
+    /* 이미지 타이틀에 대한 이미지 삽입 */
+    width: 200px;
+    height: 300px;
+    background-image: url(https://i.namu.wiki/i/cFOK7jxWuR9su4dA-VC-TeTqcnNhXUwZf-CTvNa0PLPfNxnu-xMq6P5aq_Rl6z1YarYqssnQznQtF9rwvFAIZg.webp);
+    background-size: cover;
+}
+
+.img_title3 {
+    /* 이미지 타이틀에 대한 이미지 삽입 */
+    width: 200px;
+    height: 300px;
+    background-image: url(https://i.namu.wiki/i/SzsdS9TJ8OX3-GLs06G9VJHEKRhMfsR5iys01B_wC3rR6pJSQ-rPrEPqNAvU4lW3gtzpwAAmcBdAY1SCRCZG-w.webp);
+    background-size: cover;
+}
+
+.img_title4 {
+    /* 이미지 타이틀에 대한 이미지 삽입 */
+    width: 200px;
+    height: 300px;
+    background-image: url(https://i.namu.wiki/i/Fp5kuW4Y2CLdNn0dkXt7yTkIl7J61e0Qo7-wNniiPE_uDKaVITwBLmacm8NNi3qqAfXdB8SKOKi_b8Fes1k4iw.webp);
+    background-size: cover;
+}
+
+.sub_img_title1 {
+    /* 이미지 타이틀에 대한 정보를 옆으로 나열 하고 정렬 */
+    display: flex;
+    justify-content: space-around;
+}
+
+.sub_img_title2 {
+    /* 이미지 타이틀에 대한 정보를 옆으로 나열 하고 정렬 */
+    display: flex;
+    justify-content: space-around;
+}
+
+.sub_img_title3 {
+    /* 이미지 타이틀에 대한 정보를 옆으로 나열 하고 정렬 */
+    display: flex;
+    justify-content: space-around;
+}
+
+.sub_img_title4 {
+    /* 이미지 타이틀에 대한 정보를 옆으로 나열 하고 정렬 */
+    display: flex;
+    justify-content: space-around;
+}
+
+/*----------------------------------------------------------------------------------*/
+
+
+
+/*----------------------------------------------------------------------------------*/
+
+.info_title {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+}
+
+.info_img {
+    width: 500px;
+    height: 600px;
+}
+
+.info_text {
+    border: 1px solid black;
+    width: 500px;
+    text-align: center;
+}
+
+
+.hide {
+    display: none;
+}
+
+.댓글 {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+
+
+#mainbox {
+    border: 1px solid black;
+    width: 400px;
+}
