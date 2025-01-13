@@ -1,7 +1,4 @@
-div {
-    /* 임시로 모든 div에 border 1px 할당 */
-    /* border: 1px solid black; */
-}
+
 
 #logo {
     /* 좌측 상단에 메인 로고 */
@@ -15,7 +12,10 @@ div {
     /* 메인 이미지 타이틀을 옆으로 나열 하고 정렬 */
     border: 1px solid black;
     display: flex;
-    justify-content: space-around;
+}
+
+#main_img_title > div {
+    flex-grow: 1;   /* 부모 크기만큼 동일한 크기로 꽉 차게 만듬 */
 }
 
 .img_title1 {

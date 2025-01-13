@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.addEventListener('load', function () {
+
+            document.querySelector("#btn1")
+                .addEventListener('click', function () {
+
+                    // ajax 객체 생성
+                    const xhr = new XMLHttpRequest();
+                    // 보낼 준비
+                    // xhr.open('get','http://daum.net');
+                    // xhr.open('get', 'http://127.0.0.1:5500/javascript/11_json.html');
+                    xhr.open('get', 'https://jsonplaceholder.typicode.com/users');
+                    // 보내기
+                    xhr.send();
+                    // 다녀온 뒤 (call back)
+                    xhr.onload = function () {
+                        console.log('다녀왔습니다.')
+                        // 연결되어 있는 코드를 텍스트로 변환하여 출력
+                        console.log(xhr.responseText)
+
+                        const data = JSON.parse(xhr.responseText)
+                        console.log(data)
+                        // 첫번째 사람의
+                        console.log(data[0])
+                        // username 출력
+                        console.log(data[0].username)       // 1번 방법
+                        console.log(data[0]['username'])    // 2번방법
+                        // lat 출력
+                        console.log(data[0].address.geo.lat)
+
+                    }
+
+
+                })
+
+            document.querySelector("#btn2")
+                .addEventListener('click', function () {
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('get', 'https://cors-anywhere.herokuapp.com/corsdemo/https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:034220%7CSERVICE_RECENT_ITEM:034220,005930,089590&_callback=window.__jindo2_callback._2136');
+                    xhr.send();
+                    xhr.onload = function () {
+                        console.log('다녀왔습니다.')
+                        console.log(xhr.responseText)
+
+                    }
+
+                })
+
+            document.querySelector("#btn3")
+                .addEventListener('click', function () {
+
+                    const xhr = new XMLHttpRequest();
+
+                    // get 방식의 전달인자 보내기
+                    // 이런 주소가 있을때"서버ip:port/주소"
+                    // 주소?키=벨류&key=value&key2=value2
+                    // 각각의 주소는 &로 구분한다
+
+                    let url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst'
+                    url += '?'
+                    url += 'serviceKey=vB6SxwGxeJ%2BXvfXjUgXXTVBeyKasnaIZAV32iFL8A7WlBxp6FUtaqUmDb8aBtHqZlutMZ2QypQsNLgJ%2FCznzqQ%3D%3D'
+                    url += '&'
+                    url += 'dataType=' + 'JSON'
+                    url += '&'
+                    url += 'base_date=' + '20250113'
+                    url += '&'
+                    url += 'base_time=' + '1600'
+                    url += '&'
+                    url += 'nx=' + '63'
+                    url += '&'
+                    url += 'ny=' + '110'
+                    url += '&'
+                    url += 'numOfRows=' + '1000'
+                    console.log(url)
+
+
+                    xhr.open('get', url);
+                    xhr.send();
+                    xhr.onload = function () {
+                        console.log('다녀왔습니다.')
+                        console.log(xhr.responseText)
+
+                        let data = JSON.parse(xhr.responseText)
+                        console.log(data)
+
+                        // 3시간 분량의
+                        // 시간, 기온, 강수량, 습도
+                        //       T1H,  RN1,   REH
+
+                        // form 으로 먼저 실습ㄴ
+                    }
+
+
+
+
+                })
+
+
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <button type="button" id="btn1">ajax 실행</button>
+    <button type="button" id="btn2">lg 디스플레이 실시간 주가</button>
+    <button type="button" id="btn3">날씨</button>
+</body>
+
+</html>

@@ -34,7 +34,7 @@ window.addEventListener("load", function () {
                 // img_title3가 클릭되면 true일때 data-info='info3 의 hide 클래스를 삭제
                 document.querySelector("[data-info='info3']").classList.remove("hide");
                 // img_title3가 클릭되면 true일때 data-cmt = 'cmt3 의 hide 클래스를 삭제
-                document.querySelector("[data-cmt = 'cmt4']").classList.remove("hide")
+                document.querySelector("[data-cmt = 'cmt3']").classList.remove("hide")
             }
             // img_title4에 해당되는 if문
             else if (event.target.classList.contains("img_title4")) {
