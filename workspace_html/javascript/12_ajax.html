@@ -277,9 +277,24 @@
             //       T1H,   RN1,  REH
 
             // form으로 먼저 실습
+            document.querySelector("#btn7").addEventListener("click", function () {
 
+                const xhr = new XMLHttpRequest();
+                xhr.open('post', 'https://discordapp.com/api/webhooks/1329359894331133993/GXumEsvAh90FDIQZf-d55dhFaQVtIlhFAUeADNHgi5uXa5g33M-Zku0J0vf2EPJBY4_5')
 
+                xhr.setRequestHeader('Content-Type', 'application/json')
+                let param = {
+                    username: 'webHook', // 1~80자
+                    content: 'ㅎㅇ',   // 2000자
+                    tts: true
+                }
+                xhr.send(JSON.stringify(param));
 
+                xhr.onload = function () {
+                    console.log('다녀왔습니다')
+                    console.log(xhr.responseText)
+                }
+            })
         })
     </script>
 </head>
@@ -291,6 +306,7 @@
     <button type="button" id="btn4">fetch</button>
     <button type="button" id="btn5">jquery ahax 1</button>
     <button type="button" id="btn6">jquery ahax 2</button>
+    <button type="button" id="btn7">디스코드</button>
 </body>
 
 </html>

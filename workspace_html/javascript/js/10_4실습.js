@@ -96,8 +96,11 @@ window.addEventListener("load", function () {
 
         document.querySelector("#dd").innerText = "선택된 메뉴 : "+menu.value+"\nSize : "+size.value+"\n토핑 : "+cw1+"\n요청사항\n"+q.value
         
-        
+    
     })
+
+
+
 
 
 })
