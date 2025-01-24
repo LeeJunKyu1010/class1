@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MES System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        #container {
+            width: 100%;
+            padding: 20px;
+        }
+
+        #top_section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #logo {
+            /* border: 1px solid black; */
+            width: 100px;
+            height: 80px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-left: 20px;
+        }
+
+        #logo img {
+            width: 150%;
+            height: 150%;
+            object-fit: contain;
+        }
+
+        #logo img:hover {
+            cursor: pointer;
+        }
+
+        /* 로고와 메인메뉴들 간격이 좁아 비어있는 박스 생성 */
+        .mm {
+            width: 50px;
+        }
+
+
+        #main_menu {
+            display: flex;
+            gap: 10px;
+        }
+
+        .menu_item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            background-color: white;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .menu_item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .menu_item.active {
+            background-color: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        #content_section {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 120px);
+            position: relative;
+
+        }
+
+        #sub_menu {
+            width: 0;
+            border: 1px solid #ddd;
+            background-color: white;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: all 0.3s ease-in-out;
+            border-radius: 4px;
+            opacity: 0;
+        }
+
+        #sub_menu:not(.visible) .sub_item {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+
+        #sub_menu.visible {
+            opacity: 1;
+            width: 200px;
+        }
+
+        .sub_item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .sub_item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sub_item.active {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        #main_content {
+            flex: 1;
+            border: 1px solid #ddd;
+            background-color: white;
+            transition: width 0.3s ease-in-out;
+            border-radius: 4px;
+            width: calc(100% - 220px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .graph_container {
+            padding: 20px;
+            height: 100%;
+        }
+
+        .graph_section {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #side_panel {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #notice,
+        #employee_board {
+            border: 1px solid #ddd;
+            height: calc(50% - 10px);
+            background-color: white;
+            border-radius: 4px;
+        }
+
+        h3 {
+            padding: 15px;
+            background-color: #4a90e2;
+            color: white;
+            font-size: 1em;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .panel_content {
+            padding: 15px;
+            height: calc(100% - 50px);
+            overflow-y: auto;
+        }
+
+        .detail-menu {
+            padding-left: 20px;
+            border-left: 2px solid #4a90e2;
+            margin-left: 10px;
+        }
+
+        .detail-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            transition: background-color 0.2s;
+        }
+
+        .detail-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .iframe-container {
+            height: 80vh;
+            /* 뷰포트 높이의 80% */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+
+
+        /* 미디어 쿼리 추가 */
+        @media screen and (max-width: 768px) {
+            #container {
+                padding: 10px;
+            }
+
+            #top_section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            #logo {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            #main_menu {
+                flex-wrap: wrap;
+                margin-left: 0;
+                gap: 5px;
+            }
+
+            .menu_item {
+                flex: 1 1 calc(33.333% - 5px);
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+            }
+
+            #content_section {
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+            }
+
+            #sub_menu.visible {
+                width: 100%;
+            }
+
+            #main_content {
+                width: 100% !important;
+            }
+
+            #side_panel {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            #notice,
+            #employee_board {
+                height: 200px;
+            }
+        }
+
+        /* 터치 이벤트 최적화 */
+        @media (hover: none) {
+            .menu_item:hover {
+                background-color: inherit;
+            }
+
+            .sub_item:hover {
+                background-color: inherit;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="top_section">
+            <div id="logo">
+                <img src="GKBM_logo.png" alt="GKBM MES SYSTEM">
+            </div>
+            <div class="mm"></div>
+            <div id="main_menu">
+                <div class="menu_item" data-menu="1">기준정보</div>
+                <div class="menu_item" data-menu="2">SCM</div>
+                <div class="menu_item" data-menu="3">생산관리</div>
+                <div class="menu_item" data-menu="4">재고관리</div>
+                <div class="menu_item" data-menu="5">설비관리</div>
+                <div class="menu_item" data-menu="6">소모품관리</div>
+                <div class="menu_item" data-menu="7">품질관리</div>
+                <div class="menu_item" data-menu="8">리포팅</div>
+            </div>
+        </div>
+        <div id="content_section">
+            <div id="sub_menu"></div>
+            <div id="main_content">
+                <div class="graph_container">
+                    <div class="graph_section">
+                        <!-- 경영리포팅 그래프가 들어갈 공간 -->
+                        <iframe id="content-frame" src="" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div id="side_panel">
+                <div id="notice">
+                    <h3>공지사항</h3>
+                    <div class="panel_content">
+                        <!-- 공지사항이 들어갈 공간 -->
+                    </div>
+                </div>
+                <div id="employee_board">
+                    <h3>사원게시판</h3>
+                    <div class="panel_content">
+                        <!-- 사원게시판의 내용이 들어갈 공간 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const subMenuData = {   // 메인 아이템 속성이 data-menu의 내용에 json으로 내용 할당
+            '1': ['작업표준관리', '상품코드관리', 'BOM'],
+            '2': ['거래처', '거래명세서'],
+            '3': ['생산계획관리', '작업지시관리'],
+            '4': ['원자재 재고관리', '완제품 재고관리'],
+            '5': ['설비등록', '설비점검내역', '설비수리의뢰', '설비수리내역'],
+            '6': ['소모품등록', '소모품현황', '소모품폐기', '소모품수불관리'],
+            '7': ['부적합'],
+            '8': ['생산실적', '경영실적', '불량률추이']
+        };
+
+        // 서브메뉴 json 생성 후 소분류 추가
+        const subMenuDetails = {
+            '작업표준관리': ['작업표준서', '현장작업', '공정관리'],
+            '상품코드관리': ['완제품 코드 관리', '원재료 코드 관리'],
+            'BOM': ['거래처', '정보관리'],
+            '거래처': ['거래처 정보관리'],
+            '거래명세서': ['거래명세서 관리'],
+            '생산계획관리': ['외주관리', '물류관리'],
+            '작업지시관리': ['작업지시서', '작업현황'],
+            '원자재 재고관리': ['원자재 입고관리', '원자재 출고관리', '원자재 수불관리'],
+            '완제품 재고관리': ['완제품 입고관리', '완제품 출고관리', '완제품 재고현황'],
+            '설비등록': ['설비등록'],
+            '설비점검내역': ['설비점검내역'],
+            '설비수리의뢰': ['설비수리의뢰'],
+            '설비수리내역': ['설비수리내역'],
+            '소모품등록': ['소모품 등록'],
+            '소모품현황': ['소모품 재고현황'],
+            '소모품폐기': ['소모품 폐기'],
+            '소모품수불관리': ['소모품 수불관리'],
+            '부적합': ['불량관리', '폐기물관리'],
+            '생산실적': ['일별실적', '월별실적'],
+            '경영실적': ['매출현황', '손익분석'],
+            '불량률추이': ['공정별', '제품별']
+        };
+
+        // ifame을 열기 위해 json 생성
+        // 서브메뉴에 있는 이름들을 넣고 주소를 넣으면 됨
+        // 예시 ('작업표준서': 'work_standard.html',)
+        const subMenuFileMap = {
+            // ----- 기준정보 -----
+            // 작업표준관리
+            '작업표준서': 'login.html',
+            '현장작업': 'GKBM_logo.png',
+            '공정관리': '',
+            // 상품코드관리
+            '완제품 코드 관리': 'http://192.168.0.43:5500/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/1.(%EA%B8%B0%EC%A4%80%EC%A0%95%EB%B3%B4)%EC%9E%91%EC%97%85%EB%B0%A9%EC%8B%9D.html',
+            '원재료 코드 관리': '',
+            // BOM
+            '거래처': '',
+            '정보관리': '',
+
+            // ----- SCM -----
+            // 거래처
+            '거래처 정보관리': '',
+            //거래명세서
+            '거래명세서 관리': '',
+
+            // ----- 생산관리 -----
+            // 생산계획관리
+            '외주관리': '',
+            '물류관리': '',
+            // 작업지시관리
+            '작업지시서': '',
+            '작업현황': '',
+
+            // ----- 재고관리 -----
+            // 원자재 재고관리
+            '원자재 입고관리': '',
+            '원자재 출고관리': '',
+            '원자재 수불관리': '',
+            // 완제품 재고관리
+            '완제품 입고관리': '',
+            '완제품 출고관리': '',
+            '완제품 재고현황': '',
+
+            // ----- 설비관리 -----
+            // 설비등록
+            '설비등록': '',
+            // 설비점검내역
+            '설비점검내역': '',
+            // 설비수리의뢰
+            '설비수리의뢰': '',
+            // 설비수리내역
+            '설비수리내역': '',
+
+            // 소모품관리
+            // 소모품등록
+            '소모품등록': '',
+            // 소모품현황
+            '소모품 재고현황': '',
+            // 소모품폐기
+            '소모품 폐기': '',
+            // 소모품수불관리
+            '소모품 수불관리': '',
+
+            // 품질관리
+            // 부적합
+            '불량관리': '',
+            '폐기물관리': '',
+
+            // 리포팅
+            // 생산실적
+            '일별실적': '',
+            '월별실적': '',
+            // 경영실적
+            '매출현황': '',
+            '손익분석': '',
+            //불량률추이
+            '공정별': '',
+            '제품별': '',
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainMenuItems = document.querySelectorAll('.menu_item'); // class가 menu_itme인것들을 모두 불러와 배열로 만들어 할당
+            const subMenu = document.getElementById('sub_menu'); // id가 sub_menu인 것을 불러와 할당
+            const mainContent = document.getElementById('main_content'); // id가 main_contant인 것을 불러와 할당
+            let activeMenuItem = null;
+            let activeSubItem = null;
+
+            mainMenuItems.forEach((item) => { // 메인메뉴를 배열로 만들어서 불러온것을 반복으로 돌려서
+                item.addEventListener('click', function () {
+                    const menuId = this.getAttribute('data-menu');
+
+                    if (activeMenuItem === this) {
+                        // 같은 메뉴를 다시 클릭한 경우
+                        closeSubMenu();
+                        this.classList.remove('active');
+                        activeMenuItem = null;
+                    } else {
+                        // 다른 메뉴를 클릭한 경우
+                        mainMenuItems.forEach(menu => menu.classList.remove('active'));
+                        this.classList.add('active');
+                        activeMenuItem = this;
+                        openSubMenu(menuId);
+                    }
+                });
+            });
+
+            function openSubMenu(menuId) {
+                createSubMenu(menuId);
+                requestAnimationFrame(() => {
+                    subMenu.classList.add('visible');
+                    mainContent.style.width = 'calc(100% - 440px)';
+                });
+            }
+
+            function closeSubMenu() {
+                subMenu.classList.remove('visible');
+                mainContent.style.width = 'calc(100% - 220px)';
+                setTimeout(() => {
+                    subMenu.innerHTML = '';
+                }, 300);
+            }
+
+            //---------------------------------------- 서브메뉴 기능 칸-----------------------------
+            // iframe을 위한 기능
+            function loadContent(url) {
+                document.getElementById('content-frame').src = url;
+            }
+
+            // 서브메뉴를 생성하는곳
+            function createSubMenu(menuId) {
+                const menuContent = document.createElement('div');
+                const subItems = subMenuData[menuId];
+
+                subItems.forEach(item => {
+                    const subMenuItem = document.createElement('div');
+                    subMenuItem.className = 'sub_item';
+                    subMenuItem.textContent = item;
+
+                    //  메뉴 컨테이너 생성
+                    const detailContainer = document.createElement('div');
+                    detailContainer.className = 'detail-menu';
+                    detailContainer.style.display = 'none';
+
+                    // iframe 내용 로드
+                    if (subMenuDetails[item]) {
+                        subMenuDetails[item].forEach(detailItem => {
+                            // 하위 메뉴 항목 추가
+                            const detailElement = document.createElement('div');
+                            detailElement.className = 'detail-item';
+                            detailElement.textContent = detailItem;
+                            // 클릭된거에 json에서 해당하는 주소 iframe 안에서 이동
+                            detailElement.addEventListener('click', function (e) {
+                                e.stopPropagation();
+                                const fileName = subMenuFileMap[detailItem] || 'default.html';
+                                document.getElementById('content-frame').src = fileName;
+                            });
+                            detailContainer.appendChild(detailElement);
+                        });
+                    }
+
+                    // 서브메뉴가 클릭이 되면 실행되는 기능 -------------------------------------------------------
+                    subMenuItem.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        if (activeSubItem === this) {
+                            // 같은 서브메뉴를 다시 클릭한 경우
+                            this.classList.remove('active');
+                            detailContainer.style.display = 'none';
+                            activeSubItem = null;
+                        } else {
+                            // 다른 서브메뉴를 클릭한 경우
+                            document.querySelectorAll('.sub_item').forEach(si => {
+                                si.classList.remove('active');
+                                if (si.nextElementSibling && si.nextElementSibling.className === 'detail-menu') {
+                                    si.nextElementSibling.style.display = 'none';
+                                }
+                            });
+                            this.classList.add('active');
+                            if (detailContainer.children.length > 0) {
+                                detailContainer.style.display = 'block';
+                            }
+                            activeSubItem = this;
+                        }
+                    });
+
+                    menuContent.appendChild(subMenuItem);
+                    menuContent.appendChild(detailContainer);
+                });
+
+                subMenu.innerHTML = '';
+                subMenu.appendChild(menuContent);
+            }
+
+            // 로고 클릭 이벤트
+            document.querySelector("#logo").addEventListener('click', function () {
+                document.getElementById('content-frame').src = 'dashboard.html';
+                // 메인 메뉴 초기화
+                mainMenuItems.forEach(menu => menu.classList.remove('active'));
+                activeMenuItem = null;
+                // 서브 메뉴 닫기
+                closeSubMenu();
+            });
+
+            // 터치 이벤트 지원 추가
+            function addTouchSupport(element) {
+                element.addEventListener('touchstart', function (e) {
+                    e.preventDefault();
+                    this.click();
+                }, { passive: false });
+            }
+
+            // 메인 메뉴 아이템에 터치 이벤트 추가
+            mainMenuItems.forEach((item) => {
+                addTouchSupport(item);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

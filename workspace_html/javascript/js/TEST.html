@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #myChart {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myChart" width="300" height="100"></canvas>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'line', // 선 그래프 타입으로 변경
+        data: {
+            labels: ['2020', '2021', '2022', '2023'],
+            datasets: [{
+                label: 'ㅎㅇ',
+                data: [10,25, 30, 0],
+                backgroundColor: '#00C7E2',
+                borderColor: '#00C7E2',
+                fill: false, // 선 아래를 채우지 않음
+                tension: 0.1 // 선의 곡률 조정
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'category' // x축을 카테고리로 설정
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</html>

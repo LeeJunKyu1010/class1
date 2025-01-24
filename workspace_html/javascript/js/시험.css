@@ -1,0 +1,120 @@
+/* 메인 이미지 타이틀을 옆으로 나열 하고 정렬 */
+#main_img_title {
+    border: 1px solid #ccc;
+    display: flex;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+#main_img_title > div {
+    flex-grow: 1;   /* 부모 크기만큼 동일한 크기로 꽉 차게 만듬 */
+    margin: 0 5px;
+}
+
+.img_title1, .img_title2, .img_title3, .img_title4 {
+    text-align: center;
+    border: 1px solid #ccc;
+    width: 200px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.img_title1:hover, .img_title2:hover, .img_title3:hover, .img_title4:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sub_img_title1, .sub_img_title2, .sub_img_title3, .sub_img_title4 {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.info_title {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+.submanu, .submanu1 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.manu2 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    width: 300px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+.info1-1 {
+    background-image: url(https://img1.daumcdn.net/thumb/R1280x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/afC4/image/ZfAbAFNxQW-giMhOGBAhktITOkA.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1100px;
+    height: 600px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hide {
+    display: none;
+}
+
+.댓글 {
+    border: 1px solid #ccc;
+    border-top: 0px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+#mainbox {
+    border: 1px solid #ccc;
+    width: 400px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.click2 {
+    background-color: rgb(189, 189, 189);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.click2:hover {
+    background-color: rgb(169, 169, 169);
+}
+
+body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+#main_img_title {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.submanu, .submanu1 {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
