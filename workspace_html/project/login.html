@@ -45,6 +45,7 @@
             justify-content: center;
             /* 이미지의 박스를 중앙 정렬 */
             margin: 0 auto;
+
         }
 
         #logo img {
@@ -222,35 +223,17 @@
 
         /* 아이디 찾기 */
         document.querySelector(".find_id").addEventListener('click', function () {
-            alert("고객센터에 연락바랍니다.")
+            alert("관리자에게 문의 바랍니다.")
         })
 
         /* 비밀번호 찾기 */
         document.querySelector(".find_pw").addEventListener('click', function () {
-            alert("고객센터에 연락바랍니다.")
+            alert("관리자에게 문의 바랍니다.")
         })
 
-        /* 임시 회원가입 */
-        document.querySelector(".create_id").addEventListener('click', function () {
-            const newId = prompt("새 아이디를 입력하세요:");
-            const newPw = prompt("새 비밀번호를 입력하세요:");
-
-            const newGrade = 2;
-            
-            if (!newId || !newPw) {
-                alert("올바른 정보를 입력해주세요.");
-                return;
-            }
-            const newUser = {
-                id: newId,
-                pw: newPw,
-                grade: newGrade
-            };
-
-            user_data.push(newUser);
-            console.log("임시 사용자가 추가되었습니다.:", newUser);
-            alert("임시 아이디가 생성되었습니다.(콘솔에서 확인가능)");
-        });
+        document.querySelector(".create_id").addEventListener('click',function(){
+            alert("관리자에게 문의 바랍니다.")
+        })
 
     }
 </script>

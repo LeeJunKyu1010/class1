@@ -34,7 +34,6 @@
         }
 
         #logo {
-            /* border: 1px solid black; */
             width: 100px;
             height: 80px;
             background-color: white;
@@ -55,11 +54,9 @@
             cursor: pointer;
         }
 
-        /* 로고와 메인메뉴들 간격이 좁아 비어있는 박스 생성 */
         .mm {
             width: 50px;
         }
-
 
         #main_menu {
             display: flex;
@@ -88,9 +85,8 @@
         #content_section {
             display: flex;
             gap: 20px;
-            height: calc(100vh - 120px);
+            min-height: calc(100vh - 140px);
             position: relative;
-
         }
 
         #sub_menu {
@@ -104,12 +100,6 @@
             opacity: 0;
         }
 
-        #sub_menu:not(.visible) .sub_item {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-
-
         #sub_menu.visible {
             opacity: 1;
             width: 200px;
@@ -119,7 +109,6 @@
             padding: 15px;
             border-bottom: 1px solid #ddd;
             cursor: pointer;
-            white-space: nowrap;
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
@@ -136,14 +125,15 @@
             flex: 1;
             border: 1px solid #ddd;
             background-color: white;
-            transition: width 0.3s ease-in-out;
             border-radius: 4px;
-            width: calc(100% - 220px);
             display: flex;
             flex-direction: column;
+            min-height: 600px;
+            overflow: hidden;
         }
 
         .graph_container {
+            flex: 1;
             padding: 20px;
             height: 100%;
         }
@@ -151,12 +141,17 @@
         .graph_section {
             width: 100%;
             height: 100%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            position: relative;
             background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        #content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         #side_panel {
@@ -206,20 +201,6 @@
             background-color: #e9ecef;
         }
 
-        .iframe-container {
-            height: 80vh;
-            /* 뷰포트 높이의 80% */
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-
-
-        /* 미디어 쿼리 추가 */
         @media screen and (max-width: 768px) {
             #container {
                 padding: 10px;
@@ -231,18 +212,18 @@
             }
 
             #logo {
-                width: 100%;
-                margin-bottom: 10px;
+                margin: 0 auto 10px;
             }
 
             #main_menu {
                 flex-wrap: wrap;
-                margin-left: 0;
+                justify-content: center;
                 gap: 5px;
+                font-size : 50px;
             }
 
             .menu_item {
-                flex: 1 1 calc(33.333% - 5px);
+                flex: 0 1 calc(50% - 5px);
                 padding: 10px;
                 text-align: center;
                 font-size: 14px;
@@ -250,39 +231,38 @@
 
             #content_section {
                 flex-direction: column;
-                height: auto;
-                gap: 10px;
+                min-height: calc(100vh - 200px);
             }
 
             #sub_menu.visible {
                 width: 100%;
+                margin-bottom: 10px;
             }
 
             #main_content {
                 width: 100% !important;
+                min-height: 400px;
+            }
+
+            .graph_container {
+                padding: 10px;
             }
 
             #side_panel {
                 width: 100%;
-                flex-direction: column;
             }
 
             #notice,
             #employee_board {
                 height: 200px;
             }
-        }
 
-        /* 터치 이벤트 최적화 */
-        @media (hover: none) {
-            .menu_item:hover {
-                background-color: inherit;
-            }
-
-            .sub_item:hover {
-                background-color: inherit;
+            #content-frame {
+                position: relative;
+                min-height: 400px;
             }
         }
+
     </style>
 </head>
 
@@ -302,6 +282,7 @@
                 <div class="menu_item" data-menu="6">소모품관리</div>
                 <div class="menu_item" data-menu="7">품질관리</div>
                 <div class="menu_item" data-menu="8">리포팅</div>
+                <div class="menu_item" data-menu="9">커뮤니티</div>
             </div>
         </div>
         <div id="content_section">
@@ -310,21 +291,7 @@
                 <div class="graph_container">
                     <div class="graph_section">
                         <!-- 경영리포팅 그래프가 들어갈 공간 -->
-                        <iframe id="content-frame" src="" width="100%" height="100%" frameborder="0"></iframe>
-                    </div>
-                </div>
-            </div>
-            <div id="side_panel">
-                <div id="notice">
-                    <h3>공지사항</h3>
-                    <div class="panel_content">
-                        <!-- 공지사항이 들어갈 공간 -->
-                    </div>
-                </div>
-                <div id="employee_board">
-                    <h3>사원게시판</h3>
-                    <div class="panel_content">
-                        <!-- 사원게시판의 내용이 들어갈 공간 -->
+                        <iframe id="content-frame" src=" " width="100%" height="100%" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
@@ -332,62 +299,63 @@
     </div>
     <script>
         const subMenuData = {   // 메인 아이템 속성이 data-menu의 내용에 json으로 내용 할당
-            '1': ['작업표준관리', '상품코드관리', 'BOM'],
+            '1': ['작업표준관리', '기준정보관리', 'BOM'],
             '2': ['거래처', '거래명세서'],
             '3': ['생산계획관리', '작업지시관리'],
             '4': ['원자재 재고관리', '완제품 재고관리'],
             '5': ['설비등록', '설비점검내역', '설비수리의뢰', '설비수리내역'],
-            '6': ['소모품등록', '소모품현황', '소모품폐기', '소모품수불관리'],
-            '7': ['부적합'],
-            '8': ['생산실적', '경영실적', '불량률추이']
+            '6': ['소모품등록', '소모품재고현황', '소모품폐기', '소모품수불관리'],
+            '7': ['부적합관리', '리퍼브/폐기'],
+            '8': ['생산실적', '경영실적', '불량률추이'],
+            '9': ['공지사항', '사원게시판']
         };
 
         // 서브메뉴 json 생성 후 소분류 추가
         const subMenuDetails = {
-            '작업표준관리': ['작업표준서', '현장작업', '공정관리'],
-            '상품코드관리': ['완제품 코드 관리', '원재료 코드 관리'],
-            'BOM': ['거래처', '정보관리'],
+            '작업표준관리': ['작업방식'],
+            '기준정보관리': ['원자재코드', '완제품코드'],
+            'BOM': ['BOM관리'],
             '거래처': ['거래처 정보관리'],
             '거래명세서': ['거래명세서 관리'],
-            '생산계획관리': ['외주관리', '물류관리'],
-            '작업지시관리': ['작업지시서', '작업현황'],
+            '생산계획관리': ['생산계획관리'],
+            '작업지시관리': ['작업지시관리'],
             '원자재 재고관리': ['원자재 입고관리', '원자재 출고관리', '원자재 수불관리'],
-            '완제품 재고관리': ['완제품 입고관리', '완제품 출고관리', '완제품 재고현황'],
+            '완제품 재고관리': ['완제품 입고관리', '완제품 출고관리', '완제품 수불관리'],
             '설비등록': ['설비등록'],
             '설비점검내역': ['설비점검내역'],
             '설비수리의뢰': ['설비수리의뢰'],
             '설비수리내역': ['설비수리내역'],
-            '소모품등록': ['소모품 등록'],
-            '소모품현황': ['소모품 재고현황'],
+            '소모품등록': ['소모품등록'],
+            '소모품재고현황': ['소모품 재고현황'],
             '소모품폐기': ['소모품 폐기'],
             '소모품수불관리': ['소모품 수불관리'],
-            '부적합': ['불량관리', '폐기물관리'],
+            '부적합관리': ['불량관리'],
+            '리퍼브/폐기':['리퍼브/페기'],
             '생산실적': ['일별실적', '월별실적'],
             '경영실적': ['매출현황', '손익분석'],
-            '불량률추이': ['공정별', '제품별']
+            '불량률추이': ['공정별', '제품별'],
+            '공지사항': ['공지사항'],
+            '사원게시판': ['사원게시판']
         };
 
         // ifame을 열기 위해 json 생성
         // 서브메뉴에 있는 이름들을 넣고 주소를 넣으면 됨
-        // 예시 ('작업표준서': 'work_standard.html',)
+        // 예시 ('작업방식': 'work_standard.html',)
         const subMenuFileMap = {
             // ----- 기준정보 -----
             // 작업표준관리
-            '작업표준서': 'login.html',
-            '현장작업': 'GKBM_logo.png',
-            '공정관리': '',
-            // 상품코드관리
-            '완제품 코드 관리': 'http://192.168.0.43:5500/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/1.(%EA%B8%B0%EC%A4%80%EC%A0%95%EB%B3%B4)%EC%9E%91%EC%97%85%EB%B0%A9%EC%8B%9D.html',
-            '원재료 코드 관리': '',
+            '작업방식': '1.(기준정보)작업방식.html',
+            // 기준정보관리
+            '원자재코드': '2.(기준정보)원자재코드관리.html',
+            '완제품코드': '3.(기준정보)완제품코드관리.html',
             // BOM
-            '거래처': '',
-            '정보관리': '',
+            'BOM관리': '4.(기준정보)BOM.html',
 
             // ----- SCM -----
             // 거래처
-            '거래처 정보관리': '',
+            '거래처 정보관리': '거래처정보관리.html',
             //거래명세서
-            '거래명세서 관리': '',
+            '거래명세서 관리': '거래명세서관리.html',
 
             // ----- 생산관리 -----
             // 생산계획관리
@@ -399,38 +367,38 @@
 
             // ----- 재고관리 -----
             // 원자재 재고관리
-            '원자재 입고관리': '',
-            '원자재 출고관리': '',
-            '원자재 수불관리': '',
+            '원자재 입고관리': '5.(재고관리)원자재입고관리.html',
+            '원자재 출고관리': '6.(재고관리)원자재출고관리.html',
+            '원자재 수불관리': '7.(재고관리)원자재수불관리.html',
             // 완제품 재고관리
-            '완제품 입고관리': '',
-            '완제품 출고관리': '',
-            '완제품 재고현황': '',
+            '완제품 입고관리': '8.(재고관리)완제품입고관리.html',
+            '완제품 출고관리': '9.(재고관리)완제품출고관리.html',
+            '완제품 수불관리': '10.(재고관리)완제품수불관리.html',
 
             // ----- 설비관리 -----
             // 설비등록
-            '설비등록': '',
+            '설비등록': '설비등록.html',
             // 설비점검내역
-            '설비점검내역': '',
+            '설비점검내역': '설비점검내역.html',
             // 설비수리의뢰
-            '설비수리의뢰': '',
+            '설비수리의뢰': '설비수리의뢰.html',
             // 설비수리내역
-            '설비수리내역': '',
+            '설비수리내역': '설비수리내역.html',
 
             // 소모품관리
             // 소모품등록
-            '소모품등록': '',
+            '소모품등록': '소모품등록.html',
             // 소모품현황
-            '소모품 재고현황': '',
+            '소모품 재고현황': '소모품재고현황.html',
             // 소모품폐기
-            '소모품 폐기': '',
+            '소모품 폐기': '소모품폐기.html',
             // 소모품수불관리
-            '소모품 수불관리': '',
+            '소모품 수불관리': '소모품수불관리.html',
 
             // 품질관리
-            // 부적합
+            // 부적합관리
             '불량관리': '',
-            '폐기물관리': '',
+            '리퍼브/폐기': '',
 
             // 리포팅
             // 생산실적
@@ -442,6 +410,10 @@
             //불량률추이
             '공정별': '',
             '제품별': '',
+
+            // 커뮤니티
+            '공지사항': '',
+            '사원게시판': '',
         };
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -556,29 +528,22 @@
                 subMenu.appendChild(menuContent);
             }
 
-            // 로고 클릭 이벤트
-            document.querySelector("#logo").addEventListener('click', function () {
-                document.getElementById('content-frame').src = 'dashboard.html';
-                // 메인 메뉴 초기화
-                mainMenuItems.forEach(menu => menu.classList.remove('active'));
-                activeMenuItem = null;
-                // 서브 메뉴 닫기
-                closeSubMenu();
-            });
-
-            // 터치 이벤트 지원 추가
-            function addTouchSupport(element) {
-                element.addEventListener('touchstart', function (e) {
-                    e.preventDefault();
-                    this.click();
-                }, { passive: false });
+            // iframe 크기 조정 함수 추가
+            function adjustIframeSize() {
+                const iframe = document.getElementById('content-frame');
+                const container = document.querySelector('.graph_section');
+                if (iframe && container) {
+                    const height = Math.max(container.offsetHeight, 400);
+                    iframe.style.height = `${height}px`;
+                }
             }
 
-            // 메인 메뉴 아이템에 터치 이벤트 추가
-            mainMenuItems.forEach((item) => {
-                addTouchSupport(item);
-            });
+            // 이벤트 리스너 추가
+            window.addEventListener('load', adjustIframeSize);
+            window.addEventListener('resize', adjustIframeSize);
+
         });
+
 
     </script>
 </body>
