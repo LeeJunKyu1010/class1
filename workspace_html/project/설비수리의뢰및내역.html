@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설비수리의뢰</title>
+    <title>설비수리의뢰/내역</title>
     <style>
         body {
             margin: 0;
@@ -129,7 +129,7 @@
             .active {
                 background-color: #0056b3;
             }
-            
+
             h1 {
                 width: 90%;
             }
@@ -144,7 +144,7 @@
 
 <body>
     <div class="container">
-        <h1>◎ 설비수리의뢰</h1>
+        <h1>◎ 설비수리의뢰/내역</h1>
 
         <div class="form">
             <div class="form-fields">
@@ -154,7 +154,13 @@
                     <label for="SN">S/N</label>
                     <input type="text" id="SN">
                     <label for="수리항목">수리항목</label>
-                    <input type="text" id="수리항목">
+                    <select style="width: 250px;">
+                        <option>목록1</option>
+                        <option>목록2</option>
+                        <option>목록3</option>
+                        <option>목록4</option>
+                        <option>목록5</option>
+                    </select>
                 </div>
 
                 <div class="form-row">
@@ -234,7 +240,7 @@
                 });
             }
 
-            // 새 행을 추가하는 함수
+            // 테이블에 새로운 행을 추가하는 함수
             function addRow(설비코드, 설비명, 업체명, SN, 의뢰자, 수리항목, 수리내역, 의뢰일자, 비고사항) {
                 const tableBody = document.getElementById("table-body");
                 const row = document.createElement("tr");
@@ -244,17 +250,17 @@
                 checkbox.addEventListener('change', updateSelectAllCheckbox);
 
                 row.innerHTML = `
-                <td></td>
-                <td>${tableBody.children.length + 1}</td>
-                <td>${설비코드}</td>
-                <td>${설비명}</td>
-                <td>${업체명}</td>
-                <td>${SN}</td>
-                <td>${의뢰자}</td>
-                <td>${수리항목}</td>
-                <td>${수리내역}</td>
-                <td>${의뢰일자}</td>
-                <td>${비고사항}</td>`;
+        <td></td>
+        <td>${tableBody.children.length + 1}</td>
+        <td>${설비코드}</td>
+        <td>${설비명}</td>
+        <td>${업체명}</td>
+        <td>${SN}</td>
+        <td>${의뢰자}</td>
+        <td>${수리항목}</td>
+        <td>${수리내역}</td>
+        <td>${의뢰일자}</td>
+        <td>${비고사항}</td>`;
 
                 row.cells[0].appendChild(checkbox);
                 tableBody.appendChild(row);
@@ -264,15 +270,16 @@
 
             // '등록' 버튼 이벤트 리스너
             document.getElementById("등록").addEventListener("click", function () {
-                const fields = ["설비코드", "설비명", "업체명", "SN", "의뢰자", "수리항목", "수리내역", "의뢰일자", "비고사항"];
+                const fields = ["설비코드", "설비명", "업체명", "SN", "의뢰자", "수리내역", "의뢰일자", "비고사항"];
                 const values = fields.map(field => document.getElementById(field).value);
+                const 수리항목 = document.querySelector('select').value; // select 요소에서 값 가져오기
 
-                if (values.some(value => !value)) {
+                if (values.some(value => !value) || !수리항목) {
                     alert("필수 항목을 모두 올바르게 입력해주세요.");
                     return;
                 }
 
-                addRow(...values);
+                addRow(values[0], values[1], values[2], values[3], values[4], 수리항목, values[5], values[6], values[7]);
                 clearInputFields();
             });
 
@@ -280,7 +287,6 @@
             document.getElementById("조회").addEventListener("click", function () {
                 const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
                 const check = [];
-
                 checkedRows.forEach(checkbox => {
                     const row = checkbox.closest('tr');
                     const cells = row.cells;
@@ -303,16 +309,32 @@
                 resultArea.innerHTML = '';
                 check.forEach(item => {
                     const p = document.createElement('p');
-                    p.textContent = `순번: ${item.순번}, 설비코드: ${item.설비코드}, 설비명: ${item.설비명}, 업체명: ${item.업체명}, SN: ${item.SN}, 의뢰자: ${item.의뢰자}, 수리항목: ${item.수리항목}, 수리내역: ${item.수리내역}, 의뢰일자: ${item.의뢰일자}, 비고사항: ${item.비고사항}`;
+                    p.textContent = `순번: ${item.순번}, 
+            설비코드: ${item.설비코드}, 
+            설비명: ${item.설비명}, 
+            업체명: ${item.업체명},
+            S/N: ${item.SN},
+            의뢰자: ${item.의뢰자}, 
+            수리항목: ${item.수리항목}, 
+            수리내역: ${item.수리내역}, 
+            의뢰일자: ${item.의뢰일자}, 
+            비고사항: ${item.비고사항}`;
                     resultArea.appendChild(p);
                 });
 
+                // 조회 후 모든 체크박스 해제
                 uncheckAllCheckboxes();
             });
 
             // 입력 필드 초기화 함수
             function clearInputFields() {
-                document.querySelectorAll(".form-fields input").forEach(input => input.value = "");
+                document.querySelectorAll(".form-fields input, .form-fields select").forEach(input => {
+                    if (input.tagName === 'SELECT') {
+                        input.selectedIndex = 0;
+                    } else {
+                        input.value = "";
+                    }
+                });
             }
 
             // '삭제' 버튼 이벤트 리스너
@@ -364,10 +386,23 @@
                 buttonsContainer.appendChild(editButtons);
 
                 const editableCells = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+                const originalValues = {};
+
                 editableCells.forEach(index => {
+                    originalValues[index] = cells[index].textContent;
                     if (index === 9) {
                         const originalDate = cells[index].textContent;
                         cells[index].innerHTML = `<input type="date" value="${originalDate}" style="width: 90%;">`;
+                    } else if (index === 7) { // 수리항목 셀
+                        const originalValue = cells[index].textContent;
+                        cells[index].innerHTML = `
+                <select style="width: 90%;">
+                    <option ${originalValue === '목록1' ? 'selected' : ''}>목록1</option>
+                    <option ${originalValue === '목록2' ? 'selected' : ''}>목록2</option>
+                    <option ${originalValue === '목록3' ? 'selected' : ''}>목록3</option>
+                    <option ${originalValue === '목록4' ? 'selected' : ''}>목록4</option>
+                    <option ${originalValue === '목록5' ? 'selected' : ''}>목록5</option>
+                </select>`;
                     } else {
                         const originalValue = cells[index].textContent;
                         cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
@@ -376,7 +411,7 @@
 
                 document.getElementById("수정완료").addEventListener("click", function () {
                     editableCells.forEach(index => {
-                        const input = cells[index].querySelector('input');
+                        const input = cells[index].querySelector('input, select');
                         cells[index].textContent = input.value;
                     });
 
@@ -386,7 +421,7 @@
 
                 document.getElementById("수정취소").addEventListener("click", function () {
                     editableCells.forEach(index => {
-                        cells[index].textContent = cells[index].querySelector('input').defaultValue;
+                        cells[index].textContent = originalValues[index];
                     });
                     editButtons.remove();
                     originalButtons.forEach(button => button.style.display = '');
@@ -429,7 +464,7 @@
                             page--;
                         }
                     } else if (pageText === '>') {
-                        if (page < Math.ceil(tableBody.children.length / pagedata)) {
+                        if (page < Math.ceil(document.getElementById("table-body").children.length / pagedata)) {
                             page++;
                         }
                     } else {

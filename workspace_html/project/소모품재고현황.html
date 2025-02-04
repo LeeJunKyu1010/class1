@@ -129,7 +129,7 @@
             .active {
                 background-color: #0056b3;
             }
-            
+
             h1 {
                 width: 90%;
             }
@@ -169,7 +169,6 @@
             </div>
 
             <div class="buttons">
-                <button id="등록">등록</button>
                 <button id="조회">조회</button>
                 <button id="수정">수정</button>
                 <button id="삭제">삭제</button>
@@ -188,6 +187,20 @@
                     <th>S/N</th>
                     <th>관리자</th>
                     <th>비고사항</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="checkbox" id="체크박스">
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>NT-100</td>
+                    <td>니트릴장갑</td>
+                    <td>3541328</td>
+                    <td>OOO</td>
+                    <td>-</td>
                 </tr>
             </thead>
             <tbody id="table-body"></tbody>
@@ -211,8 +224,6 @@
     </div>
 
     <script>
-        // 데이터 베이스 생기면 등록버튼 삭제
-        alert("현황을 보는 페이지이지만 데이터베이스가 없어 임시로 등록버튼 생성함")
 
         // 체크박스 템플릿 생성
         const checkboxTemplate = document.createElement('input');
@@ -251,18 +262,18 @@
         }
 
         // '등록' 버튼 이벤트 리스너
-        document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["소모품코드", "소모품명", "SN", "관리자", "비고사항"];
-            const values = fields.map(field => document.getElementById(field).value);
+        // document.getElementById("등록").addEventListener("click", function () {
+        //     const fields = ["소모품코드", "소모품명", "SN", "관리자", "비고사항"];
+        //     const values = fields.map(field => document.getElementById(field).value);
 
-            if (values.some(value => !value)) {
-                alert("필수 항목을 모두 올바르게 입력해주세요.");
-                return;
-            }
+        //     if (values.some(value => !value)) {
+        //         alert("필수 항목을 모두 올바르게 입력해주세요.");
+        //         return;
+        //     }
 
-            addRow(...values);
-            clearInputFields();
-        });
+        //     addRow(...values);
+        //     clearInputFields();
+        // });
 
         // '조회' 버튼 이벤트 리스너
         document.getElementById("조회").addEventListener("click", function () {
@@ -287,7 +298,12 @@
             resultArea.innerHTML = '';
             check.forEach(item => {
                 const p = document.createElement('p');
-                p.textContent = `순번: ${item.순번}, 소모품코드: ${item.소모품코드}, 소모품명: ${item.소모품명}, SN: ${item.SN}, 관리자: ${item.관리자}, 비고사항: ${item.비고사항}`;
+                p.textContent = `순번: ${item.순번}, 
+                소모품코드: ${item.소모품코드}, 
+                소모품명: ${item.소모품명}, 
+                SN: ${item.SN}, 
+                관리자: ${item.관리자}, 
+                비고사항: ${item.비고사항}`;
                 resultArea.appendChild(p);
             });
 

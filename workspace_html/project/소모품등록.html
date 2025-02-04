@@ -129,7 +129,7 @@
             .active {
                 background-color: #0056b3;
             }
-            
+
             h1 {
                 width: 90%;
             }
@@ -144,7 +144,7 @@
 
 <body>
     <div class="container">
-        <h1>◎ 소모품등록</h1>
+        <h1>◎ 소모품 등록</h1>
 
         <div class="form">
             <div class="form-fields">
@@ -165,7 +165,7 @@
                     <label for="관리자">관리자</label>
                     <input type="text" id="관리자">
                 </div>
-                
+
                 <div class="form-row">
                     <label for="업체명">업체명</label>
                     <input type="text" id="업체명">
@@ -233,7 +233,7 @@
         }
 
         // 새 행을 추가하는 함수
-        function addRow(소모품코드, 소모품명, 업체명, SN, 관리자, 수량,등록일, 비고사항) {
+        function addRow(소모품코드, 소모품명, 업체명, SN, 관리자, 수량, 등록일, 비고사항) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
             const checkbox = checkboxTemplate.cloneNode(true);
@@ -261,7 +261,7 @@
 
         // '등록' 버튼 이벤트 리스너
         document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["소모품코드", "소모품명", "업체명", "SN", "관리자", "수량","등록일", "비고사항"];
+            const fields = ["소모품코드", "소모품명", "업체명", "SN", "관리자", "수량", "등록일", "비고사항"];
             const values = fields.map(field => document.getElementById(field).value);
 
             if (values.some(value => !value)) {
