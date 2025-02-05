@@ -144,7 +144,7 @@
     <div class="container">
         <h1>◎ 원자재 수불관리</h1>
 
-       
+
         <!-- 내가 체크한것들을 조회버튼을 누르면 추출 -->
         <div id="check"></div>
 
@@ -188,10 +188,66 @@
         </div>
     </div>
 
-
-
-
-
 </body>
+
+<script>
+    // 페이지당 표시할 데이터 수
+    const pagedata = 5;
+
+    // 현재 페이지 번호
+    let page = 1;
+
+    // 페이지네이션 버튼에 이벤트 리스너 추가
+    document.querySelectorAll('.pagination button').forEach(button => {
+        button.addEventListener('click', function () {
+            const pageText = this.textContent;
+            if (pageText === '<') {
+                if (page > 1) {
+                    page--;
+                }
+            } else if (pageText === '>') {
+                if (page < Math.ceil(tableBody.children.length / pagedata)) {
+                    page++;
+                }
+            } else {
+                page = parseInt(pageText, 10);
+            }
+            updateTable();
+        });
+    });
+
+    // 테이블 업데이트 함수
+    function updateTable() {
+        const rows = document.querySelectorAll("#table-body tr");
+        const startIndex = (page - 1) * pagedata;
+        const endIndex = startIndex + pagedata;
+
+        rows.forEach((row, index) => {
+            if (index >= startIndex && index < endIndex) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // 페이지네이션 버튼 업데이트
+        updatePaginationButtons();
+    }
+
+    // 페이지네이션 버튼 업데이트 함수
+    function updatePaginationButtons() {
+        const buttons = document.querySelectorAll('.pagination button');
+        buttons.forEach(button => {
+            if (button.textContent === page.toString()) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    // 초기 테이블 업데이트
+    updateTable();
+</script>
 
 </html>

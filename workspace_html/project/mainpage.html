@@ -142,7 +142,7 @@
             width: 100%;
             height: 100%;
             position: relative;
-            background-color: #f9f9f9;
+            /* background-color: #f9f9f9; */
         }
 
         #content-frame {
@@ -200,6 +200,12 @@
         .detail-item:hover {
             background-color: #e9ecef;
         }
+
+        .detail-item.active {
+            background-color: #4a90e2;
+            color: white;
+        }
+
 
         @media screen and (max-width: 768px) {
             #container {
@@ -272,8 +278,8 @@
             }
 
             iframe {
-                height: calc(100% - 150px);
                 /* 네비게이션 높이 조정 */
+                height: calc(100% - 150px);
             }
         }
     </style>
@@ -294,8 +300,7 @@
                 <div class="menu_item" data-menu="5">설비관리</div>
                 <div class="menu_item" data-menu="6">소모품관리</div>
                 <div class="menu_item" data-menu="7">품질관리</div>
-                <div class="menu_item" data-menu="8">리포팅</div>
-                <div class="menu_item" data-menu="9">커뮤니티</div>
+                <div class="menu_item" data-menu="8">커뮤니티</div>
             </div>
         </div>
         <div id="content_section">
@@ -304,7 +309,7 @@
                 <div class="graph_container">
                     <div class="graph_section">
                         <!-- 경영리포팅 그래프가 들어갈 공간 -->
-                        <iframe id="content-frame" src=" " width="100%" height="100%" frameborder="0"></iframe>
+                        <iframe id="content-frame" src="메인화면.html" width="100%" height="100%" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
@@ -320,10 +325,9 @@
             '3': ['생산계획관리', '작업지시관리'],
             '4': ['원자재 재고관리', '완제품 재고관리'],
             '5': ['설비등록', '설비점검', '설비수리'],
-            '6': ['소모품등록', '소모품 재고현황', '소모품 수불관리', '소모품 폐기'],
+            '6': ['소모품 등록', '소모품 재고현황', '소모품 수불관리', '소모품 폐기'],
             '7': ['부적합관리', '리퍼브/폐기'],
-            '8': ['생산실적', '경영실적', '불량률추이'],
-            '9': ['공지사항', '사원게시판']
+            '8': ['공지사항', '사원게시판']
         };
 
         // 서브메뉴 상세 항목 정의
@@ -346,9 +350,6 @@
             '소모품 수불관리': [],
             '부적합관리': [],
             '리퍼브/폐기': [],
-            '생산실적': ['일별실적', '월별실적'],
-            '경영실적': ['매출현황', '손익분석'],
-            '불량률추이': ['공정별', '제품별'],
             '공지사항': [],
             '사원게시판': []
         };
@@ -383,7 +384,7 @@
             '설비수리': '설비수리의뢰및내역.html',
 
             // ----- 소모품관리 -----
-            '소모품등록': '소모품등록.html',
+            '소모품 등록': '소모품등록.html',
             '소모품 재고현황': '소모품재고현황.html',
             '소모품 폐기': '소모품폐기.html',
             '소모품 수불관리': '소모품수불관리.html',
@@ -392,17 +393,9 @@
             '부적합관리': '부적합관리.html',
             '리퍼브/폐기': '폐기물.html',
 
-            // ----- 리포팅 -----
-            '일별실적': '',
-            '월별실적': '',
-            '매출현황': '',
-            '손익분석': '',
-            '공정별': '',
-            '제품별': '',
-
             // ----- 커뮤니티 -----
-            '공지사항': '',
-            '사원게시판': ''
+            '공지사항': '공지사항.html',
+            '사원게시판': '사원게시판.html'
         };
 
         // ===================================================
@@ -446,8 +439,7 @@
 
                 // iframe 초기화 (빈 페이지나 홈 페이지로 설정)
                 const iframe = document.getElementById('content-frame');
-                // iframe.src = 'about:blank';  // 또는 홈페이지: 'home.html'
-                iframe.src = 'GKBM_logo.png';  // 또는 홈페이지: 'home.html'
+                iframe.src = '메인화면.html';  // 또는 빈 페이지: 'about:blank'
 
                 // 활성 메뉴 아이템 초기화
                 activeMenuItem = null;
@@ -574,6 +566,7 @@
             // ===================================================
 
             // 상세 메뉴 생성
+            // 상세 메뉴 생성
             function createDetailMenu(item, container) {
                 try {
                     if (subMenuDetails[item]) {
@@ -583,6 +576,12 @@
                             detailElement.textContent = detailItem;
                             detailElement.addEventListener('click', function (e) {
                                 e.stopPropagation();
+                                // 모든 detail-item에서 'active' 클래스 제거
+                                document.querySelectorAll('.detail-item').forEach(item => {
+                                    item.classList.remove('active');
+                                });
+                                // 클릭된 항목에 'active' 클래스 추가
+                                this.classList.add('active');
                                 const fileName = subMenuFileMap[detailItem] || 'default.html';
                                 loadIframePage(fileName);
                             });
@@ -593,6 +592,40 @@
                     console.error('Error in createDetailMenu:', error);
                 }
             }
+
+            // 서브메뉴 클릭 이벤트 연결
+            function attachSubMenuClickEvent(menuItem, container) {
+                try {
+                    menuItem.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        if (activeSubItem === this) {
+                            this.classList.remove('active');
+                            container.style.display = 'none';
+                            activeSubItem = null;
+                        } else {
+                            document.querySelectorAll('.sub_item').forEach(si => {
+                                si.classList.remove('active');
+                                if (si.nextElementSibling && si.nextElementSibling.className === 'detail-menu') {
+                                    si.nextElementSibling.style.display = 'none';
+                                    // 모든 하위 메뉴 항목의 'active' 클래스 제거
+                                    si.nextElementSibling.querySelectorAll('.detail-item').forEach(item => {
+                                        item.classList.remove('active');
+                                    });
+                                }
+                            });
+                            this.classList.add('active');
+                            if (container.children.length > 0) {
+                                container.style.display = 'block';
+                            }
+                            activeSubItem = this;
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error in attachSubMenuClickEvent:', error);
+                }
+            }
+
+
 
             // 서브메뉴 클릭 이벤트 연결
             function attachSubMenuClickEvent(menuItem, container) {

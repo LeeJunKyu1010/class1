@@ -169,6 +169,7 @@
             </div>
 
             <div class="buttons">
+                <button id="등록">등록</button>
                 <button id="조회">조회</button>
                 <button id="수정">수정</button>
                 <button id="삭제">삭제</button>
@@ -262,18 +263,18 @@
         }
 
         // '등록' 버튼 이벤트 리스너
-        // document.getElementById("등록").addEventListener("click", function () {
-        //     const fields = ["소모품코드", "소모품명", "SN", "관리자", "비고사항"];
-        //     const values = fields.map(field => document.getElementById(field).value);
+        document.getElementById("등록").addEventListener("click", function () {
+            const fields = ["소모품코드", "소모품명", "SN", "관리자", "비고사항"];
+            const values = fields.map(field => document.getElementById(field).value);
 
-        //     if (values.some(value => !value)) {
-        //         alert("필수 항목을 모두 올바르게 입력해주세요.");
-        //         return;
-        //     }
+            if (values.some(value => !value)) {
+                alert("필수 항목을 모두 올바르게 입력해주세요.");
+                return;
+            }
 
-        //     addRow(...values);
-        //     clearInputFields();
-        // });
+            addRow(...values);
+            clearInputFields();
+        });
 
         // '조회' 버튼 이벤트 리스너
         document.getElementById("조회").addEventListener("click", function () {

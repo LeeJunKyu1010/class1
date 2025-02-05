@@ -105,7 +105,7 @@
         }
 
         @media screen and (max-width: 800px) {
-            .form-row {
+            .form-row {                
                 flex-direction: column;
                 align-items: stretch;
                 gap: 5px !important;
@@ -176,6 +176,12 @@
                     <input type="text" id="비고사항">
 
                 </div>
+
+                <div class="form-row">
+                <label for="일자">일자</label>
+                    <input type="text" id="일자">
+                </div>
+
             </div>
             <div class="buttons">
                 <button id="등록">등록</button>
@@ -193,6 +199,7 @@
                 <tr>
                     <th><input type="checkbox" id="체크박스"></th>
                     <th>순번</th>
+                    <th>일자</th>
                     <th>품번</th>
                     <th>품명</th>
                     <th>규격</th>
@@ -244,7 +251,7 @@
         }
 
         // 데이터 추가 함수
-        function addRow(품번, 품명, 규격, 수량, 출고단가, 비고사항) {
+        function addRow(일자,품번, 품명, 규격, 수량, 출고단가, 비고사항) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
 
@@ -252,8 +259,9 @@
             const checkbox = checkboxTemplate.cloneNode(true);
 
             row.innerHTML = `
-            <td></td>
+        <td></td>
         <td>${tableBody.children.length + 1}</td>
+        <td>${일자}</td>
         <td>${품번}</td>
         <td>${품명}</td>
         <td>${규격}</td>
@@ -272,6 +280,7 @@
 
         // 등록 버튼 클릭 이벤트
         document.getElementById("등록").addEventListener("click", function () {
+            const 일자 = document.getElementById("일자").value;
             const 품번 = document.getElementById("품번").value;
             const 품명 = document.getElementById("품명").value;
             const 규격 = document.getElementById("규격").value;
@@ -280,15 +289,16 @@
             const 비고사항 = document.getElementById("비고사항").value;
 
             // 데이터 유효성 검사 
-            if (!품번 || !품명 || !규격 || !수량 || !출고단가) {
+            if (!일자 || !품번 || !품명 || !규격 || !수량 || !출고단가) {
                 alert("필수 항목을 모두 입력해주세요.");
                 return;
             }
 
             // 등록을 누르면 내가 입력한것을 넣어주는것
-            addRow(품번, 품명, 규격, 수량, 출고단가, 비고사항);
+            addRow(일자,품번, 품명, 규격, 수량, 출고단가, 비고사항);
 
             // 입력 필드 초기화
+            document.getElementById("일자").value = "";
             document.getElementById("품번").value = "";
             document.getElementById("품명").value = "";
             document.getElementById("규격").value = "";
@@ -320,6 +330,7 @@
             }
         });
 
+
         // 전체 선택 체크박스에 이벤트 리스너 추가
         const 체크박스 = document.getElementById('체크박스');
         체크박스.addEventListener('change', function () {
@@ -350,15 +361,16 @@
                 const cells = row.querySelectorAll('td');
                 const data = {
                     순번: cells[1].textContent,
-                    품번: cells[2].textContent,
-                    품명: cells[3].textContent,
-                    규격: cells[4].textContent,
-                    수량: cells[5].textContent,
-                    출고단가: cells[6].textContent,
-                    공급가액: cells[7].textContent,
-                    세액: cells[8].textContent,
-                    합계: cells[9].textContent,
-                    비고사항: cells[10].textContent,
+                    일자: cells[2].textContent,
+                    품번: cells[3].textContent,
+                    품명: cells[4].textContent,
+                    규격: cells[5].textContent,
+                    수량: cells[6].textContent,
+                    출고단가: cells[7].textContent,
+                    공급가액: cells[8].textContent,
+                    세액: cells[9].textContent,
+                    합계: cells[10].textContent,
+                    비고사항: cells[11].textContent,
 
                 };
                 check.push(data);
@@ -369,7 +381,8 @@
             resultArea.innerHTML = ''; // 기존 결과 초기화
             check.forEach(item => {
                 const p = document.createElement('p');
-                p.textContent = `순번: ${item.순번}, 
+                p.textContent = `일자: ${item.일자}, 
+                                 순번: ${item.순번}, 
                                  품번: ${item.품번}, 
                                  품명: ${item.품명}
                                  규격: ${item.규격}
@@ -418,7 +431,7 @@
             buttonsContainer.appendChild(editButtons);
 
             // 수정: 모든 입력 필드를 텍스트로 통일
-            const editableCells = [2, 3, 4, 5, 6, 10];
+            const editableCells = [2,3,4,5,6,7,11];
             editableCells.forEach(index => {
                 const originalValue = cells[index].textContent;
                 cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
@@ -431,19 +444,19 @@
                     cells[index].textContent = input.value;
                 });
 
-                // 수량과 입고단가를 다시 가져와서 공급가액, 세액, 합계를 계산
-                const 수량 = parseInt(cells[5].textContent, 10);
-                const 입고단가 = parseInt(cells[6].textContent.replace(/,/g, ''), 10); // 쉼표 제거 후 숫자로 변환
+                // 수량과 출고단가를 다시 가져와서 공급가액, 세액, 합계를 계산
+                const 수량 = parseInt(cells[6].textContent, 10);
+                const 출고단가 = parseInt(cells[7].textContent.replace(/,/g, ''), 10); // 쉼표 제거 후 숫자로 변환
 
                 // 공급가액, 세액, 합계 계산
-                const 공급가액 = 수량 * 입고단가;
+                const 공급가액 = 수량 * 출고단가;
                 const 세액 = 공급가액 * 0.1;
                 const 합계 = 공급가액 + 세액;
 
                 // 계산된 값을 테이블에 반영
-                cells[7].textContent = 공급가액.toLocaleString();
-                cells[8].textContent = 세액.toLocaleString();
-                cells[9].textContent = 합계.toLocaleString();
+                cells[8].textContent = 공급가액.toLocaleString();
+                cells[9].textContent = 세액.toLocaleString();
+                cells[10].textContent = 합계.toLocaleString();
 
                 // 수정 완료 후 버튼 초기화
                 editButtons.remove();
@@ -518,6 +531,7 @@
 
         // 초기 테이블 업데이트
         updateTable();
+
 
 
 

@@ -154,7 +154,7 @@
                     <label for="SN">S/N</label>
                     <input type="text" id="SN">
                     <label for="수리항목">수리항목</label>
-                    <select style="width: 250px;">
+                    <select id="수리항목" style="width: 250px;">
                         <option>목록1</option>
                         <option>목록2</option>
                         <option>목록3</option>
@@ -270,7 +270,7 @@
 
             // '등록' 버튼 이벤트 리스너
             document.getElementById("등록").addEventListener("click", function () {
-                const fields = ["설비코드", "설비명", "업체명", "SN", "의뢰자", "수리내역", "의뢰일자", "비고사항"];
+                const fields = ["설비코드", "설비명", "업체명", "SN", "의뢰자", "수리내역", "의뢰일자"];
                 const values = fields.map(field => document.getElementById(field).value);
                 const 수리항목 = document.querySelector('select').value; // select 요소에서 값 가져오기
 
@@ -279,7 +279,9 @@
                     return;
                 }
 
-                addRow(values[0], values[1], values[2], values[3], values[4], 수리항목, values[5], values[6], values[7]);
+                const 비고사항 = document.getElementById("비고사항").value || "";
+
+                addRow(values[0], values[1], values[2], values[3], values[4], 수리항목, values[5], values[6], 비고사항);
                 clearInputFields();
             });
 
