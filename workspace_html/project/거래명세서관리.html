@@ -13,10 +13,10 @@
         }
 
         .container {
-            max-width: 1000px;
+            width: 95%;
             margin: auto;
             background: white;
-            padding: 60px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -116,6 +116,10 @@
 
         .none {
             display: none;
+        }
+
+        span {
+            color: red
         }
     </style>
 
@@ -250,6 +254,8 @@
             let update = document.querySelector("#update")
             let up_button = document.createElement("div")
             update.addEventListener("click", function () {
+                let form = document.querySelector(".form > .form-row")
+                form.classList.add("none")
                 let btn_div = document.querySelectorAll(".form .form-row")
                 btn_div[1].appendChild(up_button)
 
@@ -262,11 +268,11 @@
                 buttons.classList.toggle("buttons")
 
                 let button_1 = document.createElement("button")
-                button_1.innerText = "수정"
+                button_1.innerText = "수정완료"
                 button_1.classList.add("upd")
 
                 let button_2 = document.createElement("button")
-                button_2.innerText = "취소"
+                button_2.innerText = "수정취소"
                 button_2.classList.add("can")
 
                 up_button.appendChild(button_1)
@@ -280,7 +286,7 @@
                     let check = row.cells[0].querySelector("input[type='checkbox']")
                     if (check.checked) {
                         check.checked = false
-                        for (let i = 0; row.cells.length > i; i++) {
+                        for (let i = 0; row.cells.length + 1 > i; i++) {
                             if (row.cells[i + 2]) {
                                 temp[`key_${i}`] = row.cells[i + 2].innerText
                             }
@@ -301,12 +307,14 @@
                             }
 
                             if (i == 2) {
-                                row.cells[2].innerText = ""
-                                row.cells[2].appendChild(date)
-                            } else if (row.cells[10]) {
-                                row.cells[10].innerText = ""
-                                row.cells[10].appendChild(select)
-                            } else if (row.cells[i + 3] && !row.cells[10]) {
+                                row.cells[i].innerText = ""
+                                row.cells[i].appendChild(date)
+                                row.cells[5].textContent = ""
+                                row.cells[5].appendChild(text)
+                            } else if (i == 10) {
+                                row.cells[i].innerText = ""
+                                row.cells[i].appendChild(select)
+                            } else {
                                 row.cells[i + 3].textContent = ""
                                 row.cells[i + 3].appendChild(text)
                                 console.log(temp)
@@ -317,6 +325,7 @@
 
                     let cancel = document.querySelector(".can")
                     cancel.addEventListener("click", function () {
+                        form.classList.remove("none")
                         for (let i = 0; row.cells.length > i; i++) {
                             for (let key in temp) {
                                 if (row.cells[i + 2]) {
@@ -337,6 +346,7 @@
 
                     let complete = document.querySelector(".upd")
                     complete.addEventListener("click", function () {
+                        form.classList.remove("none")
                         row.cells[2].innerText = row.cells[2].querySelector("input[type='date']").value
                         for (let i = 3; row.cells.length > i; i++) {
                             row.cells[i].innerText = row.cells[3].querySelector("input[type='text']").value
@@ -360,42 +370,43 @@
         <h1>◎ 거래명세서 관리</h1>
 
         <!-- 입력할곳 및 등록, 조회, 수정, 삭제버튼 -->
+        <span>* 모두 기입</span>
         <div class="form">
             <div class="form-row">
                 <div class="form-column">
-                    <label for="c_d">날짜</label>
-                    <input style="width: 150px;" type="date" id="c_d">
+                    <label for="c_d">날짜<span>*</span></label>
+                    <input style="width: 150px;" type="date" id="c_d" value="2025-02-06">
                 </div>
                 <div class="form-column">
-                    <label for="c_c">등록번호</label>
+                    <label for="c_c">등록번호<span>*</span></label>
                     <input style="width: 150px;" type="text" id="c_c">
                 </div>
                 <div class="form-column">
-                    <label for="c_n">공급자</label>
+                    <label for="c_n">공급자<span>*</span></label>
                     <input type="text" id="c_n">
                 </div>
                 <div class="form-column">
-                    <label for="c_p">연락처</label>
+                    <label for="c_p">연락처<span>*</span></label>
                     <input type="text" id="c_p">
                 </div>
                 <div class="form-column">
-                    <label for="c_j">주소</label>
+                    <label for="c_j">주소<span>*</span></label>
                     <input type="text" id="c_j">
                 </div>
                 <div class="form-column">
-                    <label for="c_b">요청자</label>
+                    <label for="c_b">가격<span>*</span></label>
                     <input type="text" id="c_b">
                 </div>
                 <div class="form-column">
-                    <label for="c_m">제품코드</label>
+                    <label for="c_m">제품코드<span>*</span></label>
                     <input type="text" id="c_m">
                 </div>
                 <div class="form-column">
-                    <label for="c_q">수량</label>
+                    <label for="c_q">수량<span>*</span></label>
                     <input type="text" id="c_q">
                 </div>
                 <div class="form-column">
-                    진행사항
+                    진행사항<span>*</span>
                     <select id="c_a">
                         <option>발행</option>
                         <option>승인</option>
@@ -428,7 +439,7 @@
                     <th>공급자</th>
                     <th>연락처</th>
                     <th>주소</th>
-                    <th>요청자</th>
+                    <th>가격격</th>
                     <th>제품코드</th>
                     <th>수량</th>
                     <th>진행사항</th>
@@ -436,7 +447,23 @@
             </thead>
 
             <!-- 데이터가 추가됩니다 -->
-            <tbody id="table-body"></tbody>
+            <tbody id="table-body">
+            <tbody>
+                <tr>
+                    <td><input type='checkbox'></td>
+                    <td>1</td>
+                    <td>2025-02-06</td>
+                    <td>0001</td>
+                    <td>천안시</td>
+                    <td>010-0000-0000</td>
+                    <td>천안특별시 동남광역시</td>
+                    <td>100,000</td>
+                    <td>S-10</td>
+                    <td>10</td>
+                    <td>발행</td>
+                </tr>
+            </tbody>
+            </tbody>
 
         </table>
 

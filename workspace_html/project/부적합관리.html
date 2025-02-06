@@ -13,10 +13,10 @@
         }
 
         .container {
-            max-width: 1000px;
+            width: 95%;
             margin: auto;
             background: white;
-            padding: 60px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -57,18 +57,13 @@
             min-width: 60px;
         }
 
-        input {
+        select {
+            width: 150px;
             padding: 5px;
             border: 1px solid black;
             border-radius: 5px;
             margin-top: 15px;
             margin-bottom: 15px;
-        }
-
-        .add_input {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
         }
 
         button {
@@ -122,14 +117,51 @@
     </style>
 
     <script>
-
         window.addEventListener("load", init)
 
         function init() {
-            let insert = document.querySelector("#insert")
-            insert.addEventListener("click", function() {
-                alert("조건 기입후 클릭시 해당 업체만 선별하여 노출")
-            })
+            let insert = document.querySelector("#insert");
+            insert.addEventListener("click", function () {
+                let selectedCriteria = {
+                    부적합번호: document.getElementById("c_d").value,
+                    로케이션: document.getElementById("c_c").value,
+                    제품코드: document.getElementById("c_p").value,
+                    제품명: document.getElementById("c_j").value,
+                    유형: document.querySelector("#c_type").value,
+                    회사명: document.getElementById("c_m").value
+                };
+
+                filterTable(selectedCriteria);
+            });
+        }
+
+        function filterTable(criteria) {
+            let rows = document.querySelectorAll("#table-body tr");
+            rows.forEach(row => {
+                let columns = row.querySelectorAll("td");
+                let shouldHide = false;
+
+                if (criteria.부적합번호 && criteria.부적합번호 !== columns[2].textContent) {
+                    shouldHide = true;
+                }
+                if (criteria.로케이션 && criteria.로케이션 !== columns[3].textContent) {
+                    shouldHide = true;
+                }
+                if (criteria.제품코드 && criteria.제품코드 !== columns[5].textContent) {
+                    shouldHide = true;
+                }
+                if (criteria.제품명 && criteria.제품명 !== columns[6].textContent) {
+                    shouldHide = true;
+                }
+                if (criteria.유형 && criteria.유형 !== columns[8].textContent) {
+                    shouldHide = true;
+                }
+                if (criteria.회사명 && criteria.회사명 !== columns[9].textContent) {
+                    shouldHide = true;
+                }
+
+                row.style.display = shouldHide ? 'none' : '';
+            });
         }
     </script>
 
@@ -144,33 +176,50 @@
             <div class="form-row">
                 <div class="form-column">
                     <label for="c_d">부적합 번호</label>
-                    <input style="width: 150px;" type="text" id="c_d">
+                    <select id="c_d">
+                        <option value="">선택</option>
+                        <option value="0001">0001</option>
+                        <option value="0002">0002</option>
+                    </select>
                 </div>
                 <div class="form-column">
                     <label for="c_c">로케이션</label>
-                    <input style="width: 150px;" type="text" id="c_c">
-                </div>
-                <div class="form-column">
-                    <label for="c_n">바코드</label>
-                    <input type="text" id="c_n">
+                    <select id="c_c">
+                        <option value="">선택</option>
+                        <option value="DX-1-1">DX-1-1</option>
+                        <option value="DX-2-1">DX-2-1</option>
+                    </select>
                 </div>
                 <div class="form-column">
                     <label for="c_p">제품코드</label>
-                    <input type="text" id="c_p">
+                    <select id="c_p">
+                        <option value="">선택</option>
+                        <option value="T-10">T-10</option>
+                        <option value="S-10">S-10</option>
+                    </select>
                 </div>
                 <div class="form-column">
                     <label for="c_j">제품명</label>
-                    <input type="text" id="c_j">
+                    <select id="c_j">
+                        <option value="">선택</option>
+                        <option value="칫솔모">칫솔모</option>
+                        <option value="스틱">스틱</option>
+                    </select>
                 </div>
                 <div class="form-column">
-                    <select>
-                        <option>원자재</option>
-                        <option>완제품</option>
+                    <label for="c_type">유형</label>
+                    <select id="c_type">
+                        <option value="">선택</option>
+                        <option value="원자재">원자재</option>
+                        <option value="완제품">완제품</option>
                     </select>
                 </div>
                 <div class="form-column">
                     <label for="c_m">회사명</label>
-                    <input type="text" id="c_m">
+                    <select id="c_m">
+                        <option value="">선택</option>
+                        <option value="가상업체">가상업체</option>
+                    </select>
                 </div>
             </div>
             <div class="form-row">

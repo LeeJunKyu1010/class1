@@ -139,6 +139,14 @@
         .active {
             background-color: #0056b3;
         }
+
+        .hide {
+            display: none;
+        }
+
+        .별 {
+            color: red;
+        }
     </style>
 </head>
 
@@ -146,28 +154,32 @@
     <div class="container">
         <h1>◎ 소모품 등록</h1>
 
+        <span class="별">* 모두기입</span>
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
-                    <label for="소모품코드">소모품코드</label>
+                    <label for="소모품코드">소모품코드<span class="별"> *</span></label>
                     <input type="text" id="소모품코드">
-                    <label for="SN">S/N</label>
+                    <label for="SN">S/N<span class="별"> *</span></label>
                     <input type="text" id="SN">
-                    <label for="등록일">등록일</label>
-                    <input type="date" id="등록일">
                 </div>
 
                 <div class="form-row">
-                    <label for="소모품명">소모품명</label>
+                    <label for="등록일">등록일<span class="별"> *</span></label>
+                    <input type="date" id="등록일">
+                    <label for="소모품명">소모품명<span class="별"> *</span></label>
                     <input type="text" id="소모품명">
-                    <label for="수량">수량</label>
+                </div>
+
+                <div class="form-row">
+                    <label for="수량">수량<span class="별"> *</span></label>
                     <input type="text" id="수량">
-                    <label for="관리자">관리자</label>
+                    <label for="관리자">관리자<span class="별"> *</span></label>
                     <input type="text" id="관리자">
                 </div>
 
                 <div class="form-row">
-                    <label for="업체명">업체명</label>
+                    <label for="업체명">업체명<span class="별"> *</span></label>
                     <input type="text" id="업체명">
                     <label for="비고사항">비고사항</label>
                     <input type="text" id="비고사항">
@@ -198,6 +210,23 @@
                     <th>등록일</th>
                     <th>비고사항</th>
                 </tr>
+
+                <tr>
+                    <td>
+                        <input type="checkbox" id="체크박스">
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>NT-100</td>
+                    <td>니트릴장갑</td>
+                    <td>하얀손</td>
+                    <td>3541328</td>
+                    <td>김천안</td>
+                    <td>200</td>
+                    <td>2025-02-06</td>
+                    <td>-</td>
+                </tr>
             </thead>
             <tbody id="table-body"></tbody>
         </table>
@@ -220,6 +249,9 @@
     </div>
 
     <script>
+        // 항상 오늘 날짜로 하는 스크립트
+        document.getElementById('등록일').value = new Date().toISOString().substring(0, 10);
+
         // 체크박스 템플릿 생성
         const checkboxTemplate = document.createElement('input');
         checkboxTemplate.type = 'checkbox';
@@ -261,7 +293,7 @@
 
         // '등록' 버튼 이벤트 리스너
         document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["소모품코드", "소모품명", "업체명", "SN", "관리자", "수량", "등록일", "비고사항"];
+            const fields = ["소모품코드", "소모품명", "업체명", "SN", "관리자", "수량", "등록일"];
             const values = fields.map(field => document.getElementById(field).value);
 
             if (values.some(value => !value)) {
@@ -269,7 +301,9 @@
                 return;
             }
 
-            addRow(...values);
+            const 비고사항 = document.getElementById("비고사항").value || "";
+
+            addRow(...values, 비고사항);
             clearInputFields();
         });
 
@@ -315,22 +349,32 @@
 
         // 입력 필드 초기화 함수
         function clearInputFields() {
-            document.querySelectorAll(".form-fields input").forEach(input => input.value = "");
+            document.querySelectorAll(".form-fields input").forEach(input => {
+                if (input.id === '등록일') {
+                    input.value = new Date().toISOString().substring(0, 10);
+                } else {
+                    input.value = "";
+                }
+            });
         }
+
 
         // '삭제' 버튼 이벤트 리스너
         document.getElementById("삭제").addEventListener("click", function () {
-            const rows = document.querySelectorAll("#table-body tr");
-            let deletedCount = 0;
+            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+
+            if (checkedRows.length === 0) {
+                alert("삭제할 항목을 1개 이상 체크해주십시오.");
+                return;
+            }
 
             if (confirm("삭제 하시겠습니까?")) {
-                for (let i = rows.length - 1; i >= 0; i--) {
-                    const checkbox = rows[i].cells[0].querySelector('input[type="checkbox"]');
-                    if (checkbox.checked) {
-                        rows[i].remove();
-                        deletedCount++;
-                    }
-                }
+                let deletedCount = 0;
+
+                checkedRows.forEach(checkbox => {
+                    checkbox.closest('tr').remove();
+                    deletedCount++;
+                });
 
                 if (deletedCount > 0) {
                     updateRowNumbers();
@@ -353,48 +397,67 @@
             const cells = row.cells;
 
             uncheckAllCheckboxes();
+            toggleEditMode(true);
 
+            const editableCells = [2, 3, 4, 5, 6, 7, 8, 9];
+            const originalValues = {};
+            editableCells.forEach(index => {
+                originalValues[index] = cells[index].textContent;
+                cells[index].innerHTML = createInputField(index, originalValues[index]);
+            });
+
+            document.getElementById("수정완료").addEventListener("click", () => completeEdit(cells, editableCells));
+            document.getElementById("수정취소").addEventListener("click", () => cancelEdit(cells, originalValues, editableCells));
+        });
+
+        function toggleEditMode(isEditing) {
             const buttonsContainer = document.querySelector('.buttons');
             const originalButtons = Array.from(document.querySelectorAll('.buttons button'));
-            originalButtons.forEach(button => button.style.display = 'none');
+            const formRows = document.querySelectorAll('.form-row');
 
+            originalButtons.forEach(button => button.style.display = isEditing ? 'none' : '');
+            formRows.forEach(row => row.classList.toggle('hide', isEditing));
+
+            if (isEditing) {
+                const editButtons = createEditButtons();
+                buttonsContainer.appendChild(editButtons);
+            } else {
+                document.querySelector('.edit-buttons')?.remove();
+            }
+        }
+
+        function createEditButtons() {
             const editButtons = document.createElement('div');
             editButtons.className = 'edit-buttons';
             editButtons.innerHTML = `
         <button id="수정완료">수정완료</button>
         <button id="수정취소">수정취소</button>
     `;
-            buttonsContainer.appendChild(editButtons);
+            return editButtons;
+        }
 
-            const editableCells = [2, 3, 4, 5, 6, 7, 8, 9];
+        function createInputField(index, value) {
+            const inputType = index === 8 ? 'date' : 'text';
+            return `<input type="${inputType}" value="${value}" style="width: 90%;">`;
+        }
+
+        // 수정완료
+        function completeEdit(cells, editableCells) {
             editableCells.forEach(index => {
-                if (index === 8) {
-                    const originalDate = cells[index].textContent;
-                    cells[index].innerHTML = `<input type="date" value="${originalDate}" style="width: 90%;">`;
-                } else {
-                    const originalValue = cells[index].textContent;
-                    cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
-                }
+                const input = cells[index].querySelector('input');
+                cells[index].textContent = input.value;
             });
+            toggleEditMode(false);
 
-            document.getElementById("수정완료").addEventListener("click", function () {
-                editableCells.forEach(index => {
-                    const input = cells[index].querySelector('input');
-                    cells[index].textContent = input.value;
-                });
+        }
 
-                editButtons.remove();
-                originalButtons.forEach(button => button.style.display = '');
+        //수정취소
+        function cancelEdit(cells, originalValues, editableCells) {
+            editableCells.forEach(index => {
+                cells[index].textContent = originalValues[index];
             });
-
-            document.getElementById("수정취소").addEventListener("click", function () {
-                editableCells.forEach(index => {
-                    cells[index].textContent = cells[index].querySelector('input').defaultValue;
-                });
-                editButtons.remove();
-                originalButtons.forEach(button => button.style.display = '');
-            });
-        });
+            toggleEditMode(false);
+        }
 
         // 개별 체크박스 변경 시 전체 선택 체크박스 상태 업데이트
         function updateSelectAllCheckbox() {

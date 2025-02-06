@@ -135,6 +135,10 @@
         .active {
             background-color: #0056b3;
         }
+
+        span{
+            color: red;
+        }
     </style>
 </head>
 
@@ -145,19 +149,20 @@
         <h1>◎ BOM</h1>
 
         <!-- 입력할곳 및 등록, 조회, 수정, 삭제버튼 -->
+        <span>* 모두 기입</span>
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
 
                     <div class="form-row">
-                        <label for="완제품">완제품</label>
+                        <label for="완제품">완제품<span>*</span></label>
                         <select id="완제품">
-                            <option>없음</option>
+                            <option></option>
                             <option>칫솔</option>
                             <option>강철칫솔</option>
                         </select>
 
-                        <label for="원자재">원자재</label>
+                        <label for="원자재">원자재<span>*</span></label>
                         <select id="원자재">
                             <option value="선택하세요">선택하세요</option>
                         </select>
@@ -166,8 +171,8 @@
                     </div>
 
                     <div class="form-row">
-                        <label for="생산량">소모량</label>
-                        <input type="text" id="생산량">
+                        <label for="생산량">소모량<span>*</span></label>
+                        <input type="number" id="생산량">
 
 
                         <label for="비고사항">비고사항</label>
@@ -196,6 +201,15 @@
                     <th>소모량</th>
                     <th>완제품</th>
                     <th>비고사항</th>
+                </tr>
+
+                <tr>
+                    <th><input type="checkbox" id="체크박스"></th>
+                    <th>1</th>
+                    <th>칫솔모</th>
+                    <th>100</th>
+                    <th>칫솔</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="table-body"></tbody>
@@ -276,19 +290,24 @@
             addRow(원자재, 완제품, 비고사항, 생산량);
 
             // 입력 필드 초기화
-            document.getElementById("원자재").value = "";
-            document.getElementById("완제품").value = "없음"; // 기본값으로 초기화
             document.getElementById("비고사항").value = "";
             document.getElementById("생산량").value = "";
 
-             // 원자재 select를 "선택하세요"로 초기화
-    document.getElementById("원자재").innerHTML = '<option value="선택하세요">선택하세요</option>';
+
         });
 
 
         // 삭제 버튼 클릭 이벤트
         document.getElementById("삭제").addEventListener("click", function () {
             const rows = document.querySelectorAll("#table-body tr");
+            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+
+            // 체크박스가 하나도 선택되지 않은 경우
+            if (checkedRows.length === 0) {
+                alert("삭제할 항목을 선택해주세요.");
+                return;
+            }
+
             let deletedCount = 0;
             if (confirm("삭제 하시겠습니까?")) {
                 for (let i = rows.length - 1; i >= 0; i--) {
@@ -377,6 +396,15 @@
                 return;
             }
 
+            // 입력 필드와 버튼 숨기기
+            document.getElementById("완제품").style.display = "none";
+            document.getElementById("원자재").style.display = "none";
+            document.getElementById("생산량").style.display = "none";
+            document.getElementById("비고사항").style.display = "none";
+            document.querySelector('label[for="완제품"]').style.display = "none";
+            document.querySelector('label[for="원자재"]').style.display = "none";
+            document.querySelector('label[for="생산량"]').style.display = "none";
+            document.querySelector('label[for="비고사항"]').style.display = "none";
             const row = checkedRows[0].closest('tr');
             const cells = row.cells;
 
@@ -394,11 +422,15 @@
                             `;
             buttonsContainer.appendChild(editButtons);
 
-            // 수정: 모든 입력 필드를 텍스트로 통일
-            const editableCells = [2, 3, 4, 5];
+            // 수정
+            const editableCells = [3, 5];
             editableCells.forEach(index => {
                 const originalValue = cells[index].textContent;
-                cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
+                if (index === 3) {
+                    cells[index].innerHTML = `<input type="number" value="${originalValue}" style="width: 90%;">`;
+                } else {
+                    cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
+                }
             });
 
             // 수정완료 칸
@@ -408,6 +440,14 @@
                     cells[index].textContent = input.value;
                 });
 
+                document.getElementById("완제품").style.display = "";
+                document.getElementById("원자재").style.display = "";
+                document.getElementById("생산량").style.display = "";
+                document.getElementById("비고사항").style.display = "";
+                document.querySelector('label[for="완제품"]').style.display = "";
+                document.querySelector('label[for="원자재"]').style.display = "";
+                document.querySelector('label[for="생산량"]').style.display = "";
+                document.querySelector('label[for="비고사항"]').style.display = "";
                 editButtons.remove();
                 originalButtons.forEach(button => button.style.display = '');
             });
@@ -417,6 +457,15 @@
                 editableCells.forEach(index => {
                     cells[index].textContent = cells[index].querySelector('input').defaultValue;
                 });
+
+                document.getElementById("완제품").style.display = "";
+                document.getElementById("원자재").style.display = "";
+                document.getElementById("생산량").style.display = "";
+                document.getElementById("비고사항").style.display = "";
+                document.querySelector('label[for="완제품"]').style.display = "";
+                document.querySelector('label[for="원자재"]').style.display = "";
+                document.querySelector('label[for="생산량"]').style.display = "";
+                document.querySelector('label[for="비고사항"]').style.display = "";
                 editButtons.remove();
                 originalButtons.forEach(button => button.style.display = '');
             });
@@ -424,14 +473,14 @@
 
         // 완제품별 원자재 목록 
         const productMaterials = {
-            "칫솔": ["칫솔모1개", "칫솔대1개", "고무1개"],
-            "강철칫솔": ["강철칫솔모1개", "강철칫솔대1개", "고무1개"],
+            "칫솔": ["칫솔모", "칫솔대", "고무"],
+            "강철칫솔": ["강철칫솔모", "강철칫솔대", "고무"],
         };
 
         // 완제품 선택 시 원자재 목록 업데이트
         document.getElementById("완제품").addEventListener("change", function () {
-            const selectedProduct = this.value; 
-            const materialSelect = document.getElementById("원자재"); 
+            const selectedProduct = this.value;
+            const materialSelect = document.getElementById("원자재");
 
             // 기존 목록 초기화
             materialSelect.innerHTML = "";

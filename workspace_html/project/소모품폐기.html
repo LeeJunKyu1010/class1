@@ -129,7 +129,7 @@
             .active {
                 background-color: #0056b3;
             }
-            
+
             h1 {
                 width: 90%;
             }
@@ -139,6 +139,14 @@
         .active {
             background-color: #0056b3;
         }
+
+        .hide {
+            display: none;
+        }
+
+        .별 {
+            color: red;
+        }
     </style>
 </head>
 
@@ -146,29 +154,35 @@
     <div class="container">
         <h1>◎ 소모품 폐기</h1>
 
+        <span class="별">* 모두기입</span>
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
-                    <label for="소모품코드">소모품코드</label>
+                    <label for="소모품코드">소모품코드<span class="별"> *</span></label>
                     <input type="text" id="소모품코드">
-                    <label for="SN">S/N</label>
+                    <label for="SN">S/N<span class="별"> *</span></label>
                     <input type="text" id="SN">
-                    <label for="관리자">관리자</label>
+                </div>
+
+                <div class="form-row">
+                    <label for="관리자">관리자<span class="별"> *</span></label>
                     <input type="text" id="관리자">
-                </div>
-                <div class="form-row">
-                    <label for="소모품명">소모품명</label>
+                    <label for="소모품명">소모품명<span class="별"> *</span></label>
                     <input type="text" id="소모품명">
-                    <label for="폐기사유">폐기사유</label>
-                    <input type="text" id="폐기사유">
-                    <label for="폐기일자">폐기일자</label>
-                    <input type="date" id="폐기일자">
                 </div>
-                
+
                 <div class="form-row">
+                    <label for="수량">수량<span class="별"> *</span></label>
+                    <input type="text" id="수량">
+                    <label for="폐기사유">폐기사유<span class="별"> *</span></label>
+                    <input type="text" id="폐기사유">
+                </div>
+
+                <div class="form-row">
+                    <label for="폐기일자">폐기일자<span class="별"> *</span></label>
+                    <input type="date" id="폐기일자">
                     <label for="비고사항">비고사항</label>
                     <input type="text" id="비고사항">
-
                 </div>
             </div>
 
@@ -191,9 +205,26 @@
                     <th>소모품명</th>
                     <th>S/N</th>
                     <th>관리자</th>
+                    <th>수량</th>
                     <th>폐기사유</th>
                     <th>폐기일자</th>
                     <th>비고사항</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="체크박스">
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>NT-100</td>
+                    <td>니트릴장갑</td>
+                    <td>3541328</td>
+                    <td>김천안</td>
+                    <td>100</td>
+                    <td>손상</td>
+                    <td>2025-02-06</td>
+                    <td>-</td>
                 </tr>
             </thead>
             <tbody id="table-body"></tbody>
@@ -217,6 +248,9 @@
     </div>
 
     <script>
+        // 항상 오늘 날짜로 하는 스크립트
+        document.getElementById('폐기일자').value = new Date().toISOString().substring(0, 10);
+
         // 체크박스 템플릿 생성
         const checkboxTemplate = document.createElement('input');
         checkboxTemplate.type = 'checkbox';
@@ -230,7 +264,7 @@
         }
 
         // 새 행을 추가하는 함수
-        function addRow(소모품코드, 소모품명, SN, 관리자, 폐기사유, 폐기일자, 비고사항) {
+        function addRow(소모품코드, 소모품명, SN, 관리자, 수량, 폐기사유, 폐기일자, 비고사항) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
             const checkbox = checkboxTemplate.cloneNode(true);
@@ -245,6 +279,7 @@
         <td>${소모품명}</td>
         <td>${SN}</td>
         <td>${관리자}</td>
+        <td>${수량}</td>
         <td>${폐기사유}</td>
         <td>${폐기일자}</td>
         <td>${비고사항}</td>`;
@@ -257,7 +292,7 @@
 
         // '등록' 버튼 이벤트 리스너
         document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["소모품코드", "소모품명", "SN", "관리자", "폐기사유","폐기일자", "비고사항"];
+            const fields = ["소모품코드", "소모품명", "SN", "관리자", "수량", "폐기사유", "폐기일자"];
             const values = fields.map(field => document.getElementById(field).value);
 
             if (values.some(value => !value)) {
@@ -265,7 +300,9 @@
                 return;
             }
 
-            addRow(...values);
+            const 비고사항 = document.getElementById("비고사항").value || "";
+
+            addRow(...values, 비고사항);
             clearInputFields();
         });
 
@@ -273,7 +310,6 @@
         document.getElementById("조회").addEventListener("click", function () {
             const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
             const check = [];
-
             checkedRows.forEach(checkbox => {
                 const row = checkbox.closest('tr');
                 const cells = row.cells;
@@ -283,9 +319,10 @@
                     소모품명: cells[3].textContent,
                     SN: cells[4].textContent,
                     관리자: cells[5].textContent,
-                    폐기사유: cells[6].textContent,
-                    폐기일자: cells[7].textContent,
-                    비고사항: cells[8].textContent
+                    수량: cells[6].textContent,
+                    폐기사유: cells[7].textContent,
+                    폐기일자: cells[8].textContent,
+                    비고사항: cells[9].textContent
                 };
                 check.push(data);
             });
@@ -298,7 +335,8 @@
                 소모품코드: ${item.소모품코드}, 
                 소모품명: ${item.소모품명}, 
                 SN: ${item.SN}, 
-                관리자: ${item.관리자}, 
+                관리자: ${item.관리자},
+                수량: ${item.수량},
                 폐기사유: ${item.폐기사유}, 
                 폐기일자: ${item.폐기일자}, 
                 비고사항: ${item.비고사항}`;
@@ -310,22 +348,31 @@
 
         // 입력 필드 초기화 함수
         function clearInputFields() {
-            document.querySelectorAll(".form-fields input").forEach(input => input.value = "");
+            document.querySelectorAll(".form-fields input").forEach(input => {
+                if (input.id === '폐기일자') {
+                    input.value = new Date().toISOString().substring(0, 10);
+                } else {
+                    input.value = "";
+                }
+            });
         }
 
         // '삭제' 버튼 이벤트 리스너
         document.getElementById("삭제").addEventListener("click", function () {
-            const rows = document.querySelectorAll("#table-body tr");
-            let deletedCount = 0;
+            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+
+            if (checkedRows.length === 0) {
+                alert("삭제할 항목을 1개 이상 체크해주십시오.");
+                return;
+            }
 
             if (confirm("삭제 하시겠습니까?")) {
-                for (let i = rows.length - 1; i >= 0; i--) {
-                    const checkbox = rows[i].cells[0].querySelector('input[type="checkbox"]');
-                    if (checkbox.checked) {
-                        rows[i].remove();
-                        deletedCount++;
-                    }
-                }
+                let deletedCount = 0;
+
+                checkedRows.forEach(checkbox => {
+                    checkbox.closest('tr').remove();
+                    deletedCount++;
+                });
 
                 if (deletedCount > 0) {
                     updateRowNumbers();
@@ -345,51 +392,78 @@
             }
 
             const row = checkedRows[0].closest('tr');
-            const cells = row.cells;
+            enterEditMode(row);
+        });
 
+        function enterEditMode(row) {
             uncheckAllCheckboxes();
+            toggleEditMode(true);
 
+            const editableCells = [2, 3, 4, 5, 6, 7, 8, 9];
+            const originalValues = {};
+
+            editableCells.forEach(index => {
+                const cell = row.cells[index];
+                originalValues[index] = cell.textContent;
+                cell.innerHTML = createInputField(index, originalValues[index]);
+            });
+
+            const editButtons = createEditButtons();
+            document.querySelector('.buttons').appendChild(editButtons);
+
+            document.getElementById("수정완료").addEventListener("click", () => completeEdit(row, editableCells));
+            document.getElementById("수정취소").addEventListener("click", () => cancelEdit(row, originalValues, editableCells));
+        }
+
+        function toggleEditMode(isEditing) {
             const buttonsContainer = document.querySelector('.buttons');
             const originalButtons = Array.from(document.querySelectorAll('.buttons button'));
-            originalButtons.forEach(button => button.style.display = 'none');
+            const formRows = document.querySelectorAll('.form-row');
 
+            originalButtons.forEach(button => button.style.display = isEditing ? 'none' : '');
+            formRows.forEach(row => row.classList.toggle('hide', isEditing));
+
+            if (!isEditing) {
+                document.querySelector('.edit-buttons')?.remove();
+            }
+        }
+
+        function createEditButtons() {
             const editButtons = document.createElement('div');
             editButtons.className = 'edit-buttons';
             editButtons.innerHTML = `
         <button id="수정완료">수정완료</button>
         <button id="수정취소">수정취소</button>
     `;
-            buttonsContainer.appendChild(editButtons);
+            return editButtons;
+        }
 
-            const editableCells = [2, 3, 4, 5, 6, 7, 8];
+        function createInputField(index, value) {
+            const inputType = index === 8 ? 'date' : 'text';
+            return `<input type="${inputType}" value="${value}" style="width: 90%;">`;
+        }
+
+        function completeEdit(row, editableCells) {
             editableCells.forEach(index => {
-                if (index === 7) {
-                    const originalDate = cells[index].textContent;
-                    cells[index].innerHTML = `<input type="date" value="${originalDate}" style="width: 90%;">`;
-                } else {
-                    const originalValue = cells[index].textContent;
-                    cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
-                }
+                const input = row.cells[index].querySelector('input');
+                row.cells[index].textContent = input.value;
             });
+            exitEditMode();
+        }
 
-            document.getElementById("수정완료").addEventListener("click", function () {
-                editableCells.forEach(index => {
-                    const input = cells[index].querySelector('input');
-                    cells[index].textContent = input.value;
-                });
-
-                editButtons.remove();
-                originalButtons.forEach(button => button.style.display = '');
+        function cancelEdit(row, originalValues, editableCells) {
+            editableCells.forEach(index => {
+                row.cells[index].textContent = originalValues[index];
             });
+            exitEditMode();
+        }
 
-            document.getElementById("수정취소").addEventListener("click", function () {
-                editableCells.forEach(index => {
-                    cells[index].textContent = cells[index].querySelector('input').defaultValue;
-                });
-                editButtons.remove();
-                originalButtons.forEach(button => button.style.display = '');
-            });
-        });
+        function exitEditMode() {
+            toggleEditMode(false);
+            updateRowNumbers();
+            updateTable();
+        }
+
 
         // 개별 체크박스 변경 시 전체 선택 체크박스 상태 업데이트
         function updateSelectAllCheckbox() {

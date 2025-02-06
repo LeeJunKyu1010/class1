@@ -139,44 +139,58 @@
         .active {
             background-color: #0056b3;
         }
+
+        .hide {
+            display: none;
+        }
+
+        .별 {
+            color: red;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>◎ 설비수리의뢰/내역</h1>
-
+        <span class="별">* 모두기입</span>
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
-                    <label for="설비코드">설비코드</label>
+                    <label for="설비코드">설비코드<span class="별"> *</span></label>
                     <input type="text" id="설비코드">
-                    <label for="SN">S/N</label>
+                    <label for="SN">S/N<span class="별"> *</span></label>
                     <input type="text" id="SN">
-                    <label for="수리항목">수리항목</label>
-                    <select id="수리항목" style="width: 250px;">
+                </div>
+
+                <div class="form-row">
+                    <label for="수리항목">수리항목<span class="별"> *</span></label>
+                    <select id="수리항목" style="width: 38%;">
                         <option>목록1</option>
                         <option>목록2</option>
                         <option>목록3</option>
                         <option>목록4</option>
                         <option>목록5</option>
                     </select>
+                    <label for="업체명">업체명<span class="별"> *</span></label>
+                    <input type="text" id="업체명">
                 </div>
 
                 <div class="form-row">
-                    <label for="설비명">설비명</label>
+                    <label for="설비명">설비명<span class="별"> *</span></label>
                     <input type="text" id="설비명">
-                    <label for="업체명">업체명</label>
-                    <input type="text" id="업체명">
-                    <label for="수리내역">수리내역</label>
+                    <label for="수리내역">수리내역<span class="별"> *</span></label>
                     <input type="text" id="수리내역">
                 </div>
 
                 <div class="form-row">
-                    <label for="의뢰자">의뢰자</label>
+                    <label for="의뢰자">의뢰자<span class="별"> *</span></label>
                     <input type="text" id="의뢰자">
-                    <label for="의뢰일자">의뢰일자</label>
+                    <label for="의뢰일자">의뢰일자<span class="별"> *</span></label>
                     <input type="date" id="의뢰일자">
+                </div>
+
+                <div class="form-row">
                     <label for="비고사항">비고사항</label>
                     <input type="text" id="비고사항">
                 </div>
@@ -195,17 +209,31 @@
         <table>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="체크박스"></th>
-                    <th>순번</th>
-                    <th>설비코드</th>
-                    <th>설비명</th>
-                    <th>업체명</th>
-                    <th>S/N</th>
-                    <th>의뢰자</th>
-                    <th>수리항목</th>
-                    <th>수리내역</th>
-                    <th>의뢰일자</th>
-                    <th>비고사항</th>
+                    <th style="width: 1%;"><input type="checkbox" id="체크박스"></th>
+                    <th style="width: 3%;">순번</th>
+                    <th style="width: 7%;">설비코드</th>
+                    <th style="width: 7%;">설비명</th>
+                    <th style="width: 7%;">업체명</th>
+                    <th style="width: 7%;">S/N</th>
+                    <th style="width: 7%;">의뢰자</th>
+                    <th style="width: 10%;">수리항목</th>
+                    <th style="width: 7%;">수리내역</th>
+                    <th style="width: 10%;">의뢰일자</th>
+                    <th style="width: 7%;">비고사항</th>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" id="체크박스"></td>
+                    <td>1</td>
+                    <td>G10071</td>
+                    <td>G-100</td>
+                    <td>GKBM</td>
+                    <td>4254214</td>
+                    <td>박천안</td>
+                    <td>2번벨트</td>
+                    <td>교체바람</td>
+                    <td>2025-02-06</td>
+                    <td>-</td>
                 </tr>
             </thead>
             <tbody id="table-body"></tbody>
@@ -228,6 +256,9 @@
         </div>
 
         <script>
+            // 항상 오늘 날짜로 하는 스크립트
+            document.getElementById('의뢰일자').value = new Date().toISOString().substring(0, 10);
+
             // 체크박스 템플릿 생성
             const checkboxTemplate = document.createElement('input');
             checkboxTemplate.type = 'checkbox';
@@ -341,17 +372,20 @@
 
             // '삭제' 버튼 이벤트 리스너
             document.getElementById("삭제").addEventListener("click", function () {
-                const rows = document.querySelectorAll("#table-body tr");
-                let deletedCount = 0;
+                const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+
+                if (checkedRows.length === 0) {
+                    alert("삭제할 항목을 1개 이상 체크해주십시오.");
+                    return;
+                }
 
                 if (confirm("삭제 하시겠습니까?")) {
-                    for (let i = rows.length - 1; i >= 0; i--) {
-                        const checkbox = rows[i].cells[0].querySelector('input[type="checkbox"]');
-                        if (checkbox.checked) {
-                            rows[i].remove();
-                            deletedCount++;
-                        }
-                    }
+                    let deletedCount = 0;
+
+                    checkedRows.forEach(checkbox => {
+                        checkbox.closest('tr').remove();
+                        deletedCount++;
+                    });
 
                     if (deletedCount > 0) {
                         updateRowNumbers();
@@ -382,9 +416,9 @@
                 const editButtons = document.createElement('div');
                 editButtons.className = 'edit-buttons';
                 editButtons.innerHTML = `
-        <button id="수정완료">수정완료</button>
-        <button id="수정취소">수정취소</button>
-    `;
+                                        <button id="수정완료">수정완료</button>
+                                        <button id="수정취소">수정취소</button>
+                                        `;
                 buttonsContainer.appendChild(editButtons);
 
                 const editableCells = [2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -411,15 +445,30 @@
                     }
                 });
 
+                const formRows = document.querySelectorAll('.form-row');
+                formRows.forEach(row => row.classList.add('hide'));
+
+                function removeHideClass() {
+                    const formRows = document.querySelectorAll('.form-row');
+                    formRows.forEach(row => row.classList.remove('hide'));
+                }
+
+
                 document.getElementById("수정완료").addEventListener("click", function () {
                     editableCells.forEach(index => {
-                        const input = cells[index].querySelector('input, select');
-                        cells[index].textContent = input.value;
+                        if (index === 7) { // 수리항목 셀
+                            const select = cells[index].querySelector('select');
+                            cells[index].textContent = select.value;
+                        } else {
+                            const input = cells[index].querySelector('input');
+                            cells[index].textContent = input.value;
+                        }
                     });
-
                     editButtons.remove();
                     originalButtons.forEach(button => button.style.display = '');
+                    removeHideClass();
                 });
+
 
                 document.getElementById("수정취소").addEventListener("click", function () {
                     editableCells.forEach(index => {
@@ -427,7 +476,9 @@
                     });
                     editButtons.remove();
                     originalButtons.forEach(button => button.style.display = '');
+                    removeHideClass();
                 });
+
             });
 
             // 개별 체크박스 변경 시 전체 선택 체크박스 상태 업데이트

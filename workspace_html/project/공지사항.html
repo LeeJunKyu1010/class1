@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,25 +12,29 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+
         body {
             display: flex;
             background-color: #f5f5f5;
-            padding: 20px;
         }
-        
+
         .main-content {
             flex: 1;
+            width: 95%;
+            margin: auto;
             background: white;
             padding: 20px;
-            margin-left: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .notice-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .notice-header button {
             padding: 8px 12px;
             background: #4a90e2;
@@ -49,62 +54,84 @@
             margin-bottom: 10px;
             align-items: center;
         }
-        .search-box input, .search-box button {
+
+        .search-box input,
+        .search-box button {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         .search-box button {
             background: #4a90e2;
             color: white;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
         }
+
         th {
             background: #4a90e2;
             color: white;
         }
     </style>
 
-<script>
-    function loadPosts() {
+    <script>
+         function loadPosts() {
         let posts = JSON.parse(localStorage.getItem('posts')) || [];
-        let tableBody = document.getElementById('postList');
-        tableBody.innerHTML = '';
+        let postList = document.getElementById('postList');
+
+        postList.innerHTML = ''; // 기존 목록 초기화
+
         posts.forEach((post, index) => {
-            let row = `<tr>
-                <td>\${post.title}</td>
-                <td>
-                    <button onclick="editPost(\${index})">수정</button>
-                    <button onclick="deletePost(\${index})">삭제</button>
-                </td>
-            </tr>`;
-            tableBody.innerHTML += row;
+            let row = `
+                <tr>
+                    <td><input type="checkbox" class="post-checkbox" data-index="${index}"></td>
+                    <td style="font-weight: bold;">${post.important === 'yes' ? '중요' : '일반'}</td>
+                    <td><a href="공지사항작성.html?id=${index}">${post.title}</a></td>
+                    <td>관리자</td>
+                    <td>${post.date}</td>
+                    <td>${post.views}</td>
+                </tr>
+            `;
+            postList.innerHTML += row;
         });
     }
-    
-    function editPost(index) {
-        window.location.href = `공지사항작성.html?id=\${index}`;
-    }
-    
-    function deletePost(index) {
+
+    function deletePosts() {
         let posts = JSON.parse(localStorage.getItem('posts')) || [];
-        posts.splice(index, 1);
+        let checkboxes = document.querySelectorAll('.post-checkbox:checked');
+
+        if (checkboxes.length === 0) {
+            alert('삭제할 항목을 선택하세요.');
+            return;
+        }
+
+        checkboxes.forEach(checkbox => {
+            let index = checkbox.getAttribute('data-index');
+            posts.splice(index, 1);
+        });
+
         localStorage.setItem('posts', JSON.stringify(posts));
+        loadPosts(); 
+    }
+
+    window.onload = function() {
         loadPosts();
     }
-    
-    window.onload = loadPosts;
 </script>
 
 </head>
+
 <body>
 
     <!-- 메인 공지사항 컨텐츠 -->
@@ -148,5 +175,6 @@
             </thead>
             <tbody id="postList"></tbody>
         </table>
-    </body>
-    </html>
+</body>
+
+</html>
