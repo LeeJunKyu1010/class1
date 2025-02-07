@@ -206,7 +206,6 @@
             color: white;
         }
 
-
         @media screen and (max-width: 768px) {
             #container {
                 padding: 10px;
@@ -339,10 +338,10 @@
             '거래명세서': [],
             '생산계획관리': [],
             '작업지시관리': [],
-            '원자재 입고관리':[],
-            '원자재 출고관리':[],
-            '원자재 수불관리':[],
-            '완제품 출고관리':[],
+            '원자재 입고관리': [],
+            '원자재 출고관리': [],
+            '원자재 수불관리': [],
+            '완제품 출고관리': [],
             '설비등록': [],
             '설비점검': [],
             '설비수리': [],
@@ -607,32 +606,24 @@
                 try {
                     menuItem.addEventListener('click', function (e) {
                         e.stopPropagation();
-                        if (activeSubItem === this) {
-                            this.classList.remove('active');
-                            container.style.display = 'none';
-                            activeSubItem = null;
-                        } else {
-                            document.querySelectorAll('.sub_item').forEach(si => {
-                                si.classList.remove('active');
-                                if (si.nextElementSibling && si.nextElementSibling.className === 'detail-menu') {
-                                    si.nextElementSibling.style.display = 'none';
-                                    // 모든 하위 메뉴 항목의 'active' 클래스 제거
-                                    si.nextElementSibling.querySelectorAll('.detail-item').forEach(item => {
-                                        item.classList.remove('active');
-                                    });
-                                }
-                            });
-                            this.classList.add('active');
-                            if (container.children.length > 0) {
-                                container.style.display = 'block';
+                        document.querySelectorAll('.sub_item').forEach(si => {
+                            si.classList.remove('active');
+                            if (si.nextElementSibling && si.nextElementSibling.className === 'detail-menu') {
+                                si.nextElementSibling.style.display = 'none';
+                                si.nextElementSibling.querySelectorAll('.detail-item').forEach(item => {
+                                    item.classList.remove('active');
+                                });
                             }
-                            activeSubItem = this;
+                        });
+                        this.classList.add('active');
+                        if (container.children.length > 0) {
+                            container.style.display = 'block';
                         }
+                        activeSubItem = this;
                     });
                 } catch (error) {
                     console.error('Error in attachSubMenuClickEvent:', error);
                 }
-
             }
 
             // ===================================================
