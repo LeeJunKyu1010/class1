@@ -183,10 +183,11 @@
             // ---------------------- user_data를 기반으로 입력된 id와 pw가 동일한지 확인해서 로그인하는 기능 ----------------------
             let flag = false;
             let a = 1;
+            let userData;
             for (let i = 0; i < user_data.length; i++) {
                 console.log("id", user_data[i].id, "pw", user_data[i].pw)
                 if (user_data[i].id == id && user_data[i].pw == pw) {
-
+                    userData = user_data[i];
                     // grade가 1번이면 관리자 로그인
                     if (user_data[i].grade === 1) {
                         a = 1;
@@ -205,13 +206,15 @@
             if (flag && a == 1) {
                 alert("관리자 계정으로 로그인 되었습니다.")
                 console.log("1번")
+                sessionStorage.setItem('user', JSON.stringify(userData));
                 window.location.href = "mainpage.html";   // 관리자가 로그인시 오픈되는 페이지
             }
             // grade가 2번이면 작업자 로그인
             else if (flag && a == 2) {
                 alert("작업자 계정으로 로그인 되었습니다.")
                 console.log("2번")
-                // window.location.href = "작업자 페이지";   // 작업자가 로그인시 오픈되는 페이지
+                sessionStorage.setItem('user', JSON.stringify(userData));
+                window.location.href = "mainpage.html";   // 작업자가 로그인시 오픈되는 페이지
             }
             else {
                 alert("아이디를 확인해주십시오")
@@ -231,11 +234,11 @@
             alert("관리자에게 문의 바랍니다.")
         })
 
-        document.querySelector(".create_id").addEventListener('click',function(){
+        document.querySelector(".create_id").addEventListener('click', function () {
             alert("관리자에게 문의 바랍니다.")
         })
-
     }
 </script>
+
 
 </html>

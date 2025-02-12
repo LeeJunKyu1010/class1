@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MES System</title>
     <style>
         * {
@@ -15,12 +13,14 @@
         }
 
         body {
+            margin: 0;
+            padding: 0;
             background-color: #f5f5f5;
         }
 
         #container {
             width: 100%;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         #top_section {
@@ -55,7 +55,7 @@
         }
 
         .mm {
-            width: 50px;
+            width: 20px;
         }
 
         #main_menu {
@@ -206,29 +206,125 @@
             color: white;
         }
 
+        #top_section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: white;
+        }
+
+        #user_section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #user_section img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #user_section span {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* 사용자 클릭시 뜨는 팝업 */
+        .user_popup {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+            z-index: 100;
+        }
+
+        .user_popup ul {
+            list-style-type: none;
+        }
+
+        .user_popup li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .user_popup li:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* ============================= */
+        /* 모바일 버전 (768px) */
+        /* ============================= */
         @media screen and (max-width: 768px) {
             #container {
                 padding: 10px;
             }
 
             #top_section {
+                display: flex;
                 flex-direction: column;
-                align-items: stretch;
+                /* 세로 정렬 */
+                align-items: center;
+                /* 가운데 정렬 */
+                gap: 10px;
+                /* 요소 간 간격 */
             }
 
             #logo {
-                margin: 0 auto 10px;
+                margin: 0 auto;
+                width: 120px;
+                /* 로고 크기 조정 */
+                height: auto;
+            }
+
+            #logo img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            #user_section {
+                display: flex;
+                align-items: center;
+                /* 세로 중앙 정렬 */
+                justify-content: center;
+                /* 가운데 정렬 */
+                gap: 10px;
+                /* 텍스트와 아이콘 간 간격 */
+            }
+
+            #user_section span {
+                font-size: 14px;
+                /* 텍스트 크기 조정 */
+            }
+
+            #user_section img {
+                width: 40px;
+                /* 사용자 아이콘 크기 */
+                height: 40px;
             }
 
             #main_menu {
+                display: flex;
                 flex-wrap: wrap;
+                /* 메뉴를 여러 줄로 나열 */
                 justify-content: center;
-                gap: 5px;
-                font-size: 50px;
+                /* 가운데 정렬 */
+                gap: 10px;
+                /* 메뉴 간 간격 */
+                font-size: 16px;
             }
 
             .menu_item {
-                flex: 0 1 calc(50% - 5px);
+                flex: 0 1 calc(50% - 10px);
+                /* 두 개씩 배치 */
                 padding: 10px;
                 text-align: center;
                 font-size: 14px;
@@ -277,10 +373,10 @@
             }
 
             iframe {
-                /* 네비게이션 높이 조정 */
                 height: calc(100% - 150px);
             }
         }
+
     </style>
 </head>
 
@@ -301,20 +397,49 @@
                 <div class="menu_item" data-menu="7">품질관리</div>
                 <div class="menu_item" data-menu="8">커뮤니티</div>
             </div>
-        </div>
-        <div id="content_section">
-            <div id="sub_menu"></div>
-            <div id="main_content">
-                <div class="graph_container">
-                    <div class="graph_section">
-                        <!-- 경영리포팅 그래프가 들어갈 공간 -->
-                        <iframe id="content-frame" src="메인화면.html" width="100%" height="100%" frameborder="0"></iframe>
-                    </div>
+            <!-- 사용자 섹션 -->
+            <div id="user_section">
+                <span></span>
+                <img src="사용자아이콘.png" alt="사용자 아이콘" id="user_icon">
+
+                <!-- 사용자 정보 팝업 -->
+                <div class="user_popup" id="user_popup">
+                    <ul>
+                        <li>사용자 정보</li>
+                        <li id="logout_button">로그아웃</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
+
+    </div>
+    <div id="content_section">
+        <div id="sub_menu"></div>
+        <div id="main_content">
+            <div class="graph_container">
+                <div class="graph_section">
+                    <!-- 경영리포팅 그래프가 들어갈 공간 -->
+                    <iframe id="content-frame" src="메인화면.html" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <script>
+
+        // 로그인 페이지 연동
+        document.addEventListener('DOMContentLoaded', function () {
+            const userString = sessionStorage.getItem('user');
+            if (userString) {
+                const user = JSON.parse(userString);
+                document.querySelector('#user_section span').textContent =
+                    `[${user.grade === 1 ? '관리자' : '작업자'}] ${user.id}님 환영합니다`;
+
+            }
+        });
+
         // ===================================================
         // 1. 메뉴 데이터 정의
         // ===================================================
@@ -429,6 +554,8 @@
         // ===================================================
         document.addEventListener('DOMContentLoaded', function () {
             const logoImage = document.getElementById('logo-image');
+            const mainMenuItems = document.querySelectorAll('.menu_item');
+
             logoImage.addEventListener('click', function () {
                 // 모든 메뉴 항목의 활성 상태 제거
                 mainMenuItems.forEach(menu => menu.classList.remove('active'));
@@ -449,7 +576,6 @@
             validateAndInitializeMenuData();
 
             // DOM 요소 참조
-            const mainMenuItems = document.querySelectorAll('.menu_item');
             const subMenu = document.getElementById('sub_menu');
             const mainContent = document.getElementById('main_content');
             let activeMenuItem = null;
@@ -577,7 +703,7 @@
             // 상세 메뉴 생성
             function createDetailMenu(item, container) {
                 try {
-                    if (subMenuDetails[item]) {
+                    if (typeof subMenuDetails[item] === 'object' && Array.isArray(subMenuDetails[item])) {
                         subMenuDetails[item].forEach(detailItem => {
                             const detailElement = document.createElement('div');
                             detailElement.className = 'detail-item';
@@ -661,8 +787,52 @@
             window.addEventListener('resize', adjustIframeSize);
         });
 
+        // ===================================================
+        // 8. 사용자 아이콘 관련 기능
+        // ===================================================
 
-    </script>>
+        // 사용자 아이콘 클릭 이벤트 처리
+        const userIcon = document.getElementById('user_icon');
+        const userPopup = document.getElementById('user_popup');
+
+        userIcon.addEventListener('click', () => {
+            // 팝업의 표시/숨김 상태 토글
+            if (userPopup.style.display === 'none' || userPopup.style.display === '') {
+                userPopup.style.display = 'block';
+            } else {
+                userPopup.style.display = 'none';
+            }
+        });
+
+        // 화면의 다른 곳을 클릭했을 때 팝업 닫기
+        document.addEventListener('click', (event) => {
+            if (!userIcon.contains(event.target) && !userPopup.contains(event.target)) {
+                userPopup.style.display = 'none';
+            }
+        });
+
+        // ===================================================
+        // 9. 로그아웃 기능 구현
+        // ===================================================
+        document.getElementById('logout_button').addEventListener('click', function () {
+            // 세션 스토리지 초기화
+            sessionStorage.clear();
+
+            // 서비스 워커 정리 (선택 사항)
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    registrations.forEach(registration => registration.unregister());
+                });
+            }
+
+            // 로그인 페이지로 강제 리다이렉트 (+캐시 방지)
+            window.location.href = "login.html?" + Date.now();
+
+            // 팝업 닫기
+            userPopup.style.display = 'none';
+        });
+
+    </script>
 </body>
 
 </html>

@@ -296,7 +296,7 @@
 
         // '등록' 버튼 이벤트 리스너
         document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["설비코드", "설비명", "업체명", "SN", "관리자", "점검주기","설치일", "설비위치", "비고사항"];
+            const fields = ["설비코드", "설비명", "업체명", "SN", "관리자", "점검주기", "설치일", "설비위치", "비고사항"];
             const values = fields.map(field => document.getElementById(field).value);
 
             if (values.slice(0, -1).some(value => !value)) {
@@ -482,13 +482,16 @@
         document.querySelectorAll('.pagination button').forEach(button => {
             button.addEventListener('click', function () {
                 const pageText = this.textContent;
-                const totalPages = Math.ceil(document.querySelectorAll("#table-body tr").length / pagedata);
                 if (pageText === '<') {
-                    if (page > 1) page--;
+                    if (page > 1) {
+                        page--;
+                    }
                 } else if (pageText === '>') {
-                    if (page < totalPages) page++;
+                    if (page < Math.ceil(document.getElementById("table-body").children.length / pagedata)) {
+                        page++;
+                    }
                 } else {
-                    page = Math.min(Math.max(1, parseInt(pageText, 10)), totalPages);
+                    page = parseInt(pageText, 10);
                 }
                 updateTable();
             });
@@ -501,27 +504,32 @@
             const endIndex = startIndex + pagedata;
 
             rows.forEach((row, index) => {
-                row.style.display = (index >= startIndex && index < endIndex) ? '' : 'none';
+                if (index >= startIndex && index < endIndex) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
 
+            // 페이지네이션 버튼 업데이트
             updatePaginationButtons();
         }
 
         // 페이지네이션 버튼 업데이트 함수
         function updatePaginationButtons() {
-            const totalPages = Math.ceil(document.querySelectorAll("#table-body tr").length / pagedata);
             const buttons = document.querySelectorAll('.pagination button');
             buttons.forEach(button => {
-                const pageNum = parseInt(button.textContent, 10);
-                if (!isNaN(pageNum)) {
-                    button.style.display = (pageNum <= totalPages) ? '' : 'none';
-                    button.classList.toggle('active', pageNum === page);
+                if (button.textContent === page.toString()) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
                 }
             });
         }
 
         // 초기 테이블 업데이트
         updateTable();
+
     </script>
 </body>
 
