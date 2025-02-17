@@ -26,7 +26,7 @@ public class Tv {
 	String power (String q) {
 		if (q.equals("on")) {
 			this.powerOn = q;
-		System.out.println("PowerOn");	
+		System.out.println("PowerOn");
 		}else if (q.equals("off")) {
 			this.powerOff = q;
 			System.out.println("PowerOff");
