@@ -3,10 +3,16 @@ package sec03.exam02;
 // abstract 추상클래스
 public abstract class Animal {
 	
+	Animal(){}
+	
+	Animal(String name){
+		
+	}
+	
 	String kind;
 	
 	void breathe() {
-		System.out.println("아우렐리온 솔 용의 숨결");
+		System.out.println("숨쉰다.");
 	}
 	
 	// 추상 메소드
