@@ -1,6 +1,8 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,11 +48,47 @@ public class RequestServlet extends HttpServlet {
 			}
 		}
 		
+		System.out.println("--------------------");
+		System.out.println("pw : "+request.getParameter("pw"));
+		System.out.println("btn : "+request.getParameter("btn"));
+		System.out.println("hidden1 : "+request.getParameter("hidden1"));
+		System.out.println("radio1 : "+request.getParameter("radio1"));
+		String[] checkbox1 = request.getParameterValues("checkbox1");
+		if(checkbox1 != null) {
+			for(String num : checkbox1) {
+				System.out.println(num);
+			}
+		}
+		System.out.println("date1 : "+ request.getParameter("date1"));
+		System.out.println("number1 : "+ request.getParameter("number1"));
+		System.out.println("div1 : "+request.getParameter("div1"));
+		System.out.println("span1 : "+request.getParameter("span1"));
+		System.out.println("text1 : "+request.getParameter("text1"));
+		System.out.println("select1 : "+request.getParameter("select1"));
+		System.out.println("textarea1 : "+request.getParameter("textarea1"));
 		
+		PrintWriter out = response.getWriter();
 		response.getWriter().println("<strong>nul1</strong>의 값은 :"+ num1);
+		response.getWriter().println("<strong>nul2</strong>의 값은 :"+ num2);
+		
+//		String textarea = request.getParameter("textarea1");
+//		textarea = textarea.replace("\n","<br>");
+//		out.print(textarea);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doPost 실행");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		String num1 = request.getParameter("num1");
+		System.out.println("num1 :"+num1);
+		
+		String num2 = request.getParameter("num2");
+		System.out.println("num2 :"+num2);
+		
+		response.getWriter().println("{\"a\":100}");
 		
 	}
 
