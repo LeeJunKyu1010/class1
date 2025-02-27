@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class DbServlet extends HttpServlet {
 			// 접속이 안되면 null이 나옴
 			Connection con = ds.getConnection();
 			
+			
 			// [SQL 준비]
 			String query = "select * from";
 			query += " emp";
@@ -60,22 +62,35 @@ public class DbServlet extends HttpServlet {
 				int empno = rs.getInt("empno");
 				String ename = rs.getString("ename");
 				Date hiredate = rs.getDate("hiredate");
+				String job = rs.getString("job");
+				int mgr = rs.getInt("mgr");
+				int sal = rs.getInt("sal");
+				int comm = rs.getInt("comm");
 			
 				System.out.println("---------------------------------------------------");
 				System.out.print(" empno : "+empno);
 				System.out.print(" ename : "+ename);
 				System.out.println(" hiredate : "+hiredate);
-				
+				System.out.print(" job : "+job);
+				System.out.print(" mgr : "+mgr);
+				System.out.print(" sal : "+sal);
+				System.out.print(" comm : "+comm);
 				
 				Map map = new HashMap();
 				map.put("empno",empno);
 				map.put("ename",ename);
 				map.put("hiredate",hiredate);
+
 				
 				EmpDTO empDTO = new EmpDTO();
 				empDTO.setEmpno(empno);
 				empDTO.setEname(ename);
 				empDTO.setHiredate(hiredate);
+				empDTO.setJob(job);
+				empDTO.setMgr(mgr);
+				empDTO.setSal(sal);
+				empDTO.setComm(comm);
+				
 				
 //				list.add(map);
 //				list.add((Map)empDTO);
@@ -83,27 +98,41 @@ public class DbServlet extends HttpServlet {
 			}
 			
 			// View
+			
+			
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			
-			response.getWriter().println("<table style>");
+			response.getWriter().println("<style>");
+			response.getWriter().println("table, th, td {border:1px solid black}");
+			response.getWriter().println("</style>");
+			response.getWriter().println("<table>");
+			response.getWriter().println("<tr>");
 			response.getWriter().println("<th>empno</th>");
 			response.getWriter().println("<th>ename</th>");
 			response.getWriter().println("<th>job</th>");
 			response.getWriter().println("<th>mgr</th>");
 			response.getWriter().println("<th>hiredate</th>");
 			response.getWriter().println("<th>sal</th>");
-			for(int i = 0; i<list.size(); i++) {		
-				response.getWriter().println("<td>"+list.get(i).getEmpno()+"</td>");
-				response.getWriter().println("<td>"+list.get(i).getEname()+"</td>");
-				response.getWriter().println("<td>"+list.get(i).getJob()+"</td>");
-				response.getWriter().println("<td>"+list.get(i).getMgr()+"</td>");
-				response.getWriter().println("<td>"+list.get(i).getHiredate()+"</td>");
-				response.getWriter().println("<td>"+list.get(i).getSal()+"</td>");
+			response.getWriter().println("<th>comm</th>");
+			response.getWriter().println("</tr>");
+
+			for(int i = 0; i<list.size(); i++) {
+			    response.getWriter().println("<tr>");
+			    response.getWriter().println("<td>"+list.get(i).getEmpno()+"</td>");
+			    response.getWriter().println("<td>"+list.get(i).getEname()+"</td>");
+			    response.getWriter().println("<td>"+list.get(i).getJob()+"</td>");
+			    response.getWriter().println("<td>"+list.get(i).getMgr()+"</td>");
+			    response.getWriter().println("<td>"+list.get(i).getHiredate()+"</td>");
+			    response.getWriter().println("<td>"+list.get(i).getSal()+"</td>");
+			    response.getWriter().println("<td>"+list.get(i).getComm()+"</td>");
+			    response.getWriter().println("</tr>");
 			}
 			response.getWriter().println("</table>");
+
 			
-			
+			// 커넥션 풀로 반환
+			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
