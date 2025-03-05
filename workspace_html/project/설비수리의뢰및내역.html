@@ -159,11 +159,6 @@
                 <div class="form-row">
                     <label for="설비코드">설비코드<span class="별"> *</span></label>
                     <input type="text" id="설비코드">
-                    <label for="SN">S/N<span class="별"> *</span></label>
-                    <input type="text" id="SN">
-                </div>
-
-                <div class="form-row">
                     <label for="수리항목">수리항목<span class="별"> *</span></label>
                     <select id="수리항목" style="width: 38%;">
                         <option>목록1</option>
@@ -172,25 +167,25 @@
                         <option>목록4</option>
                         <option>목록5</option>
                     </select>
+                </div>
+
+                <div class="form-row">
                     <label for="업체명">업체명<span class="별"> *</span></label>
                     <input type="text" id="업체명">
-                </div>
-
-                <div class="form-row">
                     <label for="설비명">설비명<span class="별"> *</span></label>
                     <input type="text" id="설비명">
+                </div>
+
+                <div class="form-row">
                     <label for="수리내역">수리내역<span class="별"> *</span></label>
                     <input type="text" id="수리내역">
-                </div>
-
-                <div class="form-row">
                     <label for="의뢰자">의뢰자<span class="별"> *</span></label>
                     <input type="text" id="의뢰자">
-                    <label for="의뢰일자">의뢰일자<span class="별"> *</span></label>
-                    <input type="date" id="의뢰일자">
                 </div>
 
                 <div class="form-row">
+                    <label for="의뢰일자">의뢰일자<span class="별"> *</span></label>
+                    <input type="date" id="의뢰일자">
                     <label for="비고사항">비고사항</label>
                     <input type="text" id="비고사항">
                 </div>
@@ -214,7 +209,6 @@
                     <th style="width: 7%;">설비코드</th>
                     <th style="width: 7%;">설비명</th>
                     <th style="width: 7%;">업체명</th>
-                    <th style="width: 7%;">S/N</th>
                     <th style="width: 7%;">의뢰자</th>
                     <th style="width: 10%;">수리항목</th>
                     <th style="width: 7%;">수리내역</th>
@@ -228,7 +222,6 @@
                     <td>G10071</td>
                     <td>G-100</td>
                     <td>GKBM</td>
-                    <td>4254214</td>
                     <td>박천안</td>
                     <td>2번벨트</td>
                     <td>교체바람</td>
@@ -272,7 +265,7 @@
             }
 
             // 테이블에 새로운 행을 추가하는 함수
-            function addRow(설비코드, 설비명, 업체명, SN, 의뢰자, 수리항목, 수리내역, 의뢰일자, 비고사항) {
+            function addRow(설비코드, 설비명, 업체명, 의뢰자, 수리항목, 수리내역, 의뢰일자, 비고사항) {
                 const tableBody = document.getElementById("table-body");
                 const row = document.createElement("tr");
                 const checkbox = checkboxTemplate.cloneNode(true);
@@ -286,7 +279,6 @@
         <td>${설비코드}</td>
         <td>${설비명}</td>
         <td>${업체명}</td>
-        <td>${SN}</td>
         <td>${의뢰자}</td>
         <td>${수리항목}</td>
         <td>${수리내역}</td>
@@ -301,7 +293,7 @@
 
             // '등록' 버튼 이벤트 리스너
             document.getElementById("등록").addEventListener("click", function () {
-                const fields = ["설비코드", "설비명", "업체명", "SN", "의뢰자", "수리내역", "의뢰일자"];
+                const fields = ["설비코드", "설비명", "업체명", "의뢰자", "수리내역", "의뢰일자"];
                 const values = fields.map(field => document.getElementById(field).value);
                 const 수리항목 = document.querySelector('select').value; // select 요소에서 값 가져오기
 
@@ -328,12 +320,11 @@
                         설비코드: cells[2].textContent,
                         설비명: cells[3].textContent,
                         업체명: cells[4].textContent,
-                        SN: cells[5].textContent,
-                        의뢰자: cells[6].textContent,
-                        수리항목: cells[7].textContent,
-                        수리내역: cells[8].textContent,
-                        의뢰일자: cells[9].textContent,
-                        비고사항: cells[10].textContent
+                        의뢰자: cells[5].textContent,
+                        수리항목: cells[6].textContent,
+                        수리내역: cells[7].textContent,
+                        의뢰일자: cells[8].textContent,
+                        비고사항: cells[9].textContent
                     };
                     check.push(data);
                 });
@@ -343,15 +334,14 @@
                 check.forEach(item => {
                     const p = document.createElement('p');
                     p.textContent = `순번: ${item.순번}, 
-            설비코드: ${item.설비코드}, 
-            설비명: ${item.설비명}, 
-            업체명: ${item.업체명},
-            S/N: ${item.SN},
-            의뢰자: ${item.의뢰자}, 
-            수리항목: ${item.수리항목}, 
-            수리내역: ${item.수리내역}, 
-            의뢰일자: ${item.의뢰일자}, 
-            비고사항: ${item.비고사항}`;
+                    설비코드: ${item.설비코드}, 
+                    설비명: ${item.설비명}, 
+                    업체명: ${item.업체명},
+                    의뢰자: ${item.의뢰자}, 
+                    수리항목: ${item.수리항목}, 
+                    수리내역: ${item.수리내역}, 
+                    의뢰일자: ${item.의뢰일자}, 
+                    비고사항: ${item.비고사항}`;
                     resultArea.appendChild(p);
                 });
 

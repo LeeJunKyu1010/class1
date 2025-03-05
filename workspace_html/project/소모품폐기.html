@@ -160,27 +160,25 @@
                 <div class="form-row">
                     <label for="소모품코드">소모품코드<span class="별"> *</span></label>
                     <input type="text" id="소모품코드">
-                    <label for="SN">S/N<span class="별"> *</span></label>
-                    <input type="text" id="SN">
-                </div>
-
-                <div class="form-row">
                     <label for="관리자">관리자<span class="별"> *</span></label>
                     <input type="text" id="관리자">
+                </div>
+
+                <div class="form-row">
                     <label for="소모품명">소모품명<span class="별"> *</span></label>
                     <input type="text" id="소모품명">
-                </div>
-
-                <div class="form-row">
                     <label for="수량">수량<span class="별"> *</span></label>
                     <input type="text" id="수량">
-                    <label for="폐기사유">폐기사유<span class="별"> *</span></label>
-                    <input type="text" id="폐기사유">
                 </div>
 
                 <div class="form-row">
+                    <label for="폐기사유">폐기사유<span class="별"> *</span></label>
+                    <input type="text" id="폐기사유">
                     <label for="폐기일자">폐기일자<span class="별"> *</span></label>
                     <input type="date" id="폐기일자">
+                </div>
+
+                <div class="form-row">
                     <label for="비고사항">비고사항</label>
                     <input type="text" id="비고사항">
                 </div>
@@ -203,7 +201,6 @@
                     <th>순번</th>
                     <th>소모품코드</th>
                     <th>소모품명</th>
-                    <th>S/N</th>
                     <th>관리자</th>
                     <th>수량</th>
                     <th>폐기사유</th>
@@ -219,7 +216,6 @@
                     </td>
                     <td>NT-100</td>
                     <td>니트릴장갑</td>
-                    <td>3541328</td>
                     <td>김천안</td>
                     <td>100</td>
                     <td>손상</td>
@@ -264,7 +260,7 @@
         }
 
         // 새 행을 추가하는 함수
-        function addRow(소모품코드, 소모품명, SN, 관리자, 수량, 폐기사유, 폐기일자, 비고사항) {
+        function addRow(소모품코드, 소모품명, 관리자, 수량, 폐기사유, 폐기일자, 비고사항) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
             const checkbox = checkboxTemplate.cloneNode(true);
@@ -277,7 +273,6 @@
         <td>${tableBody.children.length + 1}</td>
         <td>${소모품코드}</td>
         <td>${소모품명}</td>
-        <td>${SN}</td>
         <td>${관리자}</td>
         <td>${수량}</td>
         <td>${폐기사유}</td>
@@ -292,7 +287,7 @@
 
         // '등록' 버튼 이벤트 리스너
         document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["소모품코드", "소모품명", "SN", "관리자", "수량", "폐기사유", "폐기일자"];
+            const fields = ["소모품코드", "소모품명", "관리자", "수량", "폐기사유", "폐기일자"];
             const values = fields.map(field => document.getElementById(field).value);
 
             if (values.some(value => !value)) {
@@ -317,12 +312,11 @@
                     순번: cells[1].textContent,
                     소모품코드: cells[2].textContent,
                     소모품명: cells[3].textContent,
-                    SN: cells[4].textContent,
-                    관리자: cells[5].textContent,
-                    수량: cells[6].textContent,
-                    폐기사유: cells[7].textContent,
-                    폐기일자: cells[8].textContent,
-                    비고사항: cells[9].textContent
+                    관리자: cells[4].textContent,
+                    수량: cells[5].textContent,
+                    폐기사유: cells[6].textContent,
+                    폐기일자: cells[7].textContent,
+                    비고사항: cells[8].textContent
                 };
                 check.push(data);
             });
@@ -334,7 +328,6 @@
                 p.textContent = `순번: ${item.순번}, 
                 소모품코드: ${item.소모품코드}, 
                 소모품명: ${item.소모품명}, 
-                SN: ${item.SN}, 
                 관리자: ${item.관리자},
                 수량: ${item.수량},
                 폐기사유: ${item.폐기사유}, 
