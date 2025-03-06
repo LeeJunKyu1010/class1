@@ -49,6 +49,14 @@
             gap: 10px;
         }
 
+        input[type="text"] {
+            width: 40%;
+        }
+
+        .소모품명 {
+            width: 40%;
+        }
+
         label {
             min-width: 80px;
         }
@@ -143,10 +151,6 @@
         .hide {
             display: none;
         }
-
-        .별 {
-            color: red;
-        }
     </style>
 </head>
 
@@ -154,29 +158,55 @@
     <div class="container">
         <h1>◎ 소모품 재고현황</h1>
 
-        <span class="별">* 모두기입</span>
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
-                    <label for="소모품코드">소모품코드<span class="별"> *</span></label>
-                    <input type="text" id="소모품코드">
-                    <label for="소모품명">소모품명<span class="별"> *</span></label>
-                    <input type="text" id="소모품명">
+                    <label for="소모품코드">소모품코드
+                    <input type="text" id="소모품코드"></label>
+                    <span>소모품명</span>
+                    <select class="소모품명">
+                        <option>라텍스장갑</option>
+                        <option>보안경</option>
+                        <option>마스크</option>
+                        <option>헤어넷</option>
+                        <option>작업복</option>
+                        <option>안전화</option>
+                        <option>소독제</option>
+                        <option>종이타월</option>
+                        <option>청소용 천</option>
+                        <option>걸레</option>
+                        <option>브러시</option>
+                        <option>진공 청소기 필터</option>
+                        <option>윤활유</option>
+                        <option>구리스</option>
+                        <option>세척제</option>
+                        <option>부품 세정액</option>
+                        <option>방청제</option>
+                        <option>테이프</option>
+                        <option>완충재</option>
+                        <option>라벨 스티커</option>
+                        <option>포장용 끈</option>
+                        <option>칼</option>
+                        <option>가위</option>
+                        <option>마킹 펜</option>
+                        <option>접착제</option>
+                        <option>검사용 돋보기</option>
+                        <option>pH테스트 스트립</option>
+                        <option>샘플링 백</option>
+                        <option>품질 검사 스티커</option>
+                        <option>프린터 잉크 카트리지</option>
+                        <option>복사용지</option>
+                        <option>문서파일</option>
+                        <option>바인터클립</option>
+                        <option>보드마커</option>
+                    </select>
                 </div>
+                    
 
-                <div class="form-row">
-                    <label for="관리자">관리자<span class="별"> *</span></label>
-                    <input type="text" id="관리자">
-                    <label for="비고사항">비고사항</label>
-                    <input type="text" id="비고사항">
-                </div>
+                
             </div>
-
             <div class="buttons">
-                <button id="등록">등록</button>
                 <button id="조회">조회</button>
-                <button id="수정">수정</button>
-                <button id="삭제">삭제</button>
             </div>
         </div>
 
@@ -185,25 +215,21 @@
         <table>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="체크박스"></th>
                     <th>순번</th>
                     <th>소모품코드</th>
                     <th>소모품명</th>
+                    <th>수량</th>
                     <th>관리자</th>
-                    <th>비고사항</th>
                 </tr>
 
                 <tr>
-                    <td>
-                        <input type="checkbox" id="체크박스">
-                    </td>
                     <td>
                         1
                     </td>
                     <td>NT-100</td>
                     <td>니트릴장갑</td>
                     <td>OOO</td>
-                    <td>-</td>
+                    <td>OOO</td>
                 </tr>
             </thead>
             <tbody id="table-body"></tbody>
@@ -240,7 +266,7 @@
         }
 
         // 새 행을 추가하는 함수
-        function addRow(소모품코드, 소모품명, 관리자, 비고사항) {
+        function addRow(소모품코드, 소모품명, 관리자) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
             const checkbox = checkboxTemplate.cloneNode(true);
@@ -253,30 +279,13 @@
         <td>${tableBody.children.length + 1}</td>
         <td>${소모품코드}</td>
         <td>${소모품명}</td>
-        <td>${관리자}</td>
-        <td>${비고사항}</td>`;
+        <td>${관리자}</td>`;
 
             row.cells[0].appendChild(checkbox);
             tableBody.appendChild(row);
             updateRowNumbers();
             updateTable();
         }
-
-        // '등록' 버튼 이벤트 리스너
-        document.getElementById("등록").addEventListener("click", function () {
-            const fields = ["소모품코드", "소모품명", "관리자"];
-            const values = fields.map(field => document.getElementById(field).value);
-
-            if (values.some(value => !value)) {
-                alert("필수 항목을 모두 올바르게 입력해주세요.");
-                return;
-            }
-
-            const 비고사항 = document.getElementById("비고사항").value || "";
-
-            addRow(...values, 비고사항);
-            clearInputFields();
-        });
 
         // '조회' 버튼 이벤트 리스너
         document.getElementById("조회").addEventListener("click", function () {
@@ -291,7 +300,6 @@
                     소모품코드: cells[2].textContent,
                     소모품명: cells[3].textContent,
                     관리자: cells[4].textContent,
-                    비고사항: cells[5].textContent
                 };
                 check.push(data);
             });
@@ -303,8 +311,7 @@
                 p.textContent = `순번: ${item.순번}, 
                 소모품코드: ${item.소모품코드}, 
                 소모품명: ${item.소모품명}, 
-                관리자: ${item.관리자}, 
-                비고사항: ${item.비고사항}`;
+                관리자: ${item.관리자}`;
                 resultArea.appendChild(p);
             });
 
@@ -315,103 +322,6 @@
         function clearInputFields() {
             document.querySelectorAll(".form-fields input").forEach(input => input.value = "");
         }
-
-        // '삭제' 버튼 이벤트 리스너
-        document.getElementById("삭제").addEventListener("click", function () {
-            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
-
-            if (checkedRows.length === 0) {
-                alert("삭제할 항목을 1개 이상 체크해주십시오.");
-                return;
-            }
-
-            if (confirm("삭제 하시겠습니까?")) {
-                let deletedCount = 0;
-
-                checkedRows.forEach(checkbox => {
-                    checkbox.closest('tr').remove();
-                    deletedCount++;
-                });
-
-                if (deletedCount > 0) {
-                    updateRowNumbers();
-                    updateTable();
-                }
-            }
-
-            uncheckAllCheckboxes();
-        });
-
-        // '수정' 버튼 이벤트 리스너
-        document.getElementById("수정").addEventListener("click", function () {
-            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
-            if (checkedRows.length !== 1) {
-                alert("수정할 항목을 하나만 선택해주세요.");
-                return;
-            }
-
-            const row = checkedRows[0].closest('tr');
-            const cells = row.cells;
-
-            uncheckAllCheckboxes();
-            toggleEditMode(true);
-
-            const editableCells = [2, 3, 4, 5, 6];
-            const originalValues = {};
-            editableCells.forEach(index => {
-                originalValues[index] = cells[index].textContent;
-                cells[index].innerHTML = createInputField(index, originalValues[index]);
-            });
-
-            document.getElementById("수정완료").addEventListener("click", () => completeEdit(cells, editableCells));
-            document.getElementById("수정취소").addEventListener("click", () => cancelEdit(cells, originalValues, editableCells));
-        });
-
-        function toggleEditMode(isEditing) {
-            const buttonsContainer = document.querySelector('.buttons');
-            const originalButtons = Array.from(document.querySelectorAll('.buttons button'));
-            const formRows = document.querySelectorAll('.form-row');
-
-            originalButtons.forEach(button => button.style.display = isEditing ? 'none' : '');
-            formRows.forEach(row => row.classList.toggle('hide', isEditing));
-
-            if (isEditing) {
-                const editButtons = createEditButtons();
-                buttonsContainer.appendChild(editButtons);
-            } else {
-                document.querySelector('.edit-buttons')?.remove();
-            }
-        }
-
-        function createEditButtons() {
-            const editButtons = document.createElement('div');
-            editButtons.className = 'edit-buttons';
-            editButtons.innerHTML = `
-        <button id="수정완료">수정완료</button>
-        <button id="수정취소">수정취소</button>
-    `;
-            return editButtons;
-        }
-
-        function createInputField(index, value) {
-            return `<input type="text" value="${value}" style="width: 90%;">`;
-        }
-
-        function completeEdit(cells, editableCells) {
-            editableCells.forEach(index => {
-                const input = cells[index].querySelector('input');
-                cells[index].textContent = input.value;
-            });
-            toggleEditMode(false);
-        }
-
-        function cancelEdit(cells, originalValues, editableCells) {
-            editableCells.forEach(index => {
-                cells[index].textContent = originalValues[index];
-            });
-            toggleEditMode(false);
-        }
-
 
         // 개별 체크박스 변경 시 전체 선택 체크박스 상태 업데이트
         function updateSelectAllCheckbox() {
@@ -492,6 +402,7 @@
         // 초기 테이블 업데이트
         updateTable();
 
+        
     </script>
 </body>
 
