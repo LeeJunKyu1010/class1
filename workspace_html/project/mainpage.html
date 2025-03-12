@@ -652,8 +652,16 @@
             <h1>사용자 정보</h1>
         </div>
         <div class="user_info">
+            <label>사원번호</label>
+            <span id="userEmp">-</span>
+        </div>
+        <div class="user_info">
             <label>이름:</label>
             <span id="userName">-</span>
+        </div>
+        <div class="user_info">
+            <label>E-mail:</label>
+            <span id="userEmail">-</span>
         </div>
         <div class="user_info">
             <label>연락처:</label>
@@ -663,6 +671,7 @@
             <label>직책:</label>
             <span id="userGrade">-</span>
         </div>
+
     </div>
 
     <div class="gemini-popup" id="geminiPopup">
@@ -678,7 +687,6 @@
             <button id="send">전송</button>
         </div>
     </div>
-
 
     <script>
 
@@ -1100,8 +1108,10 @@
         document.querySelector(".user_inf").addEventListener("click", function () {
             const userData = JSON.parse(sessionStorage.getItem('user'));
             if (userData) {
+                document.getElementById('userEmp').textContent = userData.Emp;
                 document.getElementById('userName').textContent = userData.name;
                 document.getElementById('userPhone').textContent = userData.phone;
+                document.getElementById('userEmail').textContent = userData.Email;
                 document.getElementById('userGrade').textContent = userData.grade === 1 ? "관리자" : "작업자";
             }
             document.querySelector(".user_container").style.display = "block";

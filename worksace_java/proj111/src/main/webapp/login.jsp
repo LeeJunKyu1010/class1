@@ -1,128 +1,148 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>로그인</title>
-    <style>
-        body {
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<title>로그인</title>
+<style>
+body {
+	/* 배경색 설정 */
+	background-color: #f4f4f4;
+	/* 패딩 추가 */
+	padding: 20px;
+}
 
-        #mainbox {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 400px;
-            margin: 150px auto;
-            text-align: center;
-        }
+#mainbox {
+	/* 배경색 설정 */
+	background-color: #ffffff;
+	/* 모서리 둥글게 */
+	border-radius: 10px;
+	/* 그림자 효과 */
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	/* 내부 여백 추가 */
+	padding: 20px;
+	/* 최대 너비 설정 */
+	max-width: 400px;
+	/* 중앙 정렬 */
+	margin: 150px auto;
+	/* 텍스트 중앙 정렬 */
+	text-align: center;
+}
 
-        #logo {
-            width: 100px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
+/* ---------- 로고 css ---------- */
+#logo {
+	/* border: 1px solid black; */
+	/* 이미지 박스의 너비 */
+	width: 100px;
+	/* 이미지 박스의 높이 */
+	height: 80px;
+	/* 이미지박스에 flex 부여 */
+	display: flex;
+	/* 이미지 위아래 중앙정렬 */
+	align-items: center;
+	/* 이미지를 중앙정렬 */
+	justify-content: center;
+	/* 이미지의 박스를 중앙 정렬 */
+	margin: 0 auto;
+}
 
-        #logo img {
-            width: 150%;
-        }
+#logo img {
+	/* 이미지의 너비크기 */
+	width: 150%;
+}
 
-        #id,
-        #pw {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
+/* ---------- id와 pw css ---------- */
+#id, #pw {
+	/* 너비 조정 */
+	width: calc(100% - 20px);
+	/* 내부 여백 추가 */
+	padding: 10px;
+	/* 경계선 색상 */
+	border: 1px solid #ccc;
+	/* 모서리 둥글게 */
+	border-radius: 5px;
+	/* 여백 추가 */
+	margin-top: 10px;
+}
 
-        .find_id,
-        .find_pw,
-        .create_id {
-            margin-top: 20px;
-            width: 30%;
-            background-color: #4a90e2;
-            color: white;
-            padding: 5px;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
+/* ---------- 아이디찾기와 비번찾기, 회원가입 css ---------- */
+.find_id, .find_pw, .create_id {
+	/* 위쪽여백 추가 */
+	margin-top: 20px;
+	/* 버튼 너비 30% */
+	width: 30%;
+	/* 배경색을 초록으로 변경 */
+	background-color: #4a90e2;
+	/* 텍스트 색상 */
+	color: white;
+	/* 내부여백 추가 */
+	padding: 5px;
+	/* 버튼의 border 제거 */
+	border: none;
+	/* 모서리 둥글게 */
+	border-radius: 10px;
+	/* 폰트 크기 조정 */
+	font-size: 15px;
+	/* 커서 포인터로 변경 */
+	cursor: pointer;
+	/* 배경색과 변형 효과 */
+	transition: background-color 0.3s, transform 0.2s;
+}
 
-        .find_id:hover,
-        .find_pw:hover,
-        .create_id:hover {
-            background-color: #2f6baf;
-            transform: scale(1.07);
-        }
+.find_id:hover, .find_pw:hover, .create_id:hover {
+	/* 호버 시 배경색 변경 */
+	background-color: #2f6baf;
+	/* 호버 시 약간 확대 */
+	transform: scale(1.07);
+}
 
-        .login {
-            margin-top: 20px;
-            width: 100%;
-            background-color: #4a90e2;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
+/* ---------- 로그인 css ---------- */
+.login {
+	/* 위쪽여백 추가 */
+	margin-top: 20px;
+	/* 버튼 너비 100% */
+	width: 100%;
+	/* 로그인 버튼 배경색을 초록색으로 변경 */
+	background-color: #4a90e2;
+	/* 텍스트 색상 */
+	color: white;
+	/* 내부 여백 추가 */
+	padding: 12px;
+	/* 버튼의 border 제거 */
+	border: none;
+	/* 모서리 둥글게 */
+	border-radius: 10px;
+	/* 폰트 크기 조정 */
+	font-size: 16px;
+	/* 커서 포인터로 변경 */
+	cursor: pointer;
+	/* 배경색과 변형 효과 */
+	transition: background-color 0.3s, transform 0.2s;
+}
 
-        .login:hover {
-            background-color: #2f6baf;
-            transform: scale(1.05);
-        }
-    </style>
-</head>
-
+.login:hover {
+	/* 호버 시 배경색 변경 */
+	background-color: #2f6baf;
+	/* 호버 시 약간 확대 */
+	transform: scale(1.05);
+}
+</style>
 <body>
-    <div id="mainbox">
-        <div id="logo">
-            <img src="GKBM_logo.jpg" alt="GKBM Logo">
-        </div>
-        <input type="text" id="id" placeholder="아이디를 입력하세요">
-        <input type="password" id="pw" placeholder="비밀번호를 입력하세요">
-
-        <input type="button" class="find_id" value="아이디찾기">
-        <input type="button" class="find_pw" value="비밀번호찾기">
-        <input type="button" class="create_id" value="회원가입">
-
-        <input type="button" class="login" value="로그인" onclick="login()">
-    </div>
-    <script>
-        function login() {
-            var id = document.getElementById("id").value;
-            var pw = document.getElementById("pw").value;
-
-            // AJAX를 사용하여 서블릿에 데이터 전송
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "LoginServlet", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = xhr.responseText;
-                    if (response == "success") {
-                        alert("로그인 성공!");
-                        window.location.href = "mainpage.html"; // 성공 시 이동할 페이지
-                    } else {
-                        alert("아이디 또는 비밀번호가 잘못되었습니다.");
-                    }
-                }
-            };
-            xhr.send("id=" + id + "&pw=" + pw);
-        }
-    </script>
+	<div id="mainbox">
+		<form action="login" method="post">
+			<input type="text" name="empId" id="id" placeholder="아이디를 입력하세요"
+				required> <input type="password" name="pw" id="pw"
+				placeholder="비밀번호를 입력하세요" required> <input type="submit"
+				value="로그인" class="login">
+		</form>
+		<%
+		if (request.getAttribute("errorMessage") != null) {
+		%>
+		<p style="color: red;"><%=request.getAttribute("errorMessage")%></p>
+		<%
+		}
+		%>
+	</div>
 </body>
-
 </html>

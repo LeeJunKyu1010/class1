@@ -3,14 +3,18 @@
         "id": "admin",
         "pw": 1234,
         "grade": 1,
+        "Emp": "001",
         "name": "김충남",
+        "Email":"cndska@gmail.com",
         "phone": "010-1234-5678"
     },
     {
         "id": "user",
         "pw": 1234,
+        "Emp": "024",
         "grade": 2,
         "name": "김천안",
+        "Email":"cjsdks@gmail.com",
         "phone": "010-4565-1236"
     }
 ]
