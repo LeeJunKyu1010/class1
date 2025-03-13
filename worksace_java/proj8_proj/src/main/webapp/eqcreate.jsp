@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -181,7 +181,7 @@ table th, table td {
 					<button id="등록" name="command" value="insert">등록</button>
 					<button id="조회" name="command" value="select">조회</button>
 					<button id="수정" name="command" value="update">수정</button>
-					<button id="삭제" name="command" value="delete" onclick="deleteFacility(${eq.facility_code})">삭제</button>
+					<button id="삭제" name="command" value="delete" onclick="">삭제</button>
 
 				</div>
 			</div>
@@ -190,28 +190,30 @@ table th, table td {
 
 			<table>
 				<tr>
-					<th><input type="checkbox" id="체크박스"></th>
-					<th>설비코드</th>
-					<th>설비명</th>
+					<th>설비 코드</th>
+					<th>설비 이름</th>
 					<th>관리자</th>
-					<th>점검주기</th>
-					<th>설치일</th>
-					<th>설비위치</th>
-					<th>비고사항</th>
+					<th>점검 주기</th>
+					<th>설치 일자</th>
+					<th>설비 위치</th>
+					<th>비고 사항</th>
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
-
-				<c:forEach items="${resultList}" var="eq">
+				<c:forEach items="${eqList}" var="eq">
 					<tr>
-						<td>${eq.facility_code}</td>
-						<td>${eq.facility_name}</td>
-						<td>${eq.facility_manager}</td>
-						<td>${eq.inspection_cycle}</td>
-						<td>${eq.installation_date}</td>
-						<td>${eq.facility_location}</td>
-						<td>${eq.remarks}</td>
+						<td>\${eq.facility_code}</td>
+						<td>\${eq.facility_name}</td>
+						<td>\${eq.facility_manager}</td>
+						<td>\${eq.inspection_cycle}</td>
+						<td>\${eq.installation_date}</td>
+						<td>\${eq.facility_location}</td>
+						<td>\${eq.remarks}</td>
+						<td><a href="eqUpdate.jsp?facility_code=\${eq.facility_code}">수정</a></td>
+						<td><a
+							href="EqServlet?command=delete&facility_code=\${eq.facility_code}">삭제</a></td>
 					</tr>
 				</c:forEach>
-
 			</table>
 
 		</form>

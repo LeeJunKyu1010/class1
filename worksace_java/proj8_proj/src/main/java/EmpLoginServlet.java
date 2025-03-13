@@ -1,64 +1,52 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class EmpLoginServlet extends HttpServlet {
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("do post 실행");
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
 
-		String command = request.getParameter("command");
-		System.out.println("command : " + command);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        // 로그인 요청 파라미터 추출
+        String id = request.getParameter("id");
+        String pw = request.getParameter("pw");
 
-		EqDAO eqDAO = new EqDAO();
+        // EmpDAO를 통해 사용자 정보 조회
+        EmpDAO empDAO = new EmpDAO();
+        EmpDTO user = empDAO.getUserInfo(id, pw);
 
-		if ("insert".equals(command)) {
-			// 등록 처리
-			int facilityCode = Integer.parseInt(request.getParameter("설비코드"));
-			String facilityManager = request.getParameter("관리자");
-			Date installationDate = Date.valueOf(request.getParameter("설치일"));
-			String facilityName = request.getParameter("설비명");
-			String facilityLocation = request.getParameter("설비위치");
-			String inspectionCycle = request.getParameter("점검주기");
-			String remarks = request.getParameter("비고사항");
+     // EmpLoginServlet.java
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
 
-			EqDTO eqDTO = new EqDTO();
-			eqDTO.setFacility_code(facilityCode);
-			eqDTO.setFacility_manager(facilityManager);
-			eqDTO.setInstallation_date(installationDate);
-			eqDTO.setFacility_name(facilityName);
-			eqDTO.setFacility_location(facilityLocation);
-			eqDTO.setInspection_cycle(inspectionCycle);
-			eqDTO.setRemarks(remarks);
+            // 응답으로 JavaScript 코드 작성
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
 
-			int result = eqDAO.insertEq(eqDTO);
-			System.out.println("등록 결과: " + result);
+            out.println("<script>");
+            out.println("sessionStorage.setItem('empNo', '" + user.getEmpNo() + "');");
+            out.println("sessionStorage.setItem('empName', '" + user.getEmpName() + "');");
+            out.println("sessionStorage.setItem('email', '" + user.getEmail() + "');");
+            out.println("sessionStorage.setItem('phone', '" + user.getPhone() + "');");
+            out.println("sessionStorage.setItem('grade', '" + user.getGrade() + "');");
+            out.println("console.log('Session Storage updated:', sessionStorage);");
+            out.println("window.location.href = 'mainpage.jsp';"); // mainpage.jsp로 이동
+            out.println("</script>");
 
-		} else if ("select".equals(command)) {
-			// 조회 처리
-			List<EqDTO> resultList = eqDAO.selectEqList();
-			request.setAttribute("resultList", resultList);
-			String url = "/list.jsp";
-			request.getRequestDispatcher(url).forward(request, response);
-
-		} else if ("update".equals(command)) {
-			// 수정 처리
-			// 수정 로직 구현 필요
-
-		} else if ("delete".equals(command)) {
-			// 삭제 처리
-			// 삭제 로직 구현 필요
-		}
-	}
-
+        } else {
+            // 로그인 실패 시 에러 메시지 출력
+            request.setAttribute("error", "아이디 또는 비밀번호를 확인해주십시오.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+    }
 }

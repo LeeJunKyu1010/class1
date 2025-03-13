@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -476,6 +477,16 @@ h3 {
 	background-color: #c0392b;
 }
 
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* 투명한 배경 */
+	z-index: 900; /* 팝업보다 낮은 z-index */
+}
+
 /* ------------------------------------챗봇 css칸------------------------------------ */
 
 /* ============================= */
@@ -596,11 +607,10 @@ h3 {
 			</div>
 			<!-- 사용자 섹션 -->
 			<div id="user_section">
-				<span>
-					[<c:choose>
-					<c:when test="${loginUser.grade == 1}">관리자</c:when>
-					<c:otherwise>작업자</c:otherwise>
-					</c:choose>] ${loginUser.empName}님 환영합니다.
+				<span> [<c:choose>
+						<c:when test="${user.grade == 1}">관리자</c:when>
+						<c:otherwise>작업자</c:otherwise>
+					</c:choose>] ${user.empName}님 환영합니다.
 				</span> <img src="img/usericon.png" alt="usericon" id="user_icon">
 
 				<!-- 사용자 정보 팝업 -->
@@ -622,13 +632,15 @@ h3 {
 			<div class="graph_container">
 				<div class="graph_section">
 					<!-- 경영리포팅 그래프가 들어갈 공간 -->
-					<iframe id="content-frame" src="메인화면.html" width="100%"
+					<iframe id="content-frame" src="" width="100%"
 						height="100%" frameborder="0"></iframe>
 				</div>
 			</div>
 		</div>
 	</div>
 	</div>
+
+	<div id="overlay" class="overlay" style="display: none;"></div>
 
 	<div class="chatbot"></div>
 
@@ -638,21 +650,24 @@ h3 {
 			<h1>사용자 정보</h1>
 		</div>
 		<div class="user_info">
-			<label>사원번호</label> <span id="userEmp">-</span>
+			<label>사원번호</label> <span id="userEmp">${sessionScope.user.empNo}</span>
 		</div>
 		<div class="user_info">
-			<label>이름:</label> <span id="userName">-</span>
+			<label>이름:</label> <span id="userName">${sessionScope.user.empName}</span>
 		</div>
 		<div class="user_info">
-			<label>E-mail:</label> <span id="userEmail">-</span>
+			<label>E-mail:</label> <span id="userEmail">${sessionScope.user.email}</span>
 		</div>
 		<div class="user_info">
-			<label>연락처:</label> <span id="userPhone">-</span>
+			<label>연락처:</label> <span id="userPhone">${sessionScope.user.phone}</span>
 		</div>
 		<div class="user_info">
-			<label>직책:</label> <span id="userGrade">-</span>
+			<label>직책:</label> <span id="userGrade"> <c:choose>
+					<c:when test="${user.grade == 1}">관리자</c:when>
+					<c:when test="${user.grade == 2}">사원</c:when>					
+				</c:choose>
+			</span>
 		</div>
-
 	</div>
 
 	<div class="gemini-popup" id="geminiPopup">
@@ -668,8 +683,9 @@ h3 {
 			<button id="send">전송</button>
 		</div>
 	</div>
-
 	<script>
+	
+	
 	// ===================================================
     // 1. 메뉴 데이터 정의
     // ===================================================
@@ -681,14 +697,13 @@ h3 {
         '5': ['설비등록', '설비점검', '설비수리'],
         '6': ['소모품 등록', '소모품 재고현황', '소모품 수불관리', '소모품 폐기'],
         '7': ['부적합관리', '리퍼브/폐기'],
-        '8': ['공지사항', '사원게시판']
+        '8': ['공지사항', '사원게시판']		
     };
 
     // 서브메뉴 상세 항목 정의
     const subMenuDetails = {
         '작업표준관리': [],
         'BOM관리': [],
-        // '기준정보관리': ['원자재코드', '완제품코드'],
         '기준정보관리': [],
         '거래처 정보관리': [],
         '거래명세서': [],
@@ -714,42 +729,42 @@ h3 {
     // iframe 매핑 정보
     const subMenuFileMap = {
         // ----- 기준정보 -----
-        '작업표준관리': '1.(기준정보)작업방식.html',
-        'BOM관리': '4.(기준정보)BOM.html',
-        '기준정보관리': '2.(기준정보)상품정보관리.html',
+        '작업표준관리': '',
+        'BOM관리': '',
+        '기준정보관리': '',
 
         // ----- SCM -----
-        '거래처 정보관리': '거래처정보관리.html',
-        '거래명세서': '거래명세서관리.html',
+        '거래처 정보관리': '',
+        '거래명세서': '',
 
         // ----- 생산관리 -----
-        '생산계획관리': '생산관리.html',
-        '작업지시관리': '작업지시.html',
+        '생산계획관리': '',
+        '작업지시관리': '',
 
         // ----- 재고관리 -----
-        '원자재 입고관리': '5.(재고관리)원자재입고관리.html',
-        '원자재 출고관리': '6.(재고관리)원자재출고관리.html',
-        '원자재 수불관리': '7.(재고관리)원자재수불관리.html',
-        '완제품 출고관리': '9.(재고관리)완제품출고관리.html',
+        '원자재 입고관리': '',
+        '원자재 출고관리': '',
+        '원자재 수불관리': '',
+        '완제품 출고관리': '',
 
         // ----- 설비관리 -----
-        '설비등록': '설비등록.html',
-        '설비점검': '설비점검등록및현황.html',
-        '설비수리': '설비수리의뢰및내역.html',
+        '설비등록': 'eqcreate.jsp',
+        '설비점검':	'',
+        '설비수리': '',
 
         // ----- 소모품관리 -----
-        '소모품 등록': '소모품등록.html',
-        '소모품 재고현황': '소모품재고현황.html',
-        '소모품 폐기': '소모품폐기.html',
-        '소모품 수불관리': '소모품수불관리.html',
+        '소모품 등록': '',
+        '소모품 재고현황': '',
+        '소모품 폐기': '',
+        '소모품 수불관리': '',
 
         // ----- 품질관리 -----
-        '부적합관리': '부적합관리.html',
-        '리퍼브/폐기': '폐기물.html',
+        '부적합관리': '',
+        '리퍼브/폐기': '',
 
         // ----- 커뮤니티 -----
-        '공지사항': '공지사항.html',
-        '사원게시판': '사원게시판.html'
+        '공지사항': '',
+        '사원게시판': ''
     };
 
     // ===================================================
@@ -1040,8 +1055,35 @@ h3 {
             userPopup.style.display = 'none';
         }
     });
+	// ------------------------- 사용자정보 -------------------------
+    document.querySelector(".user_inf").addEventListener("click", function () {
+            const userData = JSON.parse(sessionStorage.getItem('user'));
+            const overlay = document.getElementById('overlay');
+            
+            document.querySelector(".user_container").style.display = "block";
+            document.getElementById('user_popup').style.display = 'none'; // user_popup 닫기
+            overlay.style.display = 'flex'; // overlay 활성화
+    });
 	
-	// -------------------------chatbot -------------------------
+	// 사용자 정보창을 표시하는 함수
+    function showUserInfo() {
+        document.querySelector('.user_container').style.display = 'block';
+    }
+
+    // 사용자 정보창을 숨기는 함수
+    function closeUserInfo() {
+    	const overlay = document.getElementById('overlay');
+        document.querySelector('.user_container').style.display = 'none';
+        overlay.style.display = 'none'; // overlay 비활성화
+    }
+    
+	// ------------------------- 로그아웃 -------------------------
+    document.querySelector("#logout_button").addEventListener("click", function () {
+    window.location.href = "logout"; // LogoutServlet으로 요청 보내기
+	});
+
+	
+	// ------------------------- chatbot -------------------------
     // Gemini 팝업 열기 함수
     function openGeminiPopup() {
         document.getElementById('geminiPopup').style.display = 'flex';
@@ -1049,18 +1091,24 @@ h3 {
 
     // Gemini 팝업 닫기 함수
     function closeGeminiPopup() {
+    	const overlay = document.getElementById('overlay');
         document.getElementById('geminiPopup').style.display = 'none';
+        overlay.style.display = 'none'; // overlay 비활성화
     }
 
     // 챗봇 클릭 이벤트 핸들러 수정
     document.querySelector(".chatbot").addEventListener("click", function () {
         const geminiPopup = document.getElementById('geminiPopup');
+        const overlay = document.getElementById('overlay');
         if (geminiPopup.style.display === 'none' || geminiPopup.style.display === '') {
             geminiPopup.style.display = 'flex'; // Gemini 팝업 열기
+            overlay.style.display = 'flex'; // overlay 활성화
         } else {
             geminiPopup.style.display = 'none'; // Gemini 팝업 닫기
+            
         }
         console.log("Gemini 팝업 클릭");
+           
     });
 
 
@@ -1094,19 +1142,6 @@ h3 {
         let prompt = document.querySelector("#prompt").value;
         if (prompt.trim().length > 0) {
             document.querySelector("#prompt").value = "";
-
-            // 종료 메시지 확인
-            if (prompt === "종료") {
-                // 종료 메시지 출력
-                makeMsg("3초 후에 종료하겠습니다...", false);
-
-                // 5초 후에 팝업 닫기
-                setTimeout(function () {
-                    closeGeminiPopup(); // 챗봇 팝업 닫기
-                }, 3000);
-
-                return;
-            }
 
             // 질문 출력
             makeMsg(prompt, true);
@@ -1210,6 +1245,10 @@ h3 {
         }
     });
     
+
+
+    
 	</script>
+
 </body>
 </html>
