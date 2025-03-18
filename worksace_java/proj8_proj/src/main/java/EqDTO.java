@@ -2,7 +2,7 @@ import java.sql.Date;
 
 public class EqDTO {
 	
-	int facility_code;
+	String facility_code;
 	String facility_manager;
 	Date installation_date;
 	String facility_name;
@@ -10,10 +10,10 @@ public class EqDTO {
 	String inspection_cycle;
 	String remarks;
 	
-	public int getFacility_code() {
+	public String getFacility_code() {
 		return facility_code;
 	}
-	public void setFacility_code(int facility_code) {
+	public void setFacility_code(String facility_code) {
 		this.facility_code = facility_code;
 	}
 	public String getFacility_manager() {

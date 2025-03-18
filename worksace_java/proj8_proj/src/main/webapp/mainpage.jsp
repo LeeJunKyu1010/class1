@@ -632,8 +632,8 @@ h3 {
 			<div class="graph_container">
 				<div class="graph_section">
 					<!-- 경영리포팅 그래프가 들어갈 공간 -->
-					<iframe id="content-frame" src="" width="100%"
-						height="100%" frameborder="0"></iframe>
+					<iframe id="content-frame" src="" width="100%" height="100%"
+						frameborder="0"></iframe>
 				</div>
 			</div>
 		</div>
@@ -664,7 +664,7 @@ h3 {
 		<div class="user_info">
 			<label>직책:</label> <span id="userGrade"> <c:choose>
 					<c:when test="${user.grade == 1}">관리자</c:when>
-					<c:when test="${user.grade == 2}">사원</c:when>					
+					<c:when test="${user.grade == 2}">사원</c:when>
 				</c:choose>
 			</span>
 		</div>
@@ -690,7 +690,7 @@ h3 {
     // 1. 메뉴 데이터 정의
     // ===================================================
     const subMenuData = {   // 메인 아이템 속성이 data-menu의 내용에 json으로 내용 할당
-        '1': ['작업표준관리', 'BOM관리', '기준정보관리'],
+        '1': ['작업표준서', 'BOM관리', '상품정보관리'],
         '2': ['거래처 정보관리', '거래명세서'],
         '3': ['생산계획관리', '작업지시관리'],
         '4': ['원자재 입고관리', '원자재 출고관리', '원자재 수불관리', '완제품 출고관리'],
@@ -702,9 +702,9 @@ h3 {
 
     // 서브메뉴 상세 항목 정의
     const subMenuDetails = {
-        '작업표준관리': [],
+        '작업표준서': [],
         'BOM관리': [],
-        '기준정보관리': [],
+        '상품정보관리': [],
         '거래처 정보관리': [],
         '거래명세서': [],
         '생산계획관리': [],
@@ -729,13 +729,13 @@ h3 {
     // iframe 매핑 정보
     const subMenuFileMap = {
         // ----- 기준정보 -----
-        '작업표준관리': '',
+        '작업표준서': '',
         'BOM관리': '',
-        '기준정보관리': '',
+        '상품정보관리': 'p_sku.jsp',
 
         // ----- SCM -----
-        '거래처 정보관리': '',
-        '거래명세서': '',
+        '거래처 정보관리': 'vendor.jsp',
+        '거래명세서': 'bill.jsp',
 
         // ----- 생산관리 -----
         '생산계획관리': '',
@@ -1244,10 +1244,6 @@ h3 {
             event.preventDefault();
         }
     });
-    
-
-
-    
 	</script>
 
 </body>

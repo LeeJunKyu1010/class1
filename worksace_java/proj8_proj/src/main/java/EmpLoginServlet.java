@@ -24,7 +24,6 @@ public class EmpLoginServlet extends HttpServlet {
         EmpDAO empDAO = new EmpDAO();
         EmpDTO user = empDAO.getUserInfo(id, pw);
 
-     // EmpLoginServlet.java
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
@@ -44,7 +43,7 @@ public class EmpLoginServlet extends HttpServlet {
             out.println("</script>");
 
         } else {
-            // 로그인 실패 시 에러 메시지 출력
+            // 로그인 실패 시 에러 메시지 전달
             request.setAttribute("error", "아이디 또는 비밀번호를 확인해주십시오.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }

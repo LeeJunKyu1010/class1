@@ -147,12 +147,13 @@ body {
 				onclick="alert('관리자에게 문의 바랍니다.')">
 
 			<%
-			if (request.getParameter("error") != null) {
+			if (request.getAttribute("error") != null) {
 			%>
-			<p style="color: red;">아이디 또는 비밀번호가 잘못되었습니다.</p>
+			<p style="color: red;"><%=request.getAttribute("error")%></p>
 			<%
 			}
 			%>
+
 		</form>
 	</div>
 </body>

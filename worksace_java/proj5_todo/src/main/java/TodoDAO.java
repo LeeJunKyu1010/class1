@@ -115,7 +115,6 @@ public class TodoDAO {
 				// int executeUpdate() : select 외 모든 것
 				result = ps.executeUpdate();
 				
-
 				con.close();
 			} catch (Exception e) {
 				e.printStackTrace();
