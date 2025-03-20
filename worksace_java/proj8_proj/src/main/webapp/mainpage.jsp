@@ -487,6 +487,64 @@ h3 {
 	z-index: 900; /* 팝업보다 낮은 z-index */
 }
 
+/* 팝업창 */
+.info-popup {
+	position: fixed;
+	user-select: none;
+	top: 40px;
+	left: 20px;
+	z-index: 1000;
+	width: 400px;
+	height: 500px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	background-image: url("img/동포초등학교 교가.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	text-align: center;
+	font-size: 20px;
+	user-select: none;
+}
+
+.info-popup .info-popup-header {
+	height: calc(100% - 60px); /* 전체 높이에서 하단 영역(60px)을 제외 */
+	padding: 20px;
+	overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+}
+
+.info-popup2 {
+	height: 60px; /* 하단 영역 높이 */
+	display: flex;
+	justify-content: space-between; /* 체크박스와 닫기 버튼을 양쪽에 배치 */
+	align-items: center;
+	padding: 0 20px; /* 좌우 여백 */
+	border-top: 1px solid #ddd; /* 상단 경계선 */
+}
+
+.info-popup2 .checkbox-container {
+	display: flex;
+	align-items: center;
+}
+
+.info-popup2 .checkbox-container input[type="checkbox"] {
+	margin-right: 8px; /* 체크박스와 텍스트 간 여백 */
+}
+
+.info-popup2 .close-btn {
+	background-color: #e74c3c;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.info-popup2 .close-btn:hover {
+	background-color: #c0392b;
+}
+
 /* ------------------------------------챗봇 css칸------------------------------------ */
 
 /* ============================= */
@@ -605,7 +663,7 @@ h3 {
 				<div class="menu_item" data-menu="7">품질관리</div>
 				<div class="menu_item" data-menu="8">커뮤니티</div>
 			</div>
-			<!-- 사용자 섹션 -->
+			<!-- 사용자 세션 -->
 			<div id="user_section">
 				<span> [<c:choose>
 						<c:when test="${user.grade == 1}">관리자</c:when>
@@ -683,9 +741,120 @@ h3 {
 			<button id="send">전송</button>
 		</div>
 	</div>
+
+	<!-- 팝업창 -->
+	<div class="info-popup" id="draggable-popup">
+		<div class="info-popup-header">사내가</div>
+		<div class="info-popup2">
+			<div class="checkbox-container">
+				<input type="checkbox" id="dont-show-again" /> <label
+					for="dont-show-again">다시 보지 않기</label>
+			</div>
+			<button class="close-btn" onclick="closePopup()">✖</button>
+		</div>
+	</div>
+
 	<script>
+	// ===================================================
+    // 팝업창 move 스크립트
+    // ===================================================
+	
+	document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('draggable-popup');
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    popup.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+
+    function dragStart(e) {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+
+        if (e.target === popup) {
+            isDragging = true;
+        }
+        console.log('Drag started'); // 디버깅용 로그
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, popup);
+            console.log('Dragging'); // 디버깅용 로그
+        }
+    }
+
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+
+        isDragging = false;
+        console.log('Drag ended'); // 디버깅용 로그
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }
+});
+
+
+
+
+    	
+	// ===================================================
+    // 팝업창 쿠키 스크립트
+    // ===================================================
+	function closePopup() {
+	    console.log("메인페이지 팝업창 쿠키확인");
+	    const checkbox = document.getElementById("dont-show-again");
+	    if (checkbox.checked) {
+	        // 쿠키 만료일을 7일 후로 설정
+	        const expirationDate = new Date();
+	        expirationDate.setDate(expirationDate.getDate() + 7);
+	        
+	        // 쿠키 설정
+	        document.cookie = "hidePopup=true; expires=" + expirationDate.toUTCString() + "; path=/";
+	        console.log("쿠키가 설정되었습니다:", document.cookie);
+	    }
+	    document.querySelector(".info-popup").style.display = "none";
+	}
+
+	// 페이지 로드 시 쿠키 확인
+	window.addEventListener("DOMContentLoaded", () => {
+	    console.log("페이지 로드 시 쿠키 확인");
+	    const cookies = document.cookie.split('; ');
+	    let hidePopup = false;
+	    for(let i = 0; i < cookies.length; i++) {
+	        const parts = cookies[i].split('=');
+	        if (parts[0] === 'hidePopup' && parts[1] === 'true') {
+	            hidePopup = true;
+	            break;
+	        }
+	    }
+	    if (hidePopup) {
+	        document.querySelector(".info-popup").style.display = "none";
+	        console.log("쿠키로 인해 팝업이 표시되지 않습니다.");
+	    } else {
+	        document.querySelector(".info-popup").style.display = "block";
+	        console.log("팝업이 표시됩니다.");
+	    }
+	});
 	
 	
+
 	// ===================================================
     // 1. 메뉴 데이터 정의
     // ===================================================
@@ -693,11 +862,11 @@ h3 {
         '1': ['작업표준서', 'BOM관리', '상품정보관리'],
         '2': ['거래처 정보관리', '거래명세서'],
         '3': ['생산계획관리', '작업지시관리'],
-        '4': ['원자재 입고관리', '원자재 출고관리', '원자재 수불관리', '완제품 출고관리'],
+        '4': ['원자재 입고관리', '원자재 출고관리', '원자재 현황', '완제품 입고관리', '완제품 출고관리'],
         '5': ['설비등록', '설비점검', '설비수리'],
-        '6': ['소모품 등록', '소모품 재고현황', '소모품 수불관리', '소모품 폐기'],
+        '6': ['소모품 관리', '소모품 수불관리', '소모품 폐기'],
         '7': ['부적합관리', '리퍼브/폐기'],
-        '8': ['공지사항', '사원게시판']		
+        '8': ['게시판']		
     };
 
     // 서브메뉴 상세 항목 정의
@@ -711,26 +880,26 @@ h3 {
         '작업지시관리': [],
         '원자재 입고관리': [],
         '원자재 출고관리': [],
-        '원자재 수불관리': [],
+        '원자재 현황': [],
+        '완제품 입고관리': [],
         '완제품 출고관리': [],
-        '설비등록': [],
+        '설비관리': [],
         '설비점검': [],
         '설비수리': [],
-        '소모품 등록': [],
-        '소모품 재고현황': [],
+        '소모품 관리': [],
         '소모품 폐기': [],
         '소모품 수불관리': [],
         '부적합관리': [],
         '리퍼브/폐기': [],
-        '공지사항': [],
-        '사원게시판': []
+        '게시판': [],
+
     };
 
     // iframe 매핑 정보
     const subMenuFileMap = {
         // ----- 기준정보 -----
-        '작업표준서': '',
-        'BOM관리': '',
+        '작업표준서': 'p_work_method.jsp',
+        'BOM관리': 'p_bom.jsp',
         '상품정보관리': 'p_sku.jsp',
 
         // ----- SCM -----
@@ -738,33 +907,32 @@ h3 {
         '거래명세서': 'bill.jsp',
 
         // ----- 생산관리 -----
-        '생산계획관리': '',
-        '작업지시관리': '',
+        '생산계획관리': 'week.jsp',
+        '작업지시관리': 'work.jsp',
 
         // ----- 재고관리 -----
-        '원자재 입고관리': '',
-        '원자재 출고관리': '',
-        '원자재 수불관리': '',
-        '완제품 출고관리': '',
+        '원자재 입고관리': 'p_material_in_out.jsp',
+        '원자재 출고관리': 'p_material_in_out1.jsp',
+        '원자재 현황': 'p_material_in_out2.jsp',
+        '완제품 입고관리': 'p_product_in_out.jsp',
+        '완제품 출고관리': 'p_product_in_out1.jsp',
 
         // ----- 설비관리 -----
         '설비등록': 'eqcreate.jsp',
-        '설비점검':	'',
-        '설비수리': '',
+        '설비점검':	'p_ins.jsp',
+        '설비수리': 'p_repair.jsp',
 
         // ----- 소모품관리 -----
-        '소모품 등록': '',
-        '소모품 재고현황': '',
-        '소모품 폐기': '',
-        '소모품 수불관리': '',
+        '소모품 관리': 'p_CMB.jsp',
+        '소모품 폐기': 'p_CPG.jsp',
+        '소모품 수불관리': 'p_CSB.jsp',
 
         // ----- 품질관리 -----
-        '부적합관리': '',
-        '리퍼브/폐기': '',
+        '부적합관리': 'defect.jsp',
+        '리퍼브/폐기': 'disable.jsp',
 
         // ----- 커뮤니티 -----
-        '공지사항': '',
-        '사원게시판': ''
+        '게시판': 'board_list.jsp',
     };
 
     // ===================================================
@@ -810,7 +978,7 @@ h3 {
 
             // iframe 초기화 (빈 페이지나 홈 페이지로 설정)
             const iframe = document.getElementById('content-frame');
-            iframe.src = '메인화면.html';  // 또는 빈 페이지: 'about:blank'
+            iframe.src = 'main_dashboard.jsp';  // 또는 빈 페이지: 'about:blank'
 
             // 활성 메뉴 아이템 초기화
             activeMenuItem = null;
@@ -1122,7 +1290,7 @@ h3 {
     })
     function bind() {
         document.querySelector("#send").addEventListener('click', ask)
-        document.querySelector("#init").addEventListener('click', initContents)
+//         document.querySelector("#init").addEventListener('click', initContents)
     }
 
     function initContents() {

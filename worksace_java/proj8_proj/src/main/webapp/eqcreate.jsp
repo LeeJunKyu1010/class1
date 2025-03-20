@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>설비 등록</title>
 <style>
-/* CSS 스타일 */
 body {
 	margin: 0;
 	padding: 0;
@@ -107,14 +105,19 @@ table th, table td {
 	border-radius: 5px;
 }
 
+.별 {
+	color: red;
+}
+
 @media screen and (max-width: 800px) {
 	.form-row {
 		flex-direction: column;
 		align-items: stretch;
 		gap: 5px !important;
 		/* 모바일에서 간격 조정 */
-		width: auto .buttons{
-            flex-direction: row;
+	}
+	.buttons {
+		flex-direction: row;
 		justify-content: center;
 		margin-top: 10px;
 	}
@@ -134,70 +137,65 @@ table th, table td {
 h1 {
 	width: 90%;
 }
-
-}
-.별 {
-	color: red;
-}
 </style>
 </head>
 
 <body>
 	<div class="container">
-		<h1>◎ 설비등록</h1>
+		<h1>◎ 설비 등록</h1>
 
 		<span class="별">* 모두기입</span>
 
-		<!-- 등록 폼 -->
+		<!-- 검색 폼 -->
+		<form method="get" action="p_eq" class="form">
+			<span>설비코드 or 설비명</span> <input type="text" name="searchKeyword"
+				placeholder="검색어를 입력하세요">
+			<button type="submit">검색</button>
+		</form>
+
+		<!-- 등록/수정 폼 -->
 		<form method="post" action="p_eq" class="form">
 			<div class="form-fields">
 				<div class="form-row">
-					<label for="facilityCode">설비 코드<span class="별"> *</span></label> <input
+					<label for="facilityCode">설비코드<span class="별"> *</span></label> <input
 						type="text" id="facilityCode" name="facilityCode" required>
 					<label for="facilityManager">관리자<span class="별"> *</span></label> <input
 						type="text" id="facilityManager" name="facilityManager" required>
 				</div>
 
 				<div class="form-row">
-					<label for="installationDate">설치 일자<span class="별">
+					<label for="installationDate">설치일자<span class="별">
 							*</span></label> <input type="date" id="installationDate"
 						name="installationDate" required> <label
-						for="facilityName">설비 이름<span class="별"> *</span></label> <input
+						for="facilityName">설비명<span class="별"> *</span></label> <input
 						type="text" id="facilityName" name="facilityName" required>
 				</div>
 
 				<div class="form-row">
-					<label for="facilityLocation">설비 위치<span class="별">
+					<label for="facilityLocation">설비위치<span class="별">
 							*</span></label> <input type="text" id="facilityLocation"
 						name="facilityLocation" required> <label
-						for="inspectionCycle">점검 주기<span class="별"> *</span></label> <input
+						for="inspectionCycle">점검주기<span class="별"> *</span></label> <input
 						type="text" id="inspectionCycle" name="inspectionCycle" required>
 				</div>
 
 				<div class="form-row">
-					<label for="remarks">비고 사항</label> <input type="text" id="remarks"
+					<label for="remarks">비고사항</label> <input type="text" id="remarks"
 						name="remarks">
 				</div>
 			</div>
 
 			<!-- 버튼 영역 -->
 			<div class="buttons">
-				<!-- 작업자 -->
 				<c:if test="${user.grade == 2}">
-					<input type="button" value="조회" class="buttons"
-						onclick="searchSkus()">
+					<button type="button" value="조회" class="buttons serch1">조회</button>
 				</c:if>
-				<!-- 관리자 -->
 				<c:if test="${user.grade == 1}">
-					<button type="submit" value="등록" class="buttons">등록</button>
-					<button type="button" value="조회" class="buttons"
-						onclick="searchEq()">조회</button>
-					<button type="button" class="buttons" id="editSelectedButton">수정</button>
-					<button type="button" class="buttons" id="updateButton"
-						style="display: none;" onclick="updateEq()">수정 완료</button>
-					<button type="button" class="buttons" id="cancelButton"
-						style="display: none;">취소</button>
-					<button type="submit" value="삭제" class="buttons" name="action">삭제</button>
+					<button type="submit" value="등록" class="buttons insert1">등록</button>
+					<button type="button" value="조회" class="buttons serch1">조회</button>
+					<button type="button" value="수정" class="buttons update1">수정</button>
+					<button type="submit" value="삭제" class="buttons delete1"
+						name="action">삭제</button>
 				</c:if>
 			</div>
 
@@ -208,13 +206,13 @@ h1 {
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="selectAll"></th>
-					<th>설비 코드</th>
+					<th>설비코드</th>
+					<th>설비명</th>
 					<th>관리자</th>
-					<th>설치 일자</th>
-					<th>설비 이름</th>
-					<th>점검 주기</th>
-					<th>설비 위치</th>
-					<th>비고 사항</th>
+					<th>설치일자</th>
+					<th>점검주기</th>
+					<th>설비위치</th>
+					<th>비고사항</th>
 				</tr>
 			</thead>
 
@@ -224,9 +222,9 @@ h1 {
 						<td><input type="checkbox" name="check"
 							value="${dto.facility_code}"></td>
 						<td>${dto.facility_code}</td>
+						<td>${dto.facility_name}</td>
 						<td>${dto.facility_manager}</td>
 						<td>${dto.installation_date}</td>
-						<td>${dto.facility_name}</td>
 						<td>${dto.inspection_cycle}</td>
 						<td>${dto.facility_location}</td>
 						<td>${dto.remarks}</td>
@@ -234,8 +232,6 @@ h1 {
 				</c:forEach>
 			</tbody>
 		</table>
-
-		<!-- 페이지 버튼 -->
 		<div class="pagination">
 			<button>&lt;</button>
 			<button>1</button>
@@ -250,162 +246,181 @@ h1 {
 			<button>10</button>
 			<button>&gt;</button>
 		</div>
-	</div>
-	<script>
-	//항상 오늘 날짜로 하는 스크립트
-	document.getElementById('installationDate').value = new Date().toISOString().substring(0, 10);
 
-	//전체 선택/해제 체크박스 이벤트
-	document.getElementById('체크박스').addEventListener('change', function() {
-	    var checkboxes = document.querySelectorAll('input[name="check"]');
-	    checkboxes.forEach(function(checkbox) {
-	        checkbox.checked = document.getElementById('체크박스').checked;
-	    });
-	});
+		<script>
+		// 페이지 로드 시 초기 설정
+		document.addEventListener('DOMContentLoaded', function() {
+		    // 등록 버튼을 제외한 모든 버튼에서 required 속성 제거
+		    document.querySelectorAll('button:not([value="등록"])').forEach(button => {
+		        button.addEventListener('click', function() {
+		            document.querySelectorAll(".form-row input").forEach(input => {
+		                input.removeAttribute("required");
+		            });
+		        });
+		    });
+		});
+		
+		// 항상 오늘 날짜로 하는 스크립트
+		document.getElementById('installationDate').value = new Date().toISOString().substring(0, 10);
 
-	// 조회버튼
-	function searchSkus() {
-	    var searchKeyword = document.getElementById('searchKeyword').value;
-	    if (searchKeyword.trim() === "") {
-	        // 검색어가 없을 경우 전체 목록 조회
-	        window.location.href = "p_sku";
-	    } else {
-	        // 검색어가 있을 경우 검색 결과 조회
-	        window.location.href = "p_sku?searchKeyword=" + searchKeyword;
-	    }
-	}
+		// 전체 선택/해제 체크박스 이벤트
+		document.getElementById('selectAll').addEventListener('change', function() {
+		    var checkboxes = document.querySelectorAll('input[name="check"]');
+		    checkboxes.forEach(function(checkbox) {
+		        checkbox.checked = document.getElementById('selectAll').checked;
+		    });
+		});
 
+		// 조회 버튼
+		document.querySelector('.serch1').addEventListener('click', function(event) {
+		    console.log("조회 클릭")
+		    event.preventDefault();
+		    window.location.href = "/proj8_proj/p_eq?action=전체조회";
+		});
 
-		// 삭제버튼 클릭 이벤트
-	    document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
-	        // 배열 초기화
-	    	var selectedChecks = [];
-	        // 체크된거 전체가져오기를 checkboxes에 담았다  
-	        var checkboxes = document.querySelectorAll('input[name="check"]:checked');
-	        // 선택된것들을 selectedChecks는 배열에 추가했다
-	        checkboxes.forEach(function(checkbox) {
-	        	selectedChecks.push(checkbox.value);
-	        });
-			// 체크된거 1개 이상이면
-	        if (selectedChecks.length > 0) {
-	        	// 체크된 value="${dto.sku_id } 목록을 
-	        	// 새로운 입력 필드로 추가하여 서버에 전송
-	        	// 내가 만든 배열에 추가된거에 ,로 구분된 문자열로 결합
-	            var form = event.target.closest('form');
-	            var input = document.createElement('input');
-	            input.type = 'hidden';
-	            input.name = 'check';
-	            input.value = selectedChecks.join(',');
-	            form.appendChild(input);
-	        } else{
-	            alert("선택된 항목이 없습니다.");
-	            event.preventDefault(); // 폼 제출 방지
-	        }
-	    });
+		// 삭제 버튼 클릭 이벤트
+		document.querySelector('.delete1').addEventListener('click', function(event) {
+    		event.preventDefault();
+    		var selectedChecks = [];
+    		var checkboxes = document.querySelectorAll('input[name="check"]:checked');
+    		checkboxes.forEach(function(checkbox) {
+        	selectedChecks.push(checkbox.value);
+    	});
+    
+    		if (selectedChecks.length > 0) {
+        		if (confirm("선택한 항목을 삭제하시겠습니까?")) {
+	           		var form = document.createElement('form');
+		            form.method = 'post';
+		            form.action = 'p_eq';
+		            
+		            var actionInput = document.createElement('input');
+		            actionInput.type = 'hidden';
+		            actionInput.name = 'action';
+		            actionInput.value = '삭제';
+		            form.appendChild(actionInput);
+		            
+		            var checkInput = document.createElement('input');
+		            checkInput.type = 'hidden';
+		            checkInput.name = 'check';
+		            checkInput.value = selectedChecks.join(',');
+		            form.appendChild(checkInput);
+		            
+		            document.body.appendChild(form);
+		            form.submit();
+        		}
+    		} else {
+        		alert("삭제할 항목을 선택해주세요.");
+    		}
+		});
 
-	    // 수정 버튼 클릭 이벤트
-	     // 선택 수정 버튼 클릭 이벤트
-	    document.getElementById('editSelectedButton').addEventListener('click', function() {
-	        var selectedChecks = [];
-	        var checkboxes = document.querySelectorAll('input[name="check"]:checked');
-	        checkboxes.forEach(function(checkbox) {
-	            selectedChecks.push(checkbox.value);
-	        });
+		// 수정 버튼 클릭 이벤트
+		document.querySelector('.update1').addEventListener('click', function() {
+			console.log("수정 클릭")
+    		var selectedChecks = document.querySelectorAll('input[name="check"]:checked');
+    		if (selectedChecks.length === 1) {
+        	var facilityCode = selectedChecks[0].value;
+        	var selectedRow = selectedChecks[0].closest('tr');
+        	var cells = selectedRow.cells;
 
-	        if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-	            var skuId = selectedChecks[0];
-	            var selectedRow = document.querySelector('input[name="check"][value="' + skuId + '"]').closest('tr');
+        // 폼 필드에 선택된 행의 데이터를 채웁니다
+        document.getElementById('facilityCode').value = facilityCode;
+        document.getElementById('facilityName').value = cells[2].textContent;
+        document.getElementById('facilityManager').value = cells[3].textContent;
+        document.getElementById('installationDate').value = cells[4].textContent;
+        document.getElementById('facilityLocation').value = cells[6].textContent;
+        document.getElementById('inspectionCycle').value = cells[5].textContent;
+        document.getElementById('remarks').value = cells[7].textContent;
 
-	            // 선택된 행의 데이터 가져오기
-	            var skuCode = selectedRow.querySelectorAll('td')[2].textContent;
-	            var skuName = selectedRow.querySelectorAll('td')[3].textContent;
-	            var skuSize = selectedRow.querySelectorAll('td')[4].textContent;
-	            var vendorName = selectedRow.querySelectorAll('td')[5].textContent;
-	            var price = selectedRow.querySelectorAll('td')[6].textContent;
-	            var skuCategory = selectedRow.querySelectorAll('td')[9].textContent;
+        // 기존 버튼들을 숨깁니다
+        document.querySelectorAll('.buttons button').forEach(button => {
+            button.style.display = 'none';
+        });
 
-	            // 입력 필드에 데이터 표시
-	            document.getElementById('skuCode').value = skuCode;
-	            document.getElementById('skuName').value = skuName;
-	            document.getElementById('skuSize').value = skuSize;
-	            document.getElementById('vendorName').value = vendorName;
-	            document.getElementById('price').value = price;
-	            document.getElementById('skuCategory').value = skuCategory;
+        // 수정완료와 수정취소 버튼을 생성하고 표시합니다
+        var completeButton = document.createElement('button');
+        completeButton.textContent = '수정완료';
+        completeButton.type = 'submit';
+        completeButton.name = 'action';
+        completeButton.value = '수정';
+        
+        var cancelButton = document.createElement('button');
+        cancelButton.textContent = '수정취소';
+        cancelButton.type = 'button';
 
-	            // 수정 버튼 및 취소 버튼 표시
-	            document.getElementById('updateButton').style.display = 'inline-block';
-	            document.getElementById('cancelButton').style.display = 'inline-block';
+        document.querySelector('.buttons').appendChild(completeButton);
+        document.querySelector('.buttons').appendChild(cancelButton);
 
-	            // 수정 모드 설정 (수정 완료 시 필요한 정보)
-	            document.getElementById('updateButton').dataset.skuId = skuId;
-	        } else if (selectedChecks.length > 1){
-	            alert("수정시 하나의 항목만 선택해주세요.");
-	        }else {
-	            alert("선택된 항목이 없습니다.");
-	        }
-	    });
+        // 수정취소 버튼 클릭 이벤트
+        cancelButton.addEventListener('click', function() {
+            // 폼 필드를 초기화합니다
+            document.querySelector('.form').reset();
+            // 원래 버튼들을 다시 표시합니다
+            document.querySelectorAll('.buttons button').forEach(button => {
+                button.style.display = 'block';
+            });
+            // 수정완료와 수정취소 버튼을 제거합니다
+            completeButton.remove();
+            cancelButton.remove();
+        });
+    } else if (selectedChecks.length > 1) {
+        alert("수정 시 하나의 항목만 선택해주세요.");
+    } else {
+        alert("수정할 항목을 선택해주세요.");
+    }
+});
 
-	    // 수정 완료 함수
-	    function updateSku() {
-	        const skuId = document.getElementById('updateButton').dataset.skuId;
-	        const skuCode = document.getElementById('skuCode').value;
-	        const skuName = document.getElementById('skuName').value;
-	        const skuSize = document.getElementById('skuSize').value;
-	        const vendorName = document.getElementById('vendorName').value;
-	        const price = document.getElementById('price').value;
-	        const skuCategory = document.getElementById('skuCategory').value;
+		// 전체 체크기능
+		function selectAll(selectAllCheckbox) {
+		    const checkboxes = document.getElementsByName('check');
+		    for (let checkbox of checkboxes) {
+		        checkbox.checked = selectAllCheckbox.checked;
+		    }
+		}
 
-	        // AJAX 요청을 사용하여 서버에 수정된 상품 정보 전송
-	        fetch('p_sku', {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/x-www-form-urlencoded',
-	            },
-	            body: new URLSearchParams({
-	                action1: '수정',
-	                skuId: skuId,
-	                p_sku: skuCode,
-	                p_sku1: skuName,
-	                p_sku2: skuSize,
-	                p_sku3: vendorName,
-	                p_sku4: price,
-	                p_sku5: skuCategory,
-	            }),
-	        })
-	            .then((response) => response.text())
-	            .then((data) => {
-	                // 상품 목록 테이블 다시 표시, 수정 폼 숨김
-	                location.reload(); // 페이지 새로고침 또는 테이블 업데이트
-	            })
-	            .catch((error) => {
-	                console.error('수정 오류:', error);
-	            });
-	    }
-	    
-	    
-	    // 전체 체크기능
-	    function selectAll(selectAllCheckbox) {
-	        const checkboxes = document.getElementsByName('check');
-	        for (let checkbox of checkboxes) {
-	            checkbox.checked = selectAllCheckbox.checked;
-	        }
-	    }
+		function updateSelectAll() {
+		    const selectAllCheckbox = document.getElementById('selectAll');
+		    const checkboxes = document.getElementsByName('check');
+		    selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+		}
 
-	    function updateSelectAll() {
-	        const selectAllCheckbox = document.getElementById('selectAll');
-	        const checkboxes = document.getElementsByName('check');
-	        selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-	    }
+		// 개별 체크박스에 이벤트 리스너 추가
+		document.addEventListener('DOMContentLoaded', function() {
+		    const checkboxes = document.getElementsByName('check');
+		    for (let checkbox of checkboxes) {
+		        checkbox.addEventListener('change', updateSelectAll);
+		    }
+		});
 
-	    // 개별 체크박스에 이벤트 리스너 추가
-	    document.addEventListener('DOMContentLoaded', function() {
-	        const checkboxes = document.getElementsByName('check');
-	        for (let checkbox of checkboxes) {
-	            checkbox.addEventListener('change', updateSelectAll);
-	        }
-	    });
+		// 수정 폼 숨기기
+		function hideUpdateForm() {
+		    document.getElementById('updateForm').style.display = 'none';
+		}
 
-</script>
+		// 수정 폼 표시
+		function showUpdateForm(facilityCode, facilityManager, installationDate, facilityName, facilityLocation, inspectionCycle, remarks) {
+		    document.getElementById('updateFacilityCode').value = facilityCode;
+		    document.getElementById('updateFacilityManager').value = facilityManager;
+		    document.getElementById('updateInstallationDate').value = installationDate;
+		    document.getElementById('updateFacilityName').value = facilityName;
+		    document.getElementById('updateFacilityLocation').value = facilityLocation;
+		    document.getElementById('updateInspectionCycle').value = inspectionCycle;
+		    document.getElementById('updateRemarks').value = remarks;
+
+		    document.getElementById('updateForm').style.display = 'block';
+		}
+
+		// 등록 버튼 클릭 시 required 속성 추가
+		document.querySelector('.insert1').addEventListener('click', function() {
+		    console.log("등록 클릭")
+		    
+		    
+		    document.querySelectorAll(".form-row input").forEach(input => {
+		        if (input.id !== "remarks") {
+		            input.setAttribute("required", "");
+		        }
+		    });
+		});
+	</script>
 </body>
 
 </html>

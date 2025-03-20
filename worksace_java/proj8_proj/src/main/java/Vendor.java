@@ -164,7 +164,7 @@ public class Vendor extends HttpServlet {
 
 		}
 
-		if ("delet".equals(type)) {
+		if ("삭제".equals(type)) {
 			System.out.println("delet 진입");
 
 			String[] array = request.getParameterValues("box");

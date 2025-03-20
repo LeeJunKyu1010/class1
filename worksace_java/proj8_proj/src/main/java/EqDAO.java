@@ -7,31 +7,29 @@ import javax.sql.DataSource;
 
 public class EqDAO {
 
-	// DB 연결하기
-	public Connection getConnection() throws SQLException {
-		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
-			return ds.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new SQLException("데이터베이스 연결 실패");
-		}
-	}
-
-	// 등록
+	// 등록 메서드
 	public int insertEq(EqDTO eqDTO) throws SQLException {
 		int result = -1;
 		Connection con = null;
 		PreparedStatement ps = null;
+
 		try {
-			con = getConnection();
-			String query = "INSERT INTO P_FACILITY VALUES (?,?,?,?,?,?,?)";
-			ps = con.prepareStatement(query);
-			if (eqDTO.getFacility_code() == null || eqDTO.getFacility_code().isEmpty()) {
-				throw new SQLException("FACILITY_CODE cannot be null");
+			Context ctn = new InitialContext();
+			DataSource ds = (DataSource) ctn.lookup("java:/comp/env/jdbc/oracle");
+			con = ds.getConnection();
+
+			// 중복 검사
+			String checkQuery = "SELECT COUNT(*) FROM P_FACILITY WHERE FACILITY_CODE = ?";
+			ps = con.prepareStatement(checkQuery);
+			ps.setString(1, eqDTO.getFacility_code());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next() && rs.getInt(1) > 0) {
+				return -2; // 중복 코드 존재
 			}
 
+			// 중복이 없으면 삽입 진행
+			String insertQuery = "INSERT INTO P_FACILITY VALUES (?, ?, ?, ?, ?, ?, ?)";
+			ps = con.prepareStatement(insertQuery);
 			ps.setString(1, eqDTO.getFacility_code());
 			ps.setString(2, eqDTO.getFacility_manager());
 			ps.setDate(3, eqDTO.getInstallation_date());
@@ -41,128 +39,138 @@ public class EqDAO {
 			ps.setString(7, eqDTO.getRemarks());
 
 			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException("설비 등록 중 오류 발생", e);
 		} finally {
 			if (ps != null)
-				ps.close();
+				try {
+					ps.close();
+				} catch (SQLException e) {
+				}
 			if (con != null)
-				con.close();
+				try {
+					con.close();
+				} catch (SQLException e) {
+				}
 		}
+
 		return result;
 	}
 
-	// 내가 등록한 테이블 전체 가져오기
+
+	// 조회 메서드 (전체 목록)
 	public List<EqDTO> selectEqList() throws SQLException {
+
 		List<EqDTO> list = new ArrayList<>();
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+
 		try {
-			con = getConnection();
+			Context ctn = new InitialContext();
+			DataSource ds = (DataSource) ctn.lookup("java:/comp/env/jdbc/oracle");
+			Connection con = ds.getConnection();
+
 			String query = "SELECT * FROM P_FACILITY";
-			ps = con.prepareStatement(query);
-			rs = ps.executeQuery();
+			PreparedStatement ps = con.prepareStatement(query);
+
+			ResultSet rs = ps.executeQuery();
+
 			while (rs.next()) {
 				EqDTO dto = new EqDTO();
 				dto.setFacility_code(rs.getString("FACILITY_CODE"));
-				dto.setFacility_manager(rs.getString("FACILLITY_MANAGER"));
+				dto.setFacility_manager(rs.getString("FACILITY_MANAGER"));
 				dto.setInstallation_date(rs.getDate("INSTALLATION_DATE"));
 				dto.setFacility_name(rs.getString("FACILITY_NAME"));
 				dto.setFacility_location(rs.getString("FACILITY_LOCATION"));
 				dto.setInspection_cycle(rs.getString("INSPECTION_CYCLE"));
 				dto.setRemarks(rs.getString("REMARKS"));
-
 				list.add(dto);
 			}
-		} finally {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-			if (con != null)
-				con.close();
+
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
-	}
+	};
 
-	// 삭제할때 쓰이는 것
-	public int deleteEq(String[] eqid) throws SQLException {
-		int result = 0;
-		Connection con = null;
-		PreparedStatement ps = null;
+	// 수정 메서드
+	public void updateEq(EqDTO eqDTO) throws SQLException {
+		String query = "UPDATE P_FACILITY SET FACILITY_MANAGER = ?, INSTALLATION_DATE = ?, FACILITY_NAME = ?, FACILITY_LOCATION = ?, INSPECTION_CYCLE = ?, REMARKS = ? WHERE FACILITY_CODE = ?";
+
 		try {
-			con = getConnection();
-			String query = "DELETE FROM p_sku WHERE P_FACILITY = ?";
-			ps = con.prepareStatement(query);
-//			for (String skuId : eqid) {
-//				ps.setInt(1, Integer.parseInt(skuId));
-//				result += ps.executeUpdate();
-//			}
-		} finally {
-			if (ps != null)
-				ps.close();
-			if (con != null)
-				con.close();
+
+			Context ctn = new InitialContext();
+			DataSource ds = (DataSource) ctn.lookup("java:/comp/env/jdbc/oracle");
+			Connection con = ds.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+
+			ps.setString(1, eqDTO.getFacility_manager());
+			ps.setDate(2, eqDTO.getInstallation_date());
+			ps.setString(3, eqDTO.getFacility_name());
+			ps.setString(4, eqDTO.getFacility_location());
+			ps.setString(5, eqDTO.getInspection_cycle());
+			ps.setString(6, eqDTO.getRemarks());
+			ps.setString(7, eqDTO.getFacility_code());
+
+			int rowsAffected = ps.executeUpdate();
+			if (rowsAffected == 0) {
+				throw new SQLException("설비 수정 실패: 해당 코드의 설비가 존재하지 않습니다.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return result;
 	}
 
-	// 이건 수정할때 쓰이는 업데이트
-	public int updateEq(EqDTO eqDTO) throws SQLException {
-		int result = 0;
-		Connection con = null;
-		PreparedStatement ps = null;
+	// 삭제 메서드
+	public void deleteEq(String facilityCode) throws SQLException {
 		try {
-			con = getConnection();
-			String query = "UPDATE P_FACILITY SET FACILITY_CODE = ?, FACILLITY_MANAGER = ?, INSTALLATION_DATE = SYSDATE, FACILITY_NAME = ?, FACILITY_LOCATION = ?, INSPECTION_CYCLE = ?, REMARKS = ?";
-			ps = con.prepareStatement(query);
-			ps.setString(1, eqDTO.getFacility_code());
-			ps.setString(2, eqDTO.getFacility_manager());
-			ps.setDate(3, eqDTO.getInstallation_date());
-			ps.setString(4, eqDTO.getFacility_name());
-			ps.setString(5, eqDTO.getFacility_location());
-			ps.setString(6, eqDTO.getInspection_cycle());
-			ps.setString(7, eqDTO.getRemarks());
-			result = ps.executeUpdate();
-		} finally {
-			if (ps != null)
-				ps.close();
-			if (con != null)
-				con.close();
+			Context ctn = new InitialContext();
+			DataSource ds = (DataSource) ctn.lookup("java:/comp/env/jdbc/oracle");
+			Connection con = ds.getConnection();
+			String query = "DELETE FROM P_FACILITY WHERE FACILITY_CODE = ?";
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setString(1, facilityCode);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException("삭제 중 오류 발생", e);
 		}
-		return result;
 	}
 
-	// 조회할때 쓰이는 것
+	// 검색 메서드
 	public List<EqDTO> searchEqList(String searchKeyword) throws SQLException {
 		List<EqDTO> list = new ArrayList<>();
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+
 		try {
-			con = getConnection();
+			Context ctn = new InitialContext();
+			DataSource ds = (DataSource) ctn.lookup("java:/comp/env/jdbc/oracle");
+			Connection con = ds.getConnection();
+
 			String query = "SELECT * FROM P_FACILITY WHERE FACILITY_CODE LIKE ? OR FACILITY_NAME LIKE ?";
-			ps = con.prepareStatement(query);
+
+			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, "%" + searchKeyword + "%");
 			ps.setString(2, "%" + searchKeyword + "%");
-			rs = ps.executeQuery();
+
+			ResultSet rs = ps.executeQuery();
+
 			while (rs.next()) {
 				EqDTO dto = new EqDTO();
-				dto.setFacility_code(rs.getString("facility_code"));
-				dto.setFacility_manager(rs.getString("facility_manager"));
-				dto.setInstallation_date(rs.getDate("installation_date"));
-				dto.setFacility_name(rs.getString("facility_name"));
-				dto.setFacility_location(rs.getString("facility_location"));
-				dto.setInspection_cycle(rs.getString("inspection_cycle"));
-				dto.setRemarks(rs.getString("remarks"));
+				dto.setFacility_code(rs.getString("FACILITY_CODE"));
+				dto.setFacility_manager(rs.getString("FACILITY_MANAGER"));
+				dto.setInstallation_date(rs.getDate("INSTALLATION_DATE"));
+				dto.setFacility_name(rs.getString("FACILITY_NAME"));
+				dto.setFacility_location(rs.getString("FACILITY_LOCATION"));
+				dto.setInspection_cycle(rs.getString("INSPECTION_CYCLE"));
+				dto.setRemarks(rs.getString("REMARKS"));
 				list.add(dto);
 			}
-		} finally {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-			if (con != null)
-				con.close();
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}

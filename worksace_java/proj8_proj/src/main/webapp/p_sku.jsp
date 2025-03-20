@@ -175,31 +175,34 @@ span {
 					<input type="text" name="p_sku5" id="skuCategory">
 				</div>
 			</div>
+			<!-- 작업자 -->
 			<div>
-				<!-- 작업자 -->
 				<c:if test="${user.grade == 2}">
 					<input type="button" value="조회" class="buttons"
 						onclick="searchSkus()">
 				</c:if>
 				<!-- 관리자 -->
 				<c:if test="${user.grade == 1}">
-					<button type="submit" value="등록" class="buttons">등록</button>
-					<button type="button" value="조회" class="buttons"
-						onclick="searchSkus()">조회</button>
+					<input type="submit" value="등록" class="buttons">
+					<input type="button" value="조회" class="buttons"
+						onclick="searchSkus()">
 					<button type="button" class="buttons" id="editSelectedButton">수정</button>
 					<button type="button" class="buttons" id="updateButton"
 						style="display: none;" onclick="updateSku()">수정 완료</button>
 					<button type="button" class="buttons" id="cancelButton"
 						style="display: none;">취소</button>
-					<button type="submit" value="삭제" class="buttons" name="action">삭제</button>
+					<input type="submit" value="삭제" class="buttons" name="action">
 				</c:if>
 			</div>
-
 		</form>
 		<div>
-			조회할것 입력해주세요 <input type="text" name="searchKeyword"
+			조회할 상품코드를 입력해주세요 <input type="text" name="searchKeyword"
 				id="searchKeyword">
 		</div>
+		<!-- 검색결과가 없을때 나온다 -->
+		<c:if test="${not empty message}">
+			<p style="color: red;">${message}</p>
+		</c:if>
 		<table border=1>
 			<thead>
 				<tr>
@@ -228,6 +231,7 @@ span {
 						<td>${dto.create_date}</td>
 						<td>${dto.modify_date}</td>
 						<td>${dto.sku_category}</td>
+
 					</tr>
 				</c:forEach>
 			</tbody>
