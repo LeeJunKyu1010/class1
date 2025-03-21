@@ -27,6 +27,7 @@ public class EmpLoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			response.sendRedirect("EmpServlet");
+			System.out.println("user.getEmpName() : "+user.getEmpName());
 		}
 		else {
 			// 로그인 실패 시 에러 메시지 전달

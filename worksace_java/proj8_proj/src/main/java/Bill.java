@@ -201,7 +201,7 @@ public class Bill extends HttpServlet {
 
 		}
 
-		if ("delet".equals(type)) {
+		if ("delete".equals(type)) {
 			System.out.println("delet 진입");
 
 			String[] array = request.getParameterValues("box");

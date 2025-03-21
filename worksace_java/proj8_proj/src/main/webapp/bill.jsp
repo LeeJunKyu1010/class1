@@ -253,11 +253,11 @@ span {
 			})
 		})
 		
-		const delet = document.querySelector("#delet");
+		const delet = document.querySelector("#delete");
 		delet.addEventListener("click", (event) => {
 			event.preventDefault();
 			
-			hidden.value = "delet";
+			hidden.value = "delete";
 			
 			console.log("delet 클릭");
 			

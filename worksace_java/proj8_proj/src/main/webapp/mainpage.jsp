@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MES System</title>
+<title>GKBM MES SYSTEM</title>
 <style>
 * {
 	margin: 0;
@@ -690,7 +690,7 @@ h3 {
 			<div class="graph_container">
 				<div class="graph_section">
 					<!-- 경영리포팅 그래프가 들어갈 공간 -->
-					<iframe id="content-frame" src="" width="100%" height="100%"
+					<iframe id="content-frame" src="main_dashboard.jsp" width="100%" height="100%"
 						frameborder="0"></iframe>
 				</div>
 			</div>
@@ -748,7 +748,7 @@ h3 {
 		<div class="info-popup2">
 			<div class="checkbox-container">
 				<input type="checkbox" id="dont-show-again" /> <label
-					for="dont-show-again">다시 보지 않기</label>
+					for="dont-show-again"> 일주일간 보지 않기</label>
 			</div>
 			<button class="close-btn" onclick="closePopup()">✖</button>
 		</div>
@@ -759,60 +759,7 @@ h3 {
     // 팝업창 move 스크립트
     // ===================================================
 	
-	document.addEventListener('DOMContentLoaded', function() {
-    const popup = document.getElementById('draggable-popup');
-    let isDragging = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
-    let xOffset = 0;
-    let yOffset = 0;
-
-    popup.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
-
-    function dragStart(e) {
-        initialX = e.clientX - xOffset;
-        initialY = e.clientY - yOffset;
-
-        if (e.target === popup) {
-            isDragging = true;
-        }
-        console.log('Drag started'); // 디버깅용 로그
-    }
-
-    function drag(e) {
-        if (isDragging) {
-            e.preventDefault();
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-
-            xOffset = currentX;
-            yOffset = currentY;
-
-            setTranslate(currentX, currentY, popup);
-            console.log('Dragging'); // 디버깅용 로그
-        }
-    }
-
-    function dragEnd(e) {
-        initialX = currentX;
-        initialY = currentY;
-
-        isDragging = false;
-        console.log('Drag ended'); // 디버깅용 로그
-    }
-
-    function setTranslate(xPos, yPos, el) {
-        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-    }
-});
-
-
-
-
+	// 추후 추가 예정
     	
 	// ===================================================
     // 팝업창 쿠키 스크립트
@@ -905,7 +852,7 @@ h3 {
         // ----- SCM -----
         '거래처 정보관리': 'vendor.jsp',
         '거래명세서': 'bill.jsp',
-
+        
         // ----- 생산관리 -----
         '생산계획관리': 'week.jsp',
         '작업지시관리': 'work.jsp',
@@ -932,7 +879,7 @@ h3 {
         '리퍼브/폐기': 'disable.jsp',
 
         // ----- 커뮤니티 -----
-        '게시판': 'board_list.jsp',
+        '게시판': 'board',
     };
 
     // ===================================================

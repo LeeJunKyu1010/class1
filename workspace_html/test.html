@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Cursor</title>
+    <style>
+        body {
+            cursor: url('chatbot2.png')2 2, auto;
+            border: 1px solid red;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener('mousedown', function () {
+            // 마우스 버튼을 누를 때 사용자 아이콘으로 변경
+            document.body.style.cursor = "url('사용자아이콘.png'), auto";
+        });
+
+        document.addEventListener('mouseup', function () {
+            // 마우스 버튼을 뗄 때 원래 커서로 복원
+            document.body.style.cursor = "url('chatbot2.png'), auto";
+        });
+
+    </script>
+</body>
+
+</html>
