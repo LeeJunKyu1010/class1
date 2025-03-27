@@ -109,7 +109,7 @@
 
 				
 				
-			<Context docBase="Spring3_modle" path="/human3" reloadable="true" source="org.eclipse.jst.jee.server:Spring3_modle"/></Host>
+			<Context docBase="Spring3_modle" path="/human3" reloadable="true" source="org.eclipse.jst.jee.server:Spring3_modle"/><Context docBase="Spring3_test" path="/human3_1" reloadable="true" source="org.eclipse.jst.jee.server:Spring3_test"/></Host>
 		</Engine>
 	</Service>
 </Server>
