@@ -85,7 +85,7 @@
 </style>
 
 <body>
-	<form id="addWtForm" method="post" action="Wt">
+	<form method="post" action="Wt">
 		<div>
 			<h3>요일별 전체 웹툰</h3>
 		</div>
