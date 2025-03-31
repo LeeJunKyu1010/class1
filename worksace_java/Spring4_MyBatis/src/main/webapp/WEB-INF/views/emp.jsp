@@ -14,32 +14,29 @@ th, td {
 </head>
 <body>
 	<form method="post" action="emp">
+		<input type="text" name="empno"/>
 		<button type="submit" name="action" value="click">클릭</button>
 	</form>
 	<table>
 		<thead>
 			<tr>
+				<th>No.</th>
 				<th>empno</th>
 				<th>ename</th>
-				<th>job</th>
-				<th>mgr</th>
 		</thead>
 		<tbody>
-			<c:forEach var="emp" items="${select}">
+			<!-- 반복문 돌려서 배열로 된거 출력 -->
+			<c:forEach var="dto" items="${select}" varStatus="loop">
 				<tr>
-					<td>${emp.empno}</td>
-					<td>${emp.ename}</td>
-					<td>${emp.job}</td>
-					<td>${emp.mgr}</td>
+					<td>${loop.count}</td>
+					<td>${dto.empno}</td>
+					<td><a href="detailEmp?empno=${dto.empno}">${dto.ename}</a></td>
 				</tr>
 			</c:forEach>
 
 		</tbody>
 
-
 	</table>
-	</tr>
-
 
 </body>
 </html>
