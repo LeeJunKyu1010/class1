@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<<<<<<< HEAD
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>설비 등록</title>
@@ -14,111 +14,97 @@ body {
 	background-color: #f9f9f9;
 	font-family: Arial, sans-serif;
 }
-=======
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>시설 등록</title>
-    <style>
-        /* CSS 스타일 */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            font-family: Arial, sans-serif;
-        }
->>>>>>> 06b1743101ba23a8403427f8adfb8f0b1bd2768a
 
-        .container {
-            width: 95%;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.container {
+	width: 95%;
+	margin: auto;
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        h1 {
-            margin-bottom: 20px;
-            border: 1px solid black;
-            padding: 10px;
-        }
+h1 {
+	margin-bottom: 20px;
+	border: 1px solid black;
+	padding: 10px;
+}
 
-        .form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+.form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	margin-bottom: 20px;
+}
 
-        .form-fields {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+.form-fields {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
 
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-        }
+.form-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
 
-        label {
-            min-width: 80px;
-        }
+label {
+	min-width: 80px;
+}
 
-        input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            flex: 1;
-        }
+input {
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	flex: 1;
+}
 
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
 
-        button {
-            padding: 10px 15px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+button {
+	padding: 10px 15px;
+	background-color: #4a90e2;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+button:hover {
+	background-color: #0056b3;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
 
-        table th, table td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
+table th, table td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: center;
+}
 
-        .pagination {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-        }
+.pagination {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+}
 
-        .pagination button {
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
+.pagination button {
+	padding: 5px 10px;
+	border-radius: 5px;
+}
 
-<<<<<<< HEAD
 .별 {
 	color: red;
 }
@@ -139,34 +125,32 @@ body {
 		width: auto;
 	}
 }
-=======
-        @media screen and (max-width: 800px) {
-            .form-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 5px !important;
-                /* 모바일에서 간격 조정 */
-            }
-            .buttons {
-                flex-direction: row;
-                justify-content: center;
-                margin-top: 10px;
-            }
-            button {
-                width: auto;
-            }
-        }
->>>>>>> 06b1743101ba23a8403427f8adfb8f0b1bd2768a
 
-        .edit-buttons {
-            margin-top: 10px;
-        }
+@media screen and (max-width: 800px) {
+	.form-row {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 5px !important;
+		/* 모바일에서 간격 조정 */
+	}
+	.buttons {
+		flex-direction: row;
+		justify-content: center;
+		margin-top: 10px;
+	}
+	button {
+		width: auto;
+	}
+}
 
-        .active {
-            background-color: #0056b3;
-        }
+.edit-buttons {
+	margin-top: 10px;
+}
 
-<<<<<<< HEAD
+.active {
+	background-color: #0056b3;
+}
+
 h1 {
 	width: 90%;
 }
@@ -176,169 +160,168 @@ h1 {
 <body>
 	<div class="container">
 		<h1>◎ 설비 등록</h1>
-=======
-        h1 {
-            width: 90%;
-        }
-    </style>
-</head>
+		</style>
+		</head>
 
-<body>
-    <div class="container">
-        <h1>◎ 시설 등록</h1>
->>>>>>> 06b1743101ba23a8403427f8adfb8f0b1bd2768a
+		<body>
+			<div class="container">
+				<h1>◎ 시설 등록</h1>
 
-        <span class="별">* 모두 기입</span>
+				<span class="별">* 모두 기입</span>
 
-<<<<<<< HEAD
-		<!-- 검색 폼 -->
-		<form method="get" action="p_eq" class="form">
-			<span>설비코드 or 설비명</span> <input type="text" name="searchKeyword"
-				placeholder="검색어를 입력하세요">
-			<button type="submit">검색</button>
-		</form>
+				<!-- 검색 폼 -->
+				<form method="get" action="p_eq" class="form">
+					<span>설비코드 or 설비명</span> <input type="text" name="searchKeyword"
+						placeholder="검색어를 입력하세요">
+					<button type="submit">검색</button>
+				</form>
 
-		<!-- 등록/수정 폼 -->
-		<form method="post" action="p_eq" class="form">
-			<div class="form-fields">
-				<div class="form-row">
-					<label for="facilityCode">설비코드<span class="별"> *</span></label> <input
-						type="text" id="facilityCode" name="facilityCode" required>
-					<label for="facilityManager">관리자<span class="별"> *</span></label> <input
-						type="text" id="facilityManager" name="facilityManager" required>
-				</div>
+				<!-- 등록/수정 폼 -->
+				<form method="post" action="p_eq" class="form">
+					<div class="form-fields">
+						<div class="form-row">
+							<label for="facilityCode">설비코드<span class="별"> *</span></label> <input
+								type="text" id="facilityCode" name="facilityCode" required>
+							<label for="facilityManager">관리자<span class="별"> *</span></label>
+							<input type="text" id="facilityManager" name="facilityManager"
+								required>
+						</div>
 
-				<div class="form-row">
-					<label for="installationDate">설치일자<span class="별">
-							*</span></label> <input type="date" id="installationDate"
-						name="installationDate" required> <label
-						for="facilityName">설비명<span class="별"> *</span></label> <input
-						type="text" id="facilityName" name="facilityName" required>
-				</div>
+						<div class="form-row">
+							<label for="installationDate">설치일자<span class="별">
+									*</span></label> <input type="date" id="installationDate"
+								name="installationDate" required> <label
+								for="facilityName">설비명<span class="별"> *</span></label> <input
+								type="text" id="facilityName" name="facilityName" required>
+						</div>
 
-				<div class="form-row">
-					<label for="facilityLocation">설비위치<span class="별">
-							*</span></label> <input type="text" id="facilityLocation"
-						name="facilityLocation" required> <label
-						for="inspectionCycle">점검주기<span class="별"> *</span></label> <input
-						type="text" id="inspectionCycle" name="inspectionCycle" required>
-				</div>
+						<div class="form-row">
+							<label for="facilityLocation">설비위치<span class="별">
+									*</span></label> <input type="text" id="facilityLocation"
+								name="facilityLocation" required> <label
+								for="inspectionCycle">점검주기<span class="별"> *</span></label> <input
+								type="text" id="inspectionCycle" name="inspectionCycle" required>
+						</div>
 
-				<div class="form-row">
-					<label for="remarks">비고사항</label> <input type="text" id="remarks"
-						name="remarks">
-				</div>
-			</div>
+						<div class="form-row">
+							<label for="remarks">비고사항</label> <input type="text" id="remarks"
+								name="remarks">
+						</div>
+					</div>
 
-			<!-- 버튼 영역 -->
-			<div class="buttons">
-				<c:if test="${user.grade == 2}">
-					<button type="button" value="조회" class="buttons serch1">조회</button>
-				</c:if>
-				<c:if test="${user.grade == 1}">
-					<button type="submit" value="등록" class="buttons insert1">등록</button>
-					<button type="button" value="조회" class="buttons serch1">조회</button>
-					<button type="button" value="수정" class="buttons update1">수정</button>
-					<button type="submit" value="삭제" class="buttons delete1"
-						name="action">삭제</button>
-				</c:if>
-			</div>
-=======
-        <!-- 검색 폼 -->
-        <form method="get" action="p_eq">
-            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요">
-            <button type="submit">검색</button>
-        </form>
+					<!-- 버튼 영역 -->
+					<div class="buttons">
+						<c:if test="${user.grade == 2}">
+							<button type="button" value="조회" class="buttons serch1">조회</button>
+						</c:if>
+						<c:if test="${user.grade == 1}">
+							<button type="submit" value="등록" class="buttons insert1">등록</button>
+							<button type="button" value="조회" class="buttons serch1">조회</button>
+							<button type="button" value="수정" class="buttons update1">수정</button>
+							<button type="submit" value="삭제" class="buttons delete1"
+								name="action">삭제</button>
+						</c:if>
+					</div>
+					<!-- 검색 폼 -->
+					<form method="get" action="p_eq">
+						<input type="text" name="searchKeyword" placeholder="검색어를 입력하세요">
+						<button type="submit">검색</button>
+					</form>
 
-        <!-- 등록/수정 폼 -->
-        <form method="post" action="p_eq" class="form">
-            <div class="form-fields">
-                <div class="form-row">
-                    <label for="facilityCode">시설 코드<span class="별"> *</span></label> 
-                    <input type="text" id="facilityCode" name="facilityCode" required>
-                    <label for="facilityManager">관리자<span class="별"> *</span></label> 
-                    <input type="text" id="facilityManager" name="facilityManager" required>
-                </div>
+					<!-- 등록/수정 폼 -->
+					<form method="post" action="p_eq" class="form">
+						<div class="form-fields">
+							<div class="form-row">
+								<label for="facilityCode">시설 코드<span class="별"> *</span></label>
+								<input type="text" id="facilityCode" name="facilityCode"
+									required> <label for="facilityManager">관리자<span
+									class="별"> *</span></label> <input type="text" id="facilityManager"
+									name="facilityManager" required>
+							</div>
 
-                <div class="form-row">
-                    <label for="installationDate">설치 일자<span class="별"> *</span></label> 
-                    <input type="date" id="installationDate" name="installationDate" required> 
-                    <label for="facilityName">시설 이름<span class="별"> *</span></label> 
-                    <input type="text" id="facilityName" name="facilityName" required>
-                </div>
+							<div class="form-row">
+								<label for="installationDate">설치 일자<span class="별">
+										*</span></label> <input type="date" id="installationDate"
+									name="installationDate" required> <label
+									for="facilityName">시설 이름<span class="별"> *</span></label> <input
+									type="text" id="facilityName" name="facilityName" required>
+							</div>
 
-                <div class="form-row">
-                    <label for="facilityLocation">시설 위치<span class="별"> *</span></label> 
-                    <input type="text" id="facilityLocation" name="facilityLocation" required> 
-                    <label for="inspectionCycle">점검 주기<span class="별"> *</span></label> 
-                    <input type="text" id="inspectionCycle" name="inspectionCycle" required>
-                </div>
+							<div class="form-row">
+								<label for="facilityLocation">시설 위치<span class="별">
+										*</span></label> <input type="text" id="facilityLocation"
+									name="facilityLocation" required> <label
+									for="inspectionCycle">점검 주기<span class="별"> *</span></label> <input
+									type="text" id="inspectionCycle" name="inspectionCycle"
+									required>
+							</div>
 
-                <div class="form-row">
-                    <label for="remarks">비고 사항</label> 
-                    <input type="text" id="remarks" name="remarks">
-                </div>
-            </div>
->>>>>>> 06b1743101ba23a8403427f8adfb8f0b1bd2768a
+							<div class="form-row">
+								<label for="remarks">비고 사항</label> <input type="text"
+									id="remarks" name="remarks">
+							</div>
+						</div>
 
-            <!-- 버튼 영역 -->
-            <div class="buttons">
-                <button type="submit" value="등록" class="buttons">등록</button>
-                <button type="button" value="조회" class="buttons" onclick="searchEq()">조회</button>
-                <button type="button" class="buttons" id="editSelectedButton">수정</button>
-                <button type="button" class="buttons" id="updateButton" style="display: none;" onclick="updateEq()">수정 완료</button>
-                <button type="button" class="buttons" id="cancelButton" style="display: none;">취소</button>
-                <button type="submit" value="삭제" class="buttons" name="action">삭제</button>
-            </div>
+						<!-- 버튼 영역 -->
+						<div class="buttons">
+							<button type="submit" value="등록" class="buttons">등록</button>
+							<button type="button" value="조회" class="buttons"
+								onclick="searchEq()">조회</button>
+							<button type="button" class="buttons" id="editSelectedButton">수정</button>
+							<button type="button" class="buttons" id="updateButton"
+								style="display: none;" onclick="updateEq()">수정 완료</button>
+							<button type="button" class="buttons" id="cancelButton"
+								style="display: none;">취소</button>
+							<button type="submit" value="삭제" class="buttons" name="action">삭제</button>
+						</div>
 
-<<<<<<< HEAD
-		<!-- 설비 목록 테이블 -->
-		<table>
-			<thead>
-				<tr>
-					<th><input type="checkbox" id="selectAll"></th>
-					<th>설비코드</th>
-					<th>설비명</th>
-					<th>관리자</th>
-					<th>설치일자</th>
-					<th>점검주기</th>
-					<th>설비위치</th>
-					<th>비고사항</th>
-				</tr>
-			</thead>
+						<!-- 설비 목록 테이블 -->
+						<table>
+							<thead>
+								<tr>
+									<th><input type="checkbox" id="selectAll"></th>
+									<th>설비코드</th>
+									<th>설비명</th>
+									<th>관리자</th>
+									<th>설치일자</th>
+									<th>점검주기</th>
+									<th>설비위치</th>
+									<th>비고사항</th>
+								</tr>
+							</thead>
 
-			<tbody id="table-body">
-				<c:forEach var="dto" items="${resultList}">
-					<tr>
-						<td><input type="checkbox" name="check"
-							value="${dto.facility_code}"></td>
-						<td>${dto.facility_code}</td>
-						<td>${dto.facility_name}</td>
-						<td>${dto.facility_manager}</td>
-						<td>${dto.installation_date}</td>
-						<td>${dto.inspection_cycle}</td>
-						<td>${dto.facility_location}</td>
-						<td>${dto.remarks}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div class="pagination">
-			<button>&lt;</button>
-			<button>1</button>
-			<button>2</button>
-			<button>3</button>
-			<button>4</button>
-			<button>5</button>
-			<button>6</button>
-			<button>7</button>
-			<button>8</button>
-			<button>9</button>
-			<button>10</button>
-			<button>&gt;</button>
-		</div>
+							<tbody id="table-body">
+								<c:forEach var="dto" items="${resultList}">
+									<tr>
+										<td><input type="checkbox" name="check"
+											value="${dto.facility_code}"></td>
+										<td>${dto.facility_code}</td>
+										<td>${dto.facility_name}</td>
+										<td>${dto.facility_manager}</td>
+										<td>${dto.installation_date}</td>
+										<td>${dto.inspection_cycle}</td>
+										<td>${dto.facility_location}</td>
+										<td>${dto.remarks}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="pagination">
+							<button>&lt;</button>
+							<button>1</button>
+							<button>2</button>
+							<button>3</button>
+							<button>4</button>
+							<button>5</button>
+							<button>6</button>
+							<button>7</button>
+							<button>8</button>
+							<button>9</button>
+							<button>10</button>
+							<button>&gt;</button>
+						</div>
 
-		<script>
+						<script>
 		// 페이지 로드 시 초기 설정
 		document.addEventListener('DOMContentLoaded', function() {
 		    // 등록 버튼을 제외한 모든 버튼에서 required 속성 제거
@@ -512,71 +495,78 @@ h1 {
 		    });
 		});
 	</script>
-=======
-        </form>
+					</form>
 
-        <!-- 시설 목록 테이블 -->
-        <table>
-            <thead>
-                <tr>
-                    <th><input type="checkbox" id="selectAll"></th>
-                    <th>시설 코드</th>
-                    <th>관리자</th>
-                    <th>설치 일자</th>
-                    <th>시설 이름</th>
-                    <th>점검 주기</th>
-                    <th>시설 위치</th>
-                    <th>비고 사항</th>
-                </tr>
-            </thead>
+					<!-- 시설 목록 테이블 -->
+					<table>
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAll"></th>
+								<th>시설 코드</th>
+								<th>관리자</th>
+								<th>설치 일자</th>
+								<th>시설 이름</th>
+								<th>점검 주기</th>
+								<th>시설 위치</th>
+								<th>비고 사항</th>
+							</tr>
+						</thead>
 
-            <tbody id="table-body">
-                <c:forEach var="dto" items="${resultList}">
-                    <tr>
-                        <td><input type="checkbox" name="check" value="${dto.facility_code}"></td>
-                        <td>${dto.facility_code}</td>
-                        <td>${dto.facility_manager}</td>
-                        <td>${dto.installation_date}</td>
-                        <td>${dto.facility_name}</td>
-                        <td>${dto.inspection_cycle}</td>
-                        <td>${dto.facility_location}</td>
-                        <td>${dto.remarks}</td>
-                        <td><button type="button" onclick="showUpdateForm('${dto.facility_code}', '${dto.facility_manager}', '${dto.installation_date}', '${dto.facility_name}', '${dto.facility_location}', '${dto.inspection_cycle}', '${dto.remarks}')">수정</button></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+						<tbody id="table-body">
+							<c:forEach var="dto" items="${resultList}">
+								<tr>
+									<td><input type="checkbox" name="check"
+										value="${dto.facility_code}"></td>
+									<td>${dto.facility_code}</td>
+									<td>${dto.facility_manager}</td>
+									<td>${dto.installation_date}</td>
+									<td>${dto.facility_name}</td>
+									<td>${dto.inspection_cycle}</td>
+									<td>${dto.facility_location}</td>
+									<td>${dto.remarks}</td>
+									<td><button type="button"
+											onclick="showUpdateForm('${dto.facility_code}', '${dto.facility_manager}', '${dto.installation_date}', '${dto.facility_name}', '${dto.facility_location}', '${dto.inspection_cycle}', '${dto.remarks}')">수정</button></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
-        <!-- 수정 폼 -->
-        <div id="updateForm" style="display: none;">
-            <form method="post" action="p_eq">
-                <input type="hidden" name="action" value="수정">
-                <table>
-                    <tr>
-                        <th>시설 코드</th>
-                        <th>관리자</th>
-                        <th>설치 일자</th>
-                        <th>시설 이름</th>
-                        <th>시설 위치</th>
-                        <th>점검 주기</th>
-                        <th>비고 사항</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="updateFacilityCode" name="facilityCode" readonly></td>
-                        <td><input type="text" id="updateFacilityManager" name="facilityManager"></td>
-                        <td><input type="date" id="updateInstallationDate" name="installationDate"></td>
-                        <td><input type="text" id="updateFacilityName" name="facilityName"></td>
-                        <td><input type="text" id="updateFacilityLocation" name="facilityLocation"></td>
-                        <td><input type="text" id="updateInspectionCycle" name="inspectionCycle"></td>
-                        <td><input type="text" id="updateRemarks" name="remarks"></td>
-                    </tr>
-                </table>
-                <button type="submit">수정</button>
-                <button type="button" onclick="hideUpdateForm()">취소</button>
-            </form>
-        </div>
+					<!-- 수정 폼 -->
+					<div id="updateForm" style="display: none;">
+						<form method="post" action="p_eq">
+							<input type="hidden" name="action" value="수정">
+							<table>
+								<tr>
+									<th>시설 코드</th>
+									<th>관리자</th>
+									<th>설치 일자</th>
+									<th>시설 이름</th>
+									<th>시설 위치</th>
+									<th>점검 주기</th>
+									<th>비고 사항</th>
+								</tr>
+								<tr>
+									<td><input type="text" id="updateFacilityCode"
+										name="facilityCode" readonly></td>
+									<td><input type="text" id="updateFacilityManager"
+										name="facilityManager"></td>
+									<td><input type="date" id="updateInstallationDate"
+										name="installationDate"></td>
+									<td><input type="text" id="updateFacilityName"
+										name="facilityName"></td>
+									<td><input type="text" id="updateFacilityLocation"
+										name="facilityLocation"></td>
+									<td><input type="text" id="updateInspectionCycle"
+										name="inspectionCycle"></td>
+									<td><input type="text" id="updateRemarks" name="remarks"></td>
+								</tr>
+							</table>
+							<button type="submit">수정</button>
+							<button type="button" onclick="hideUpdateForm()">취소</button>
+						</form>
+					</div>
 
-        <script>
+					<script>
             // 항상 오늘 날짜로 하는 스크립트
             document.getElementById('installationDate').value = new Date().toISOString().substring(0, 10);
 
@@ -708,8 +698,6 @@ h1 {
                 document.getElementById('updateForm').style.display = 'block';
             }
         </script>
-    </div>
->>>>>>> 06b1743101ba23a8403427f8adfb8f0b1bd2768a
-</body>
-
+			</div>
+		</body>
 </html>

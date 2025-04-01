@@ -10,35 +10,56 @@ import kr.or.human.dto.EmpDTO;
 
 @Repository
 public class EmpDAOImpl implements EmpDAO {
-	
+
 	@Autowired
 	SqlSession sqlSession;
-	
+
 	@Override
-	public List<EmpDTO> selectEmpList(){
+	public List<EmpDTO> selectEmpList() {
 		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
-		System.out.println("result : "+result);
+		System.out.println("result : " + result);
 		return result;
 	}
-	
+
 	@Override
-	public EmpDTO selectOneEmp(){
+	public EmpDTO selectOneEmp() {
 		EmpDTO dto = sqlSession.selectOne("mapper.emp.selectOneEmp");
-		System.out.println("dto : "+dto);
+		System.out.println("dto : " + dto);
 		return dto;
 	}
-	
+
 	@Override
-	public EmpDTO selectOneEmpno(int empno){
+	public EmpDTO selectOneEmpno(int empno) {
 		EmpDTO dto = sqlSession.selectOne("mapper.emp.selectEmpno", empno);
-		System.out.println("dto : "+dto);
+		System.out.println("dto : " + dto);
+		return dto;
+	}
+
+	@Override
+	public EmpDTO selectOneEmpno2(EmpDTO empDTO) {
+		EmpDTO dto = sqlSession.selectOne("mapper.emp.selectEmpno2", empDTO);
+		System.out.println("EmpDAOImpl selectOneEmpno2 : " + dto);
 		return dto;
 	}
 	
 	@Override
-	public EmpDTO selectOneEmpno2(EmpDTO empDTO){
-		EmpDTO dto = sqlSession.selectOne("mapper.emp.selectEmpno2", empDTO);
-		System.out.println("EmpDAOImpl selectOneEmpno2 : "+dto);
+	public EmpDTO updateEMP(EmpDTO empDTO) {
+		EmpDTO dto = sqlSession.selectOne("mapper.emp.updateEMP", empDTO);
+		System.out.println("EmpDAOImpl updateEMP : " + dto);
+		return dto;
+	}
+	
+	@Override
+	public EmpDTO insertEmp(EmpDTO empDTO) {
+		EmpDTO dto = sqlSession.selectOne("mapper.emp.insertEMP",empDTO);
+		System.out.println("EmpDAOImpl insertEmp : " + dto);
+		return dto;
+	}
+	
+	@Override
+	public EmpDTO deleteEmp (EmpDTO empDTO) {
+		EmpDTO dto = sqlSession.selectOne("mapper.emp.deleteEMP",empDTO);
+		System.out.println("EmpDAOImpl deleteEmp : "+ dto);
 		return dto;
 	}
 }

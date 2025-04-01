@@ -346,7 +346,7 @@ h3 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 90%;
+	z-index: 1000; width : 90%;
 	max-width: 550px;
 	height: 90%;
 	max-height: 700px;
@@ -358,6 +358,7 @@ h3 {
 	z-index: 1002;
 	flex-direction: column;
 	border: 1px solid black;
+	width: 90%;
 }
 
 .gemini-popup .header {
@@ -478,22 +479,23 @@ h3 {
 }
 
 .overlay {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.5); /* 투명한 배경 */
+	backdrop-filter: blur(4px);
 	z-index: 900; /* 팝업보다 낮은 z-index */
 }
 
 /* 팝업창 */
 .info-popup {
-	position: fixed;
+	position: absolute;
 	user-select: none;
 	top: 40px;
 	left: 20px;
-	z-index: 1000;
+	z-index: 800;
 	width: 400px;
 	height: 500px;
 	border: 1px solid #ccc;
@@ -644,6 +646,24 @@ h3 {
 		height: calc(100% - 150px);
 	}
 }
+
+@media screen and (max-width: 1455px) {
+	.menu_item {
+		width: 100px;
+		height: 50px;
+		padding: 0px;
+
+		font-size: 13px;
+		text-align: center;
+		line-height: 50px;
+	}
+	#user_section > span{
+		font-size: 13px;
+	}
+	#logo {
+		width: 70px;
+	}
+}
 </style>
 </head>
 <body>
@@ -690,8 +710,8 @@ h3 {
 			<div class="graph_container">
 				<div class="graph_section">
 					<!-- 경영리포팅 그래프가 들어갈 공간 -->
-					<iframe id="content-frame" src="main_dashboard.jsp" width="100%" height="100%"
-						frameborder="0"></iframe>
+					<iframe id="content-frame" src="main_dashboard.jsp" width="100%"
+						height="100%" frameborder="0"></iframe>
 				</div>
 			</div>
 		</div>
@@ -759,7 +779,37 @@ h3 {
     // 팝업창 move 스크립트
     // ===================================================
 	
-	// 추후 추가 예정
+	let isDragable = false;
+		
+		let offsetX = 0;
+		let offsetY = 0;
+		
+		
+		document.querySelector('.info-popup').addEventListener('mousedown',(event)=>{
+			isDragable = true;
+			
+			offsetX = event.clientX
+			offsetY = event.clientY
+		})
+		
+		document.querySelector('.info-popup').addEventListener('mouseup',()=>{
+			isDragable = false;
+		})
+		
+		document.querySelector('.info-popup').addEventListener('mousemove',(event)=>{
+			if(isDragable){
+				let diff_X = event.clientX - offsetX
+				let diff_Y = event.clientY - offsetY
+				
+				let popup = document.querySelector('.info-popup')
+
+				popup.style.top = (popup.offsetTop + diff_Y) + 'px'
+				popup.style.left = (popup.offsetLeft + diff_X) + 'px'
+				
+				offsetX = event.clientX
+				offsetY = event.clientY
+			}
+		})
     	
 	// ===================================================
     // 팝업창 쿠키 스크립트

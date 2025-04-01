@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .info-popup {
+        position: fixed;
+        user-select: none;
+        /* 텍스트 선택 불가 */
+        width: 200px;
+        height: 100px;
+        background-color: #f0f0f0;
+        cursor: move;
+        /* 커서 스타일 */
+    }
+</style>
+
+<body>
+
+
+    <div class="info-popup" id="draggable-popup">
+        <div class="info-popup-header">
+            사내가
+        </div>
+        <div class="info-popup2">
+            <div class="checkbox-container">
+                <input type="checkbox" id="dont-show-again" />
+                <label for="dont-show-again">다시 보지 않기</label>
+            </div>
+            <button class="close-btn" onclick="closePopup()">✖</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const popup = document.getElementById('draggable-popup');
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+            let lastXOffset = 0;
+            let lastYOffset = 0;
+
+            popup.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                initialX = e.clientX;
+                initialY = e.clientY;
+
+                if (e.target === popup || popup.contains(e.target)) {
+                    isDragging = true;
+                }
+                console.log('Drag started');
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX;
+                    currentY = e.clientY;
+
+                    xOffset = lastXOffset + (currentX - initialX);
+                    yOffset = lastYOffset + (currentY - initialY);
+
+                    setTranslate(xOffset, yOffset, popup);
+                    console.log('Dragging');
+                }
+            }
+
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+
+                lastXOffset = xOffset;
+                lastYOffset = yOffset;
+
+                isDragging = false;
+                console.log('Drag ended');
+            }
+
+            function setTranslate(xPos, yPos, el) {
+                // el.style.transform = translate3d(${ xPos }px, ${ yPos }px, 0);
+            }
+        });
+
+
+
+        function closePopup() {
+            console.log('Close button clicked');
+            // 팝업 닫기 로직 추가
+        }
+    </script>
+</body>
+
+</html>

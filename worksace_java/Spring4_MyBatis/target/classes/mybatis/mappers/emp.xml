@@ -26,25 +26,39 @@
 		select * from emp2
 		where empno = #{_parameter}
 	</select>
-	
-	<select id="selectEname" resultType="empDTO" parameterType="string">
+
+	<select id="selectEname" resultType="empDTO"
+		parameterType="string">
 		select * from emp2
 		where ename = #{_parameter}
-		<!--
-		#{} : ''를 자동으로 붙여줌
-		where ename = 'KING'
-		where empno = 123
-		
-		${} : ''를 안붙임
-		where ename = KING
-		그래서
-		where ename = '${_parameter}'
-		-->
+		<!-- #{} : 를 자동으로 붙여줌 where ename = KING where empno = 123 ${} : 를 
+			안붙임 where ename = KING 그래서 where ename = ${_parameter} -->
 	</select>
-	
-	<select id="selectEmpno2" resultType="empDTO" parameterType="empDTO">
+
+	<select id="selectEmpno2" resultType="empDTO"
+		parameterType="empDTO">
 		select * from emp2
 		where empno = #{empno}
 	</select>
 
+	<update id="updateEMP" parameterType="empDTO">
+		update emp2
+		set ename = #{ename},
+		job = #{job},
+		mgr = #{mgr},
+		hiredate = #{hiredate},
+		sal = #{sal},
+		comm = #{comm},
+		deptno = #{deptno}
+		where empno = #{empno}
+	</update>
+
+	<insert id="insertEMP" parameterType="empDTO">
+	insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+	values (#{empno},#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno})
+	</insert>
+
+	<delete id="deleteEMP" parameterType="empDTO">
+		delete from emp2 where empno = #{empno}
+	</delete>
 </mapper>
