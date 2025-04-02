@@ -20,8 +20,11 @@ public class EmpDTO {
 	private String job;
 	private int mgr;
 	private Date hiredate;
-	private int sal;
+	private int sal = -1;
 	private Integer comm;
 	private int deptno;
+	
+	private String type;
+	private String keyword;
 	
 }

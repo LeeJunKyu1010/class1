@@ -109,7 +109,7 @@
 
 				
 				
-			<Context docBase="Spring4_MyBatis" path="/human4" reloadable="true" source="org.eclipse.jst.jee.server:Spring4_MyBatis"/><Context docBase="project_proj" path="/project_proj" reloadable="true" source="org.eclipse.jst.jee.server:project_proj"/></Host>
+			<Context docBase="Spring4_MyBatis" path="/human4" reloadable="true" source="org.eclipse.jst.jee.server:Spring4_MyBatis"/></Host>
 		</Engine>
 	</Service>
 </Server>

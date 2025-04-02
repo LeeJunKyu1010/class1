@@ -21,12 +21,13 @@ public class EmpController {
 
 	// 전체조회
 	@RequestMapping(value = "/emp", method = RequestMethod.GET)
-	public String listEMP(Model model, @RequestParam(required = false) String action) {
+	public String listEMP(Model model, EmpDTO empDTO) {
 
 //		if ("click".equals(action)) {
-		List<EmpDTO> select = empDAO.selectEmpList();
+		List<EmpDTO> select = empDAO.searchEmp(empDTO);
 		model.addAttribute("select", select);
-		System.out.println("클릭");
+		System.out.println("listEMP 클릭");
+		System.out.println(empDTO);
 //		}
 		return "emp";
 	}
@@ -38,7 +39,7 @@ public class EmpController {
 		EmpDTO select = empDAO.selectOneEmp();
 		model.addAttribute("select", select);
 
-		return "emp";
+		return "redirect:emp";
 	}
 
 	// empno 조회
@@ -73,17 +74,18 @@ public class EmpController {
 	@RequestMapping(value = "/emp", method = RequestMethod.POST)
 	public String modifyEmp2(Model model, @ModelAttribute EmpDTO empDTO) {
 		// 실제 update
-		EmpDTO dto = empDAO.updateEMP(empDTO);
+		int dto = empDAO.updateEMP(empDTO);
 		model.addAttribute("dto", dto);
 
 		System.out.println("Controller modifyEmp2 empDTO : " + empDTO);
 		return "redirect:emp";
 	}
 
+	// 등록
 	@RequestMapping(value = "/insertEmp", method = { RequestMethod.GET, RequestMethod.POST })
 	public String insertEmp(Model model, @ModelAttribute EmpDTO empDTO, String action) {
 		if ("click".equals(action)) {
-			EmpDTO dto = empDAO.insertEmp(empDTO);
+			int dto = empDAO.insertEmp(empDTO);
 			System.out.println("Controller insertEmp empDTO : " + empDTO);
 			System.out.println("insert 등록클릭");
 			return "redirect:emp";
@@ -92,10 +94,11 @@ public class EmpController {
 		return "insertEmp";
 	}
 
+	// 삭제
 	@RequestMapping(value = "/deleteEmp", method = RequestMethod.GET)
 	public String deleteEmp(Model model, @ModelAttribute EmpDTO empDTO) {
 
-			EmpDTO dto = empDAO.deleteEmp(empDTO);
+			int dto = empDAO.deleteEmp(empDTO);
 			model.addAttribute("dto", dto);
 			System.out.println("delete 클릭");
 

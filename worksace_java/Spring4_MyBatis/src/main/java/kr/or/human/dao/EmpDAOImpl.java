@@ -43,23 +43,55 @@ public class EmpDAOImpl implements EmpDAO {
 	}
 	
 	@Override
-	public EmpDTO updateEMP(EmpDTO empDTO) {
-		EmpDTO dto = sqlSession.selectOne("mapper.emp.updateEMP", empDTO);
+	public int updateEMP(EmpDTO empDTO) {
+		int dto = sqlSession.update("mapper.emp.updateEMP", empDTO);
 		System.out.println("EmpDAOImpl updateEMP : " + dto);
 		return dto;
 	}
 	
 	@Override
-	public EmpDTO insertEmp(EmpDTO empDTO) {
-		EmpDTO dto = sqlSession.selectOne("mapper.emp.insertEMP",empDTO);
+	public int insertEmp(EmpDTO empDTO) {
+		int dto = sqlSession.insert("mapper.emp.insertEMP",empDTO);
 		System.out.println("EmpDAOImpl insertEmp : " + dto);
 		return dto;
 	}
 	
 	@Override
-	public EmpDTO deleteEmp (EmpDTO empDTO) {
-		EmpDTO dto = sqlSession.selectOne("mapper.emp.deleteEMP",empDTO);
+	public int deleteEmp (EmpDTO empDTO) {
+		int dto = sqlSession.delete("mapper.emp.deleteEMP",empDTO);
 		System.out.println("EmpDAOImpl deleteEmp : "+ dto);
+		return dto;
+	}
+	
+
+	void getSeq() {
+		int seq = sqlSession.selectOne("mapper.emp.getSeq");
+		EmpDTO dto = new EmpDTO();
+		dto.setEmpno(seq);
+		dto.setEname("임의");
+		// insert에 보내서 등록 테이블 a에서 seq 사용
+		// insert에 보내서 등록 테이블 b에서 seq 사용
+	}
+	@Override
+	public List<EmpDTO> searchEmp(EmpDTO empDTO) {
+		
+		if("ename".equals(empDTO.getType())) {
+			
+			empDTO.setEname(empDTO.getKeyword());
+			
+		}else if (empDTO.getType() != null && empDTO.getType().equals("sal")) {
+			try {
+				
+				int sal = Integer.parseInt(empDTO.getKeyword());
+				empDTO.setSal(sal);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.dynamic.selectEmp",empDTO);
+		
+		System.out.println("searchEmp" + dto);
 		return dto;
 	}
 }

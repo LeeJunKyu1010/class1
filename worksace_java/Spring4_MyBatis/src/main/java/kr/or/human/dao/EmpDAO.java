@@ -14,9 +14,11 @@ public interface EmpDAO {
 
 	public EmpDTO selectOneEmpno2(EmpDTO empno);
 
-	public EmpDTO updateEMP(EmpDTO empDTO);
+	public int updateEMP(EmpDTO empDTO);
 	
-	public EmpDTO insertEmp(EmpDTO empDTO);
+	public int insertEmp(EmpDTO empDTO);
 	
-	public EmpDTO deleteEmp (EmpDTO empDTO);
+	public int deleteEmp (EmpDTO empDTO);
+	
+	public List<EmpDTO> searchEmp(EmpDTO empDTO);
 }

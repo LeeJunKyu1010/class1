@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.emp.dynamic">
+
+	<!-- 조회 -->
+	<select id="selectEmp" resultType="empDTO" parameterType="empDTO">
+		select * from emp2
+		<if test="ename != null and ename != '' ">		
+		where upper(ename) like upper('%' || #{ename} || '%')
+		</if>
+		
+		<if test="sal != -1">		
+			where sal <![CDATA[ >=]]> #{sal}
+		</if>
+		
+		<!-- <if test="type == ej">		
+			and upper(job) like upper('%' || #{job} || '%')
+		</if> -->
+		
+		
+	</select>
+
+
+</mapper>

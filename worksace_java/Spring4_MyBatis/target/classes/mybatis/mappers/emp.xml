@@ -54,11 +54,31 @@
 	</update>
 
 	<insert id="insertEMP" parameterType="empDTO">
-	insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
-	values (#{empno},#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno})
+		insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+		values (seq_emp2.nextval ,#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno})
 	</insert>
 
 	<delete id="deleteEMP" parameterType="empDTO">
 		delete from emp2 where empno = #{empno}
 	</delete>
+	
+	<select id="getSeq" resultType="int">
+		select seq_emp2.nextval from dual
+	</select>
+	
+	<insert id="insertEmp2" parameterType="empDTO">
+	
+		<selectKey keyProperty="empno" resultType="int" order="BEFORE">
+			select seq_emp2.nextval from dual
+		</selectKey>
+	
+		insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+		values (#{empno} ,#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno})
+	
+	</insert>
+	
+	<select id="searchEmp" resultType="empDTO" parameterType="empDTO">
+		select * from emp2
+		where upper(ename) like upper('%' || #{ename} || '%')
+	</select>
 </mapper>
