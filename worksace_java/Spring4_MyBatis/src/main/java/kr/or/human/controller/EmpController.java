@@ -23,9 +23,24 @@ public class EmpController {
 	@RequestMapping(value = "/emp", method = RequestMethod.GET)
 	public String listEMP(Model model, EmpDTO empDTO) {
 
+		System.out.println("empnos"+empDTO);
+		
+		int page = 1;
+		int viewCount = 10;
+		
+		empDTO.setPage(page);
+		empDTO.setViewCount(viewCount);
+		
+		
+		
 //		if ("click".equals(action)) {
-		List<EmpDTO> select = empDAO.searchEmp(empDTO);
+//		List<EmpDTO> select = empDAO.searchEmp(empDTO);
+		List<EmpDTO> select = empDAO.selectEmpList(empDTO);
+		System.out.println("select.size() : "+ select.size());
+		
 		model.addAttribute("select", select);
+		model.addAttribute("empDTO", empDTO);
+		
 		System.out.println("listEMP 클릭");
 		System.out.println(empDTO);
 //		}

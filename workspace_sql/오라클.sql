@@ -1930,6 +1930,37 @@ from emp e join dept d  on (e.deptno = d.deptno)
 order by d.dname desc;
 -----------------------------------------------------
 
+select * from emp2;
+
+insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+	values (222,222,'222',222,'2025-02-01',222,222,22);
+
+delete emp2 where empno=1;
+commit;
+
+select max(empno), min(empno) from emp2;
+
+create SEQUENCE seq_emp2
+start with 8000;
+
+select * from emp2
+where upper(ename) like upper('%a%');
 
 
+select rnum, ename from (
+    select rownum rnum, ename from (
+        select ename from emp2
+        order by ename
+    )
+)
+where rnum >=7 and rnum <=9;
+;
+
+insert into emp2
+select * from emp2;
+
+select * from emp2
+order by ename;
+
+commit;
 -----------------------------------------------------

@@ -15,8 +15,20 @@ public class EmpDAOImpl implements EmpDAO {
 	SqlSession sqlSession;
 
 	@Override
-	public List<EmpDTO> selectEmpList() {
-		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
+	public List<EmpDTO> selectEmpList(EmpDTO empDTO) {
+		
+		int page = empDTO.getPage();
+		int viewCount = empDTO.getViewCount();
+	
+		int indexStart = (viewCount * (page - 1 )) + 1;
+		int indexEnd = page * viewCount;
+		
+		empDTO.setIndexStart(indexStart);
+		empDTO.setIndexEnd(indexEnd);
+		
+		List<EmpDTO> result = sqlSession.selectList("mapper.emp.page.selectPageEmp",empDTO);
+//		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
+		
 		System.out.println("result : " + result);
 		return result;
 	}
@@ -41,28 +53,27 @@ public class EmpDAOImpl implements EmpDAO {
 		System.out.println("EmpDAOImpl selectOneEmpno2 : " + dto);
 		return dto;
 	}
-	
+
 	@Override
 	public int updateEMP(EmpDTO empDTO) {
 		int dto = sqlSession.update("mapper.emp.updateEMP", empDTO);
 		System.out.println("EmpDAOImpl updateEMP : " + dto);
 		return dto;
 	}
-	
+
 	@Override
 	public int insertEmp(EmpDTO empDTO) {
-		int dto = sqlSession.insert("mapper.emp.insertEMP",empDTO);
+		int dto = sqlSession.insert("mapper.emp.insertEMP", empDTO);
 		System.out.println("EmpDAOImpl insertEmp : " + dto);
 		return dto;
 	}
-	
+
 	@Override
-	public int deleteEmp (EmpDTO empDTO) {
-		int dto = sqlSession.delete("mapper.emp.deleteEMP",empDTO);
-		System.out.println("EmpDAOImpl deleteEmp : "+ dto);
+	public int deleteEmp(EmpDTO empDTO) {
+		int dto = sqlSession.delete("mapper.emp.deleteEMP", empDTO);
+		System.out.println("EmpDAOImpl deleteEmp : " + dto);
 		return dto;
 	}
-	
 
 	void getSeq() {
 		int seq = sqlSession.selectOne("mapper.emp.getSeq");
@@ -72,26 +83,37 @@ public class EmpDAOImpl implements EmpDAO {
 		// insert에 보내서 등록 테이블 a에서 seq 사용
 		// insert에 보내서 등록 테이블 b에서 seq 사용
 	}
+
 	@Override
 	public List<EmpDTO> searchEmp(EmpDTO empDTO) {
 		
-		if("ename".equals(empDTO.getType())) {
-			
+		if ("ename".equals(empDTO.getType())) {
+
 			empDTO.setEname(empDTO.getKeyword());
-			
-		}else if (empDTO.getType() != null && empDTO.getType().equals("sal")) {
+
+		} else if (empDTO.getType() != null && empDTO.getType().equals("sal")) {
 			try {
-				
+
 				int sal = Integer.parseInt(empDTO.getKeyword());
 				empDTO.setSal(sal);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.dynamic.selectEmp",empDTO);
-		
+
+		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.dynamic.selectEmp", empDTO);
+
 		System.out.println("searchEmp" + dto);
+		return dto;
+		
+	}
+
+	@Override
+	public List<EmpDTO> choose(EmpDTO empDTO) {
+
+		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.dynamic.choose", empDTO);
+
+		System.out.println("choose" + dto);
 		return dto;
 	}
 }

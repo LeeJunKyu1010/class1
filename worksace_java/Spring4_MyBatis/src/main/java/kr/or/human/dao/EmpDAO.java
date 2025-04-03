@@ -6,7 +6,7 @@ import kr.or.human.dto.EmpDTO;
 
 public interface EmpDAO {
 
-	List<EmpDTO> selectEmpList();
+	public List<EmpDTO> selectEmpList(EmpDTO empDTO);
 
 	public EmpDTO selectOneEmp();
 
@@ -21,4 +21,8 @@ public interface EmpDAO {
 	public int deleteEmp (EmpDTO empDTO);
 	
 	public List<EmpDTO> searchEmp(EmpDTO empDTO);
+	
+	public List<EmpDTO> choose(EmpDTO empDTO);
+
+
 }
