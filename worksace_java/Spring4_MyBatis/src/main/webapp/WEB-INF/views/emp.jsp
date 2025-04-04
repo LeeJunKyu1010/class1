@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.lang.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -22,8 +23,7 @@ th, td {
 				<option value="ej">ename , job</option>
 			</select> <input type="text" name="keyword" value="${dto.ename}" />
 			<button type="submit" name="action" value="click">검색</button>
-			<a href="insertEmp"><button type="button">등록</button></a>
-			<input
+			<a href="insertEmp"><button type="button">등록</button></a> <input
 				type="submit" value="선택된 것만 조회">
 			<table>
 				<thead>
@@ -62,5 +62,16 @@ th, td {
 			</table>
 		</form>
 	</article>
+
+	<div>
+		<%
+		Map map = (Map) request.getAttribute("map");
+		Integer total = (Integer) map.get("total");
+		%>
+
+		<a href="emp?page=1">1</a> <a href="emp?page=2">2</a> <a
+			href="emp?page=3">3</a>
+	</div>
+
 </body>
 </html>

@@ -16,21 +16,31 @@ public class EmpDAOImpl implements EmpDAO {
 
 	@Override
 	public List<EmpDTO> selectEmpList(EmpDTO empDTO) {
-		
+
 		int page = empDTO.getPage();
 		int viewCount = empDTO.getViewCount();
-	
-		int indexStart = (viewCount * (page - 1 )) + 1;
+
+		int indexStart = (viewCount * (page - 1)) + 1;
 		int indexEnd = page * viewCount;
-		
+
 		empDTO.setIndexStart(indexStart);
 		empDTO.setIndexEnd(indexEnd);
+
 		
-		List<EmpDTO> result = sqlSession.selectList("mapper.emp.page.selectPageEmp",empDTO);
+		List<EmpDTO> result = sqlSession.selectList("mapper.emp.page.selectPageEmp", empDTO);
+
 //		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
-		
+
 		System.out.println("result : " + result);
 		return result;
+	}
+
+	@Override
+	public int totalEmp() {
+
+		int dto = sqlSession.selectOne("mapper.emp.page.totalEmp");
+
+		return dto;
 	}
 
 	@Override
@@ -86,7 +96,7 @@ public class EmpDAOImpl implements EmpDAO {
 
 	@Override
 	public List<EmpDTO> searchEmp(EmpDTO empDTO) {
-		
+
 		if ("ename".equals(empDTO.getType())) {
 
 			empDTO.setEname(empDTO.getKeyword());
@@ -105,7 +115,7 @@ public class EmpDAOImpl implements EmpDAO {
 
 		System.out.println("searchEmp" + dto);
 		return dto;
-		
+
 	}
 
 	@Override
@@ -116,4 +126,5 @@ public class EmpDAOImpl implements EmpDAO {
 		System.out.println("choose" + dto);
 		return dto;
 	}
+
 }

@@ -30,8 +30,8 @@ public class EmpDTO {
 	
 	private List empnos;
 	
-	private int page; // 현재 페이지
-	private int viewCount; // 페이지당 보여줄 수 (보통 countPerPage 또는 rowPerPage 사용)
+	private int page = 1; // 현재 페이지
+	private int viewCount = 10; // 페이지당 보여줄 수 (보통 countPerPage 또는 rowPerPage 사용)
 	private int indexStart;
 	private int indexEnd;
 }

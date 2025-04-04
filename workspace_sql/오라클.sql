@@ -1963,4 +1963,29 @@ select * from emp2
 order by ename;
 
 commit;
+
+truncate table emp2;
+
+DECLARE
+    v_seq NUMBER := 1;
+BEGIN
+    FOR i IN 1..100 LOOP
+        INSERT INTO emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+        SELECT 
+            empno - i, 
+            TO_CHAR(i)||ename,
+            job,
+            mgr - i, 
+            hiredate + MOD(i, 30),
+            sal + (i * 10),
+            comm,
+            deptno
+        FROM emp;
+    END LOOP;
+    COMMIT;
+END;
+/
+;
+
+
 -----------------------------------------------------

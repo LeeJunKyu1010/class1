@@ -2,6 +2,8 @@ package kr.or.human.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,25 +23,40 @@ public class EmpController {
 
 	// 전체조회
 	@RequestMapping(value = "/emp", method = RequestMethod.GET)
-	public String listEMP(Model model, EmpDTO empDTO) {
+	public String listEMP(
+			Model model,
+			@ModelAttribute
+			EmpDTO empDTO,
+			HttpServletRequest request
+			) {
 
 		System.out.println("empnos"+empDTO);
 		
-		int page = 1;
-		int viewCount = 10;
 		
-		empDTO.setPage(page);
-		empDTO.setViewCount(viewCount);
+//		int page = 1;
+//		String strPage = request.getParameter("page");
+//		if(strPage != null) {
+//			page = Integer.parseInt(strPage);
+//		}
+//		
+//		int viewCount = 3;
+//		
+//		empDTO.setPage(page);
+//		empDTO.setViewCount(viewCount);
 		
 		
 		
 //		if ("click".equals(action)) {
 //		List<EmpDTO> select = empDAO.searchEmp(empDTO);
 		List<EmpDTO> select = empDAO.selectEmpList(empDTO);
+		int count = empDAO.totalEmp();
+		
+		System.out.println("count : "+ count);
 		System.out.println("select.size() : "+ select.size());
 		
 		model.addAttribute("select", select);
 		model.addAttribute("empDTO", empDTO);
+		model.addAttribute("count", count);
 		
 		System.out.println("listEMP 클릭");
 		System.out.println(empDTO);
@@ -119,5 +136,7 @@ public class EmpController {
 
 		return "redirect:emp";
 	}
+	
+	
 
 }

@@ -24,5 +24,6 @@ public interface EmpDAO {
 	
 	public List<EmpDTO> choose(EmpDTO empDTO);
 
+	public int totalEmp();
 
 }
