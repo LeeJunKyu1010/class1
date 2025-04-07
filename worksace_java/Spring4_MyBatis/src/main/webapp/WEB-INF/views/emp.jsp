@@ -64,10 +64,7 @@ th, td {
 	</article>
 
 	<div>
-		<%
-		Map map = (Map) request.getAttribute("map");
-		Integer total = (Integer) map.get("total");
-		%>
+		
 
 		<a href="emp?page=1">1</a> <a href="emp?page=2">2</a> <a
 			href="emp?page=3">3</a>
