@@ -1987,6 +1987,12 @@ END;
 /
 ;
 
-select * from p_emp;
+SELECT * FROM p_emp;
+
+select * from p_facility;
+
+insert into p_facility
+VALUES (222,222,25-04-15,222,222,222,222);
+
 
 -----------------------------------------------------

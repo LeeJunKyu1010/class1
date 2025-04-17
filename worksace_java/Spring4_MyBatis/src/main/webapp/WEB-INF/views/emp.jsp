@@ -23,8 +23,8 @@ th, td {
 				<option value="ej">ename , job</option>
 			</select> <input type="text" name="keyword" value="${dto.ename}" />
 			<button type="submit" name="action" value="click">검색</button>
-			<a href="insertEmp"><button type="button">등록</button></a> <input
-				type="submit" value="선택된 것만 조회">
+			<a href="insertEmp"><button type="button">등록</button></a>
+			<input type="submit" value="선택된 것만 조회">
 			<table>
 				<thead>
 					<tr>
