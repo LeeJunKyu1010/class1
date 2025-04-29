@@ -1994,5 +1994,20 @@ select * from p_facility;
 insert into p_facility
 VALUES (222,222,25-04-15,222,222,222,222);
 
+commit;
 
+select * from p_repair;
+
+CREATE SEQUENCE p_repair_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+select * from p_disposal;
+select * from p_consumable;
+
+SELECT * FROM USER_SEQUENCES;
+
+select * from p_work_method;
 -----------------------------------------------------
